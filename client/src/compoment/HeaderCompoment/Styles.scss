@@ -1,0 +1,231 @@
+.Headercompoment {
+  width: 100%;
+  background-color: #333333;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px 0; /* Add padding to create space around header content */
+  }
+  
+
+.header_logo img {
+  height: auto;
+  max-height: 50px; /* Điều chỉnh chiều cao của hình ảnh */
+}
+
+.header_search {
+  flex: 1; /* Để phần tìm kiếm mở rộng hết không gian còn lại */
+  display: flex;
+  align-items: center;
+  
+}
+
+.header_login,
+.header_register,
+.header_bookmark {
+  margin-left: 10px;
+  a {
+    color: white;
+    font-size: 19px;
+    text-decoration: none; /* Loại bỏ gạch chân của Link */
+    display: flex;
+    align-items: center; /* Căn giữa nội dung của Link theo chiều dọc */
+  }
+}
+.search_container{
+    display: inline-block;
+    
+    .search_icon{
+        position: relative;
+        display: flex;
+        align-items: center;
+        font-size: 25px;
+       right:50px;
+     color:white;
+
+      }
+
+}
+.search-input::placeholder {
+    color: gray;
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+
+}
+.header_footer_ul {
+    display: flex;
+   
+    li{
+        margin-left: 15px;
+        a{
+        color: white;
+        line-height: 40px;
+        font-size: 16px;
+    }
+}
+}
+
+.nav {
+    background-color: #1E293B;
+  }
+  
+  .nav_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav_item {
+    position: relative;
+    margin-right: 20px;
+  }
+  
+  .nav_link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    transition: color 0.3s;
+  }
+  
+  .nav_link:hover {
+    color: #ffcc00;
+  }
+  
+  .nav_icon {
+    margin-left: 5px;
+  }
+  
+  .ul_theloai {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #1E293B;
+    border-radius: 4px;
+    padding: 10px 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 600px; /* Increased width */
+    grid-template-columns: repeat(3, 1fr); /* 3 columns grid */
+    gap: 10px;
+  }
+  
+  .nav_item:hover .ul_theloai {
+    display: grid; /* Display as grid */
+  }
+  
+  .ul_theloai li {
+    width: 100%;
+  }
+  
+  .ul_theloai a {
+    color: white;
+    text-decoration: none;
+    padding: 3px 16px;
+    display: block;
+    transition: background-color 0.3s;
+  }
+  
+  .ul_theloai a:hover {
+    background-color: #555555;
+  }
+  
+
+  /* Header User Dropdown Styles */
+.header_user {
+  position: relative;
+
+  span {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #444;
+    }
+  }
+
+  .dropdown_menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1000;
+    width: 200px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 10px 20px;
+        color: white;
+        border-bottom: 1px solid #444;
+        transition: background-color 0.3s;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:hover {
+          background-color: #444;
+        }
+
+        a {
+          color: white;
+          text-decoration: none;
+          display: block;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #ddd;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Header Bookmark Styles */
+.header_bookmark {
+  margin-left: 15px;
+
+  a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #444;
+    }
+
+    svg {
+      margin-right: 5px;
+    }
+  }
+}

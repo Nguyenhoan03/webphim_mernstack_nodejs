@@ -1,0 +1,292 @@
+.detailpage .caption p {
+    margin-left: 20px;
+    color: gray;
+    font-weight: 550;
+  }
+  
+  /* Đổi màu chữ của thẻ p thứ 1 khi hover */
+  .detailpage .caption p:nth-child(1):hover {
+    color: tomato;
+  }
+  
+  /* Đổi màu chữ của thẻ p thứ 2 khi hover */
+  .detailpage .caption p:nth-child(3):hover {
+    color: tomato;
+  }
+  
+  .content_detailpage_card{
+    background-color: #282828;
+    padding: 10px;
+
+    a{
+        color: white;
+       
+    }
+  }
+  .content_detailpage_card_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    button {
+    
+  
+      &:nth-child(2) {
+        background-color: #d9534f;
+        color: white; // Màu chữ nếu cần
+        border: none; // Loại bỏ viền nếu cần
+      margin-left: 10px;
+        border-radius: 5px; // Bo góc nếu cần
+        cursor: pointer; // Con trỏ chuột
+      }
+    }
+  }
+  .content_detailpage_card_film{
+    text-transform: uppercase;
+    font-size: 25px;
+    font-family: 'UTMCafetaRegular';
+    color:#ff9658;
+    font-weight: 650;
+  }
+  
+ 
+ 
+  
+  .movie-info {
+    margin-left: 20px;
+  }
+  
+  .movie-title {
+    color: #ff9601;
+    font-size: 25px;
+    font-family: 'roboto', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+  
+  .movie-subtitle {
+    font-size: 18px;
+    color: gray;
+  }
+  
+  .movie-details {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    height: 255px;
+    overflow-y: scroll;
+  
+
+    &::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: none;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #d9534f;
+        border-radius: 10px;
+        border: none; /* Loại bỏ border của thumb */
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #b94742;
+    }
+}
+
+  
+  .movie-details li {
+    color: #9e9b9b;
+  
+    margin: 5px 0;
+  }
+  
+ 
+  .movie-details-evaluate{
+
+      height: 20px;
+  }
+  .movie-details-button button{
+    margin-left: 15px;
+    border-radius: 5px;
+  }
+  .movie-details-button button:nth-child(1){
+       color: white;
+       font-weight: 500;
+       font-size: 12px;
+       background-color: #3984fd;
+   
+  }
+  .movie-details-button button:nth-child(2){
+       color: white;
+       font-weight: 500;
+       font-size: 12px;
+       background-color: #3984fd;
+  }
+
+  .movie-details-button button:nth-child(3){
+    color: rgb(14, 14, 119);
+    font-weight: 500;
+    font-size: 12px;
+    background-color: white;
+  
+   
+}
+
+.list_episode button{
+    margin-left: 7px;
+    border: none;
+    color: white;
+    background-color: #444343;
+    border-radius: 5px;
+    margin-top: 7px;
+}
+
+.share_detailpage{
+    background-color: black;
+    padding-top: 10px;
+    p{
+       color: white
+    }
+    button{
+        margin-left: 10px;
+        height: 30px;
+        align-items: center;
+        border-radius: 40%;
+        border: none;
+    }
+    button svg {
+      font-size: 20px;
+      padding-bottom: 5px;
+      
+  }
+}
+.movie-details-episode{
+  button{
+    background-color: #0f0f0f;
+    border: none;
+    border-radius: 8px;
+    color:rgb(182, 179, 179);
+    font-weight: 550;
+    height:32px;
+    width: 128px;
+    font-size: 12px;
+  }
+}
+
+//css slick 
+.slider-container {
+  
+  .news_outstanding_card {
+    border-radius: 7px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    .image-container {
+      position: relative;
+
+      img {
+        border-radius: 7px 7px 0 0;
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+      }
+
+      .title-badge {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        background-color: #BF1D28;
+        color: white;
+        font-weight: 650;
+        font-size: 12px;
+        border-radius: 4px;
+        width: 57px;
+        text-align: center;
+      }
+    }
+
+    .information {
+      padding: 10px;
+
+      .line-clamp {
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0;
+        color: black;
+        
+      
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        &:hover{
+          color:red;
+        }
+      }
+
+      .text-danger {
+        font-weight: 650;
+        font-size: 14px;
+        margin: 5px 0 0;
+      }
+    }
+  }
+
+  .custom-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    i {
+      font-size: 20px;
+    }
+  }
+
+  .next-arrow {
+    right: -25px;
+  }
+
+  .prev-arrow {
+    left: -25px;
+  }
+}
+
+.next-arrow, .prev-arrow {
+  &:before {
+    font-size: 20px;
+    color: #fff;
+  }
+}
+// .description-badge {
+//   position: absolute;
+//   bottom: 10px;
+//   left: 0px;
+//   background-color: #522E75;
+//   color: white;
+//   font-weight: 650;
+//   font-size: 12px;
+//  border-bottom-right-radius: 15px;
+//   width: 60%;
+//   height:30px;
+ 
+// }
+

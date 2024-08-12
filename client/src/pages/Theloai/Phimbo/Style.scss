@@ -1,0 +1,48 @@
+.hanhdongleft_filter{
+      margin: 7px;
+      ::selection{
+
+          border-radius: 10px;
+      }
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+    
+    .page-item {
+      margin: 0 5px;
+    }
+    
+    .page-link {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      background-color: #343a40;
+      border: 1px solid #343a40;
+      transition: background-color 0.3s ease;
+    
+      &:hover {
+        background-color: #495057;
+      }
+    }
+    
+    .active .page-link {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #007bff;
+    }
+    
+    .page-item.disabled .page-link {
+      color: #6c757d;
+      pointer-events: none;
+      background-color: #343a40;
+      border-color: #343a40;
+    }
+    
+    

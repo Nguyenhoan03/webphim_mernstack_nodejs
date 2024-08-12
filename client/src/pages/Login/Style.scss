@@ -1,0 +1,95 @@
+// Variables for common styles
+$primary-color: #3498db;
+$input-border-radius: 5px;
+$input-padding: 10px;
+$input-border: 1px solid #ccc;
+$button-bg-color: $primary-color;
+$button-color: #fff;
+$button-padding: 10px 20px;
+$button-border-radius: $input-border-radius;
+$checkbox-margin: 5px;
+$link-color: $primary-color;
+
+
+.formlogin {
+    max-width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+  
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: white;
+      }
+  
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: $input-padding;
+        border: $input-border;
+        border-radius: $input-border-radius;
+        box-sizing: border-box;
+  
+        &:focus {
+          border-color: $primary-color;
+          outline: none;
+          box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+      }
+    }
+  
+    .d-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+  
+        input[type="checkbox"] {
+          margin-right: $checkbox-margin;
+        }
+      }
+  
+      .forgot-password {
+        a {
+          color: $link-color;
+          text-decoration: none;
+  
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  
+    .submit-btn {
+      width: 100%;
+      padding: $button-padding;
+      background-color: $button-bg-color;
+      color: $button-color;
+      border: none;
+      border-radius: $button-border-radius;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: darken($button-bg-color, 10%);
+      }
+    }
+  }

@@ -1,0 +1,72 @@
+// Variables for common styles
+$hover-color: tomato;
+$btn-bg-color: #444343;
+$btn-color: white;
+$btn-radius: 5px;
+$btn-font-size: 12px;
+
+// Mixin for button styles
+@mixin button-style($bg-color, $text-color, $radius) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  border-radius: $radius;
+  margin-left: 7px;
+  margin-top: 7px;
+}
+
+// Caption styles
+.caption {
+  p {
+    margin-left: 20px;
+    color: gray;
+    font-weight: 550;
+
+    &:nth-child(1):hover,
+    &:nth-child(3):hover,
+    &:nth-child(4):hover,
+    &:nth-child(5):hover {
+      color: $hover-color;
+    }
+  }
+}
+
+// Button server styles
+.xemphim_btnserver {
+  .xemphim_btnserverparent {
+    position: absolute;
+    margin-left: -35px;
+
+    button {
+      font-size: $btn-font-size;
+    }
+  }
+}
+
+// Episode list button styles
+.list_episodexemphim {
+  button {
+    @include button-style($btn-bg-color, $btn-color, $btn-radius);
+
+    a {
+      color: $btn-color;
+    }
+  }
+}
+
+// Responsive styles
+@media screen and (max-width: 992px) {
+  .pagexemphim {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .xemphim_left,
+  .xemphim_right {
+    width: 100%;
+  }
+
+  .xemphim_right {
+    margin-top: 28px;
+  }
+}

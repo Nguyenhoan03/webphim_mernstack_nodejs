@@ -1,0 +1,217 @@
+.homepage {
+    .container {
+      margin: 0 auto;
+    }
+  
+    .phimhot {
+      padding: 20px;
+    
+      border-radius: 8px;
+  
+      .slider-container {
+        .phim-item {
+          padding: 10px;
+          text-align: center;
+         
+  
+          .phim-image {
+            width: 166px;
+            border-radius: 8px;
+            height: 265px;
+            object-fit: cover;
+            position: relative;
+          }
+  
+          .phim-info {
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            left:50%;
+            z-index: 10;
+            .phim-title {
+              font-size: 18px;
+              font-weight: bold;
+              color: #333;
+            }
+  
+            .phim-views {
+              font-size: 14px;
+              color: #999;
+            }
+          }
+        }
+      }
+  
+      .next-arrow, .prev-arrow {
+        &:before {
+          font-size: 20px;
+          color: #fff;
+          align-items: center;
+
+        cursor: pointer;
+
+        }
+      }
+      .next-arrow{
+        padding-left: 10px;
+      }
+    }
+  }
+  
+
+  //thể loại phim bộ
+  .category_caption{
+      display: flex;
+      gap: 20px;
+    p{
+     font-size: 18px;
+    }
+  }
+
+  .title-badge {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    background-color: #BF1D28;
+    color: white;
+    font-weight: 650;
+    font-size: 12px;
+    border-radius: 4px;
+    width: 57px;
+    text-align: center;
+  }
+  .category_phim_card {
+    position: relative;
+    width: 175px; 
+   margin-left: 12px;
+   margin-top: 8px;
+   &:hover{
+    transform: scale(1.1);
+    
+   }
+    transition: transform 0.3s ease, filter 0.3s ease;
+  
+ 
+    
+  }
+  .category_phim_card {
+    position: relative;
+    width: 175px; 
+    margin-left: 12px;
+    margin-top: 8px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  
+  .category_phim_card:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2); /* Sáng hơn khi được hover */
+  }
+  
+  .category_phim_card:not(:hover) {
+    filter: brightness(1); /* Bình thường khi không được hover */
+  }
+  
+  /* Chọn tất cả các phần tử con của .category_phim khi phần tử cha đang được hover */
+  // .category_phim:hover .category_phim_card {
+  //   filter: brightness(0.5); /* Tối hơn khi phần tử khác được hover */
+  // }
+  
+  /* Đảm bảo phần tử đang được hover không bị ảnh hưởng */
+  .category_phim_card:hover {
+    filter: brightness(1.2);
+  }
+  
+  /* Khi .category_phim đang được hover và phần tử cụ thể đang được hover */
+  .category_phim:hover .category_phim_card:hover {
+    filter: brightness(1.2); /* Sáng hơn phần tử đang được hover */
+  }
+  
+  .title-badge {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    background-color: #BF1D28;
+    color: white;
+    font-weight: 650;
+    font-size: 12px;
+    border-radius: 4px;
+    width: 117px;
+    text-align: center;
+  }
+  
+  .description-badge {
+    position: absolute;
+    bottom: -17px;
+    padding-top: 4px;
+    left: 0px;
+    background-color: #181818;
+    color: white;
+    font-weight: 650;
+    font-size: 12px;
+   
+    width: 100%;
+    height:30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .description-badge2 {
+    position: absolute;
+    bottom: 20px;
+    padding-top: 3px;
+    left: 0px;
+    background-color: #522E75;
+    color: white;
+    font-weight: 650;
+    font-size: 12px;
+   border-bottom-right-radius: 15px;
+    width: 60%;
+    height:30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .homepagebodyright_phimmsapchieu_detail{
+    
+  p{
+    margin-top: -15px;
+    margin-left: 10px;
+  }
+}
+
+/* src/TrendingList.css */
+
+.trending-list {
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #d2691e;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+
+.rank {
+  font-weight: bold;
+}
+
+.title {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.views {
+  color: gray;
+}
+.homepagebodyright_phimmsapchieu{
+  a{
+    color: white;
+  }
+}
