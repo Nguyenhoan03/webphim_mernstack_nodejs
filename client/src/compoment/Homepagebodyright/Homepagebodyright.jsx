@@ -31,25 +31,25 @@ export default function Homepagebodyright() {
         ))}
       </div>
 
-      <div className="homepagebodyright_phimmsapchieu">
-        <h2>Trending</h2>
-        <div className="tabs">
-          <button>Ngày</button>
-          <button>Tuần</button>
-          <button>Tháng</button>
-        </div>
-        <ul>
-          {trendingData.map((item) => (
-            <Link to={`/${item.title}`} key={item.id}>
-              <li>
-                <span className="rank">{item.id}</span>
-                <span className="title">{item.title}</span>
-                <span className="views">{item.likes} lượt quan tâm</span>
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </div>
+      <div className="homepagebodyright_trending">
+  <h2>Trending</h2>
+  <div className="tabs">
+    <button className="tab-button active">Ngày</button>
+    <button className="tab-button">Tuần</button>
+    <button className="tab-button">Tháng</button>
+  </div>
+  <ul className="trending-list">
+    {trendingData.map((item) => (
+      <Link to={`/${item.title}`} key={item.id}>
+        <li className="trending-item">
+          <span className="title">{item.title}</span>
+          <span className="views">{item.likes} lượt quan tâm</span>
+        </li>
+      </Link>
+    ))}
+  </ul>
+</div>
+
       <div className="namphathanh">
       <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>
           NĂM PHÁT HÀNH

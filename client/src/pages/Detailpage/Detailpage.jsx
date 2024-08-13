@@ -109,9 +109,9 @@ useEffect(() => {
         setparent_id(data.parent_id);
         setSelectedStar(data.rating_star ? data.rating_star.rating : 0);
 
-        // Setting total ratings and average rating
-        setratingtotal(data.general_assessment.totalRatings);
-        setAverageRating(data.general_assessment.averageRating);
+        // Ensure the values are numbers
+        setratingtotal(Number(data.general_assessment.totalRatings) || 0);
+        setAverageRating(Number(data.general_assessment.averageRating) || 0);
 
       }
     } catch (error) {
@@ -206,16 +206,41 @@ useEffect(() => {
                 <button style={{width:60}}> Chia sẻ</button>
                 <button><IoBookmark /> Lưu vào facebook</button>
             </div>
-            <div className="d-flex movie-details-evaluate mt-2" >
-              <form action="">
-            {[...Array(10)].map((_, index) => (
-             
-              <FaStar style={{color: index < (hoveredStar || selectedStar) ? "gold" : "white", fontSize:22}} onMouseEnter={()=>setHoveredStar(index+1)} onMouseLeave={()=>setHoveredStar(0)} key={index}  onClick={(e)=>handleFormSubmit(e,index + 1)}/>
-            
-          ))}
-              </form>
-              <p style={{color:'white',paddingLeft:10}}>{averageRating} điểm / {ratingtotal} lượt</p>
-            </div>
+            <div className="d-flex align-items-center movie-details-evaluate mt-2">
+            <div>
+ 
+</div>
+ 
+  <form action="" className="d-flex align-items-center">
+    {[...Array(10)].map((_, index) => (
+      <FaStar
+        key={index}
+        style={{
+          color: index < (hoveredStar || selectedStar) ? "#1876f2" : "#555555",
+          fontSize: 22,
+          marginRight: 4,
+          cursor: 'pointer',
+        }}
+        onMouseEnter={() => setHoveredStar(index + 1)}
+        onMouseLeave={() => setHoveredStar(0)}
+        onClick={(e) => handleFormSubmit(e, index + 1)}
+      />
+    ))}
+  </form>
+ 
+<div>  
+  <p className="text-white pl-2 mb-0" style={{ fontSize: '16px', color: 'white !important' }}>
+    {typeof averageRating === 'number' && !isNaN(averageRating) 
+      ? averageRating.toFixed(1) 
+      : 'N/A'} 
+    <span className="text-primary">★</span> ({ratingtotal} đánh giá)
+  </p>
+</div>
+
+
+
+</div>
+
         </div>
      
               </div>

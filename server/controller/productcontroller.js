@@ -82,6 +82,19 @@ const Product_danhmucphimhocduong = async (req, res) => handledanhmucphim(req, r
 const Product_danhmucphimvothuat = async (req, res) => handledanhmucphim(req, res, 18);
 const Product_danhmucphimchinhkich = async (req, res) => handledanhmucphim(req, res, 21);
 
+const handledanhmucphim = async (req, res,category, next) => {
+  try {
+      const filters = req.query;
+      console.log(filters,"filllllllterrrr")
+      const data = await Productservices.danhmucphim(category, filters);
+      return res.status(200).json(data);
+  } catch (error) {
+      console.log(error, "Lỗi khi lấy thông tin quốc gia phim");
+      next(error); 
+  }
+};
+
+
 const Product_comment = async (req, res, next) => {
   try {
     const userId = req.userId;

@@ -1,9 +1,9 @@
-POST http://localhost:5000/product/rating_star
+POST http://localhost:5000/product/product-home
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNzIzNDU2MDIyLCJleHAiOjE3MjM0NTc4MjJ9.rHtjpputGCQSWXjnEUJbnQZ-_2_HBZlhbp0RDo6WbaY
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNzIzNDU2MDIyLCJleHAiOjE3MjM0NTc4MjJ9.rHtjpputGCQSWXjnEUJbnQZ-_2_HBZlhbp0RDo6WbaY
 
-{
-    "titlefilm": "Tên phim",
-    "id": 5,
-    "starselect": 5
-}
+# {
+#     "titlefilm": "Tên phim",
+#     "id": 5,
+#     "starselect": 5
+# }
