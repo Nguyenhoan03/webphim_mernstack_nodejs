@@ -1,5 +1,5 @@
 const Productservices = require('../services/Productservices');
-
+const Sendmailcontroller = require('../controller/Sendmailcontroller')
 const Product_home = async (req, res) => {
   try {
     const data = await Productservices.home();
@@ -103,19 +103,25 @@ const Product_comment = async (req, res, next) => {
 //rating star
 const Rating_star = async (req, res) => {
   try {
-   
-    const { titlefilm, id , starselect } = req.body;
-   
-    const data = await Productservices.post_ratingstar(titlefilm,id,starselect);
+    const { titlefilm, id, email, starselect } = req.body;
+
+    console.log("Received data:", { titlefilm, id, email, starselect });
+
+    // Send email but don't use res here
+    await Sendmailcontroller.sendEmail(email, titlefilm);
+
+    const data = await Productservices.post_ratingstar(titlefilm, id, starselect);
     if (data.success) {
-      res.status(200).json({ message: 'Rating success' });
+      return res.status(200).json({ message: 'Rating success' });
     } else {
       throw new Error('Failed to create comment');
     }
   } catch (error) {
-    console.log(error)
+    console.log("Error in Rating_star:", error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
+
 
 //product quốc gia
 

@@ -10,6 +10,7 @@ const initRoutes = (app) => {
   app.use('/product', Product);
   app.post('/dang-nhap', Usercontroller.Login);
   app.post('/dang-ky', Usercontroller.Register);
+ 
   app.get('/crawlphimhanhdong', Crawlphimhanhdong.crawlphimhanhdong);
 
   // Use router

@@ -15,8 +15,6 @@ const verifyToken = (req, res, next) => {
         return res.sendStatus(401); 
     }
 
-    console.log('Received token:', token); 
-
     try {
         const decoded = jwt.verify(token, process.env.SECRET);
         if (!decoded || !decoded.id) {
@@ -25,8 +23,7 @@ const verifyToken = (req, res, next) => {
         }
 
         req.userId = decoded.id;
-        // req.session.userID = decoded.id;
-        // console.log('Token verified successfully, User ID:', req.req.session.userID);
+        req.email = decoded.email;
         next();
     } catch (error) {
         if (error.name === 'TokenExpiredError') {

@@ -313,11 +313,11 @@ const usercomment = async (token, titlefilm, contentcomment) => {
   }
 }
 
-const HandleRating = async (token,titlefilm,id,starselect) => {
+const HandleRating = async (token,titlefilm,id,email,starselect) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/product/rating_star`,
-      { titlefilm, id,starselect },
+      { titlefilm, id,email,starselect },
       {
         headers: {
           Authorization: `Bearer ${token}`,

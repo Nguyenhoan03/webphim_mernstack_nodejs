@@ -17,7 +17,7 @@ import { HandleRating } from '../../services/Productservices';
 
 import CommentCompoment from '../../compoment/CommentCompoment/CommentCompoment';
 export default function Detailpage() {
-  const { token,id,phimhot} = useContext(HomeContext);
+  const { token,id,email,phimhot} = useContext(HomeContext);
   const memophimhot = useMemo(()=> phimhot, [phimhot])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -145,7 +145,8 @@ useEffect(() => {
       if (!token) {
         alert("Bạn cần đăng nhập để có thể đánh giá");
       }else{
-      await HandleRating(token,title,id,starselect);
+        console.log("firstemmmmmail",email)
+      await HandleRating(token,title,id,email,starselect);
     }
     }catch (error) {
         console.log(error )
