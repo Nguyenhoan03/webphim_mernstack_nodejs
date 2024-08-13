@@ -25,7 +25,8 @@ const verifyToken = (req, res, next) => {
         }
 
         req.userId = decoded.id;
-        console.log('Token verified successfully, User ID:', req.userId);
+        // req.session.userID = decoded.id;
+        // console.log('Token verified successfully, User ID:', req.req.session.userID);
         next();
     } catch (error) {
         if (error.name === 'TokenExpiredError') {

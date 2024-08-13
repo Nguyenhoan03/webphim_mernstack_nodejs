@@ -7,6 +7,7 @@ export const HomeProvider = ({children}) =>{
     const [phimsapchieu, setphimsapchieu] = useState([]);
     const [phimhot, setPhimhot] = useState([]);
     const token = sessionStorage.getItem('token');
+    const id = sessionStorage.getItem('id');
    
 
     function SampleNextArrow(props) {
@@ -85,7 +86,7 @@ export const HomeProvider = ({children}) =>{
         fetchData();
       }, []);
      return (
-        <HomeContext.Provider value={{ phimhanhdong, trendingData, phimsapchieu,phimhot,settings,token }}>
+        <HomeContext.Provider value={{ phimhanhdong, trendingData, phimsapchieu,phimhot,settings,token ,id}}>
              {children}
        </HomeContext.Provider>
      )

@@ -8,6 +8,7 @@ const Userlogin = async (email, password) => {
            
             sessionStorage.setItem('token', data.token);
             sessionStorage.setItem('name', data.name);
+            sessionStorage.setItem('id', data.id);
         return {success: true}
         } else {
          

@@ -5,3 +5,14 @@ Error in phimhot service: ReferenceError: cache is not defined
 Error in phimhot service: TypeError: cache.set is not a function
 Error in phimhot service: TypeError: cache.set is not a function
 Error in phimhot service: ReferenceError: Cannot access 'cache' before initialization
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306

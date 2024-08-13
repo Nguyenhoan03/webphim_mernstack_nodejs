@@ -7,18 +7,22 @@ import { AiFillLike } from "react-icons/ai";
 import { IoBookmark } from "react-icons/io5";
 
 import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
 import Slickslider from '../../compoment/Slickslider/Slickslider';
 import { HomeContext } from '../../store/HomeContext';
 import axios from 'axios';
 import { ProductDetail } from '../../services/Productservices';
 import { Helmet } from 'react-helmet';
+import { HandleRating } from '../../services/Productservices';
 
 import CommentCompoment from '../../compoment/CommentCompoment/CommentCompoment';
 export default function Detailpage() {
-  const { phimhot} = useContext(HomeContext);
+  const { token,id,phimhot} = useContext(HomeContext);
   const memophimhot = useMemo(()=> phimhot, [phimhot])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [hoveredStar, setHoveredStar] = useState(0); 
+  const [selectedStar, setSelectedStar] = useState(0);
   const settings = useMemo(() => ({
     dots: true,
     infinite: true,
@@ -91,17 +95,20 @@ export default function Detailpage() {
     const [datadetail, setdatadetail] = useState(null); 
     const [comment, setcomment] = useState(null);
     const [parent_id, setparent_id] = useState(null);
+    
+   
  
    useEffect(() => {
     const fetchData = async () => {
       try {
         if (title) {
-          const data = await ProductDetail(title);
+          const data = await ProductDetail(title,id);
           setdatadetail(data.datafilm);
           setcomment(data.comments);
           setparent_id(data.parent_id);
-
+           setSelectedStar(data.rating_star ? data.rating_star.rating : 0);
         }
+        
       } catch (error) {
         setError(error);
         console.error('Error fetching data:', error);
@@ -112,6 +119,7 @@ export default function Detailpage() {
 
     fetchData();
   }, [title]);
+ 
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -125,6 +133,20 @@ export default function Detailpage() {
        }
         
   }
+
+  const handleFormSubmit =async (event,starselect) => {
+    event.preventDefault(); 
+    try {
+      if (!token) {
+        alert("Bạn cần đăng nhập để có thể đánh giá");
+      }else{
+      await HandleRating(token,title,id,starselect);
+    }
+    }catch (error) {
+        console.log(error )
+    }
+};
+
   return (
     <div className='detailpage'>
       <Helmet>
@@ -139,8 +161,6 @@ export default function Detailpage() {
                 <p> > </p>
                 <p style={{color:'white'}}> {datadetail.title}</p>
             </div>
-
-
             <div className="content_detailpage">
         <div className="row">
         <div className="detailpage_left col-md-9 ">
@@ -181,18 +201,14 @@ export default function Detailpage() {
                 <button><IoBookmark /> Lưu vào facebook</button>
             </div>
             <div className="d-flex movie-details-evaluate mt-2" >
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-            <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-
-            <p style={{color:'white'}}>(9.2 điểm/ 31 lượt)</p>
+              <form action="">
+            {[...Array(10)].map((_, index) => (
+             
+              <FaStar style={{color: index < (hoveredStar || selectedStar) ? "gold" : "white", fontSize:22}} onMouseEnter={()=>setHoveredStar(index+1)} onMouseLeave={()=>setHoveredStar(0)} key={index}  onClick={(e)=>handleFormSubmit(e,index + 1)}/>
+            
+          ))}
+              </form>
+            <p style={{color:'white',paddingLeft:10}}>(9.2 điểm/ 31 lượt)</p>
             </div>
         </div>
      

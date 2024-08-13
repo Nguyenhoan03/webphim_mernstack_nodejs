@@ -1,10 +1,13 @@
-const { Product , Linkfilm,Comment,User} = require('../models');
+const { Product , Linkfilm,Comment,User,Rating, sequelize} = require('../models');
 const { Op, where ,fn,col,literal } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const cache = require('memory-cache');
 const { body, validationResult } = require('express-validator');
-const CheckNull = require ('../middleware/Validate/Checknull')
+const CheckNull = require ('../middleware/Validate/Checknull');
+const { title } = require('process');
+const { group } = require('console');
+
 
 // Hàm ghi log vào file
 const logToFile = (filename, data) => {
@@ -115,13 +118,10 @@ const getProductByCategory = async (categoryId) => {
     console.log(error)
 }
 };
-const detailfilm = async (titlefilm) => {
+const detailfilm = async (titlefilm, userId) => {
   try {
-    // Lấy thông tin chi tiết của phim và các link film tương ứng
     const datafilm = await Product.findOne({
-      where: {
-        title: titlefilm
-      },
+      where: { title: titlefilm },
       include: [{
         model: Linkfilm,
         as: 'linkfilms',
@@ -129,29 +129,38 @@ const detailfilm = async (titlefilm) => {
       }]
     });
 
-  
     const comments = await Comment.findAll({
-      where: {
-        titlefilm: titlefilm
-      },
+      where: { titlefilm: titlefilm },
       order: [['id', 'DESC']],
-      // attributes: {
-      //   include: [[literal(`(SELECT COUNT(*) FROM Comments WHERE titlefilm = '${titlefilm}')`), 'totalCount']]
-      // },
       include: [{
         model: User,
         as: 'users',
         attributes: ['username']
       }],
-    
     });
-    // const totalCount = await Comment.count({
-    //   where: {
-    //     titlefilm: titlefilm
-    //   }
-    // });
-    
-    return { datafilm, comments }; 
+
+    const general_assessment = await Rating.findAll({
+      where: { titlefilm: titlefilm },
+      attributes: [
+        'rating',
+        [sequelize.fn('COUNT', sequelize.col('rating')), 'ratingTotal'], // Rename to ratingTotal
+        // No need for average in the query, as we'll calculate it later
+      ],
+      group: ['rating']
+    });
+   
+
+    let rating_star = null;
+    if (userId) {
+      rating_star = await Rating.findOne({
+        where: {
+          titlefilm: titlefilm,
+          user_id: userId,
+        }
+      });
+    }
+
+    return { datafilm, comments, rating_star, general_assessment };
   } catch (error) {
     console.error('Error while fetching film detail:', error);
     throw error;
@@ -263,10 +272,39 @@ const post_comment = async (userId, titlefilm, contentcomment,parent_id) => {
     throw error;
   }
 };
+const post_ratingstar = async (titlefilm, id, starselect) => {
+  if (id == null || titlefilm == null || starselect == null) {
+    throw new Error('Missing required fields: Id, titlefilm, or starselect');
+  } else {
+    try {
+      // Tìm kiếm bản ghi trước
+      const [rating, created] = await Rating.findOrCreate({
+        where: {
+          titlefilm: titlefilm,
+          user_id: id
+        },
+        defaults: {
+          rating: starselect
+        }
+      });
+
+      // Nếu bản ghi đã tồn tại, cập nhật giá trị rating
+      if (!created) {
+        rating.rating = starselect; // Cập nhật rating
+        await rating.save(); // Lưu thay đổi
+      }
+
+      return { success: true };
+    } catch (error) {
+      throw error;
+    }
+  }
+}
 
 
 
 
 
 
-module.exports = { home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment};
+
+module.exports = { home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar};

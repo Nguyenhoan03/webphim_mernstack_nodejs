@@ -16,7 +16,8 @@ const Servicelogin = async (email, password) => {
     const token = jwt.sign({ id: data.id }, process.env.SECRET, { expiresIn: '30m' });
     const refreshToken = jwt.sign({ id: data.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' }); 
     const name = data.username;
-    return { success: true,refreshToken, token, name };
+    const id = data.id;
+    return { success: true,refreshToken, token, name,id };
   } catch (error) {
     console.error("Error in Servicelogin:", error);
     throw new Error("Server error");

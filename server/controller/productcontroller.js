@@ -29,32 +29,28 @@ const Product_phimle = (req, res) => getProductByCategory(req, res, 25);
 const Product_phimshows = (req, res) => getProductByCategory(req, res, 26);
 const Product_phimsapchieu = (req, res) => getProductByCategory(req, res, 27);
 
-const Product_Detailphim = async (req, res) => {
+const Product_Detailphim = async (req, res, next) => {
   try {
     const titlefilm = req.params.detailfilm;
-    const data = await Productservices.detailfilm(titlefilm);
-    
+    const userId = req.headers.userid; 
+
+    console.log('Received userId:', userId); 
+
+    const data = await Productservices.detailfilm(titlefilm, userId);
+
     if (data) {
-      res.json(data); 
+      res.json(data);
+      console.log(data, "data product_detailfilm");
     } else {
       res.status(404).json({ message: 'Không tìm thấy thông tin phim' });
     }
   } catch (error) {
     console.error('Error while fetching film detail:', error);
     res.status(500).json({ message: 'Lỗi khi lấy thông tin phim' });
+    next();
   }
 };
-//handle page danh muc phim
-const handledanhmucphim = async (req, res, categoryId) => {
-  try {
-    const filters = req.query;
-    const data = await Productservices.danhmucphim(categoryId, filters);
-    res.status(200).json(data);
-  } catch (error) {
-    console.error('Error while fetching film detail:', error);
-    res.status(500).json({ message: 'Lỗi khi lấy thông tin phim' });
-  }
-};
+
 
 
 //product danh mục
@@ -95,13 +91,29 @@ const Product_comment = async (req, res, next) => {
     if (data.success) {
       res.status(200).json({ message: 'Create success token' });
     } else {
-      
     next(error);
 
       throw new Error('Failed to create comment');
     }
   } catch (error) {
     next(error);
+  }
+}
+
+//rating star
+const Rating_star = async (req, res) => {
+  try {
+   
+    const { titlefilm, id , starselect } = req.body;
+   
+    const data = await Productservices.post_ratingstar(titlefilm,id,starselect);
+    if (data.success) {
+      res.status(200).json({ message: 'Rating success' });
+    } else {
+      throw new Error('Failed to create comment');
+    }
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -259,6 +271,7 @@ const handlequocgia = async (req, res, country, next) => {
 
 module.exports = {
   Product_comment,
+  Rating_star,
   Product_home,
   Product_phimbo,
   Product_phimle,

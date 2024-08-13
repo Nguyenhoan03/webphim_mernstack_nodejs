@@ -44,18 +44,18 @@ export default function CommentComponent({ comments, titlefilm }) {
   };
 
   const renderComments = (comments, parentId = null) => {
-    return comments
+    return comments && comments
       .filter(comment => comment.parent_id === parentId)
       .map(comment => (
         <div key={comment.id} className={`comment${parentId ? " child-comment" : ""}`}>
           <div className="comment-header">
             <img
               className="avatar"
-              src={`https://ui-avatars.com/api/?background=3f3f46&color=fff&name=${encodeURIComponent(comment.user_id)}`}
+              src={`https://ui-avatars.com/api/?background=3f3f46&color=fff&name=${encodeURIComponent(comment.users.username)}`}
               alt=""
             />
             <div className="comment-meta">
-              <p className="username">{comment.user_id}</p>
+              <p className="username">{comment.users.username}</p>
               <p className="comment-date">{new Date(comment.createdAt).toLocaleString()}</p>
             </div>
           </div>

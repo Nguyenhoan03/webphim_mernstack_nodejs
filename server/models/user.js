@@ -11,12 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasMany(models.Comment, {
-        foreignKey: 'user_id', // Khóa ngoại trong bảng Comment
-        sourceKey: 'id',       // Khóa chính trong bảng User
+        foreignKey: 'user_id',
+        sourceKey: 'id',
         as: 'comments'
       });
-      
+      User.hasOne(models.Rating, { // Correct reference to Rating model
+        foreignKey: 'user_id',
+        sourceKey: 'id',
+        as: 'ratings'
+      });
     }
+    
   }
   User.init({
     email: DataTypes.STRING,

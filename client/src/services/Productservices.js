@@ -9,15 +9,22 @@ import axios from 'axios';
     console.error(error);
   }
 };
-const ProductDetail = async (title) => {
+const ProductDetail = async (title, id) => {
   try {
+    console.log("idddd",id);
     const url = `${process.env.REACT_APP_API_URL}/product/${title}`;
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'userId': id
+      }
+    });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
+
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -305,6 +312,33 @@ const usercomment = async (token, titlefilm, contentcomment) => {
     throw error;
   }
 }
+
+const HandleRating = async (token,titlefilm,id,starselect) => {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/product/rating_star`,
+      { titlefilm, id,starselect },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }
+      }
+    );
+
+    if (response.status === 200) {
+      window.location.reload();
+    } else {
+      console.error('Server error:', response.data);
+      return "Server error";
+    }
+  } catch (error) {
+    console.error("Error while posting comment:", error);
+    throw error;
+  }
+}
+
+
 const userchildcomment = async (token, titlefilm, contentcomment,parent_id) =>{
   try {
     const response = await axios.post(
@@ -336,7 +370,8 @@ export {
   Producthome,
   ProductDetail,
   userchildcomment,
-  usercomment
+  usercomment,
+  HandleRating
 };
 
 
