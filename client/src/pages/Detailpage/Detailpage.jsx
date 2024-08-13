@@ -95,32 +95,37 @@ export default function Detailpage() {
     const [datadetail, setdatadetail] = useState(null); 
     const [comment, setcomment] = useState(null);
     const [parent_id, setparent_id] = useState(null);
-    
+    const [ratingtotal, setratingtotal] = useState(0);
+const [averageRating, setAverageRating] = useState(0);
    
  
-   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (title) {
-          const data = await ProductDetail(title,id);
-          setdatadetail(data.datafilm);
-          setcomment(data.comments);
-          setparent_id(data.parent_id);
-           setSelectedStar(data.rating_star ? data.rating_star.rating : 0);
-        }
-        
-      } catch (error) {
-        setError(error);
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      if (title) {
+        const data = await ProductDetail(title, id);
+        setdatadetail(data.datafilm);
+        setcomment(data.comments);
+        setparent_id(data.parent_id);
+        setSelectedStar(data.rating_star ? data.rating_star.rating : 0);
+
+        // Setting total ratings and average rating
+        setratingtotal(data.general_assessment.totalRatings);
+        setAverageRating(data.general_assessment.averageRating);
+
       }
-    };
+    } catch (error) {
+      setError(error);
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, [title]);
- 
-
+  fetchData();
+}, [title]);
+    
+   console.log("firstratingtotal",ratingtotal);
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -208,7 +213,7 @@ export default function Detailpage() {
             
           ))}
               </form>
-            <p style={{color:'white',paddingLeft:10}}>(9.2 điểm/ 31 lượt)</p>
+              <p style={{color:'white',paddingLeft:10}}>{averageRating} điểm / {ratingtotal} lượt</p>
             </div>
         </div>
      

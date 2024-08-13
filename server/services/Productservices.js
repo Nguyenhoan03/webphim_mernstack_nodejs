@@ -120,6 +120,7 @@ const getProductByCategory = async (categoryId) => {
 };
 const detailfilm = async (titlefilm, userId) => {
   try {
+    // Fetch film details with associated episodes
     const datafilm = await Product.findOne({
       where: { title: titlefilm },
       include: [{
@@ -129,6 +130,7 @@ const detailfilm = async (titlefilm, userId) => {
       }]
     });
 
+    // Fetch comments with associated usernames
     const comments = await Comment.findAll({
       where: { titlefilm: titlefilm },
       order: [['id', 'DESC']],
@@ -139,17 +141,30 @@ const detailfilm = async (titlefilm, userId) => {
       }],
     });
 
+    // Fetch and calculate general assessment
     const general_assessment = await Rating.findAll({
       where: { titlefilm: titlefilm },
       attributes: [
         'rating',
-        [sequelize.fn('COUNT', sequelize.col('rating')), 'ratingTotal'], // Rename to ratingTotal
-        // No need for average in the query, as we'll calculate it later
+        [sequelize.fn('COUNT', sequelize.col('rating')), 'ratingTotal'],
       ],
       group: ['rating']
     });
-   
 
+    // Calculate the average rating
+    let totalRatings = 0;
+    let sumOfRatings = 0;
+    
+    general_assessment.forEach(ratingGroup => {
+      const rating = ratingGroup.dataValues.rating;
+      const count = parseInt(ratingGroup.dataValues.ratingTotal, 10);
+      totalRatings += count;
+      sumOfRatings += rating * count;
+    });
+    
+    const averageRating = totalRatings > 0 ? (sumOfRatings / totalRatings).toFixed(1) : 0;
+
+    // Fetch the rating by the user if userId is provided
     let rating_star = null;
     if (userId) {
       rating_star = await Rating.findOne({
@@ -160,12 +175,23 @@ const detailfilm = async (titlefilm, userId) => {
       });
     }
 
-    return { datafilm, comments, rating_star, general_assessment };
+    // Return all data in one response object
+    return { 
+      datafilm, 
+      comments, 
+      rating_star, 
+      general_assessment: { 
+        averageRating, 
+        totalRatings 
+      } 
+    };
+
   } catch (error) {
     console.error('Error while fetching film detail:', error);
     throw error;
   }
 };
+
 
 //phim bộ
 const danhmucphim = async (category_id, filters = {}) => {
