@@ -33,10 +33,7 @@ const Servicerefreshtoken = async (req, res, refreshToken) => {
       return res.sendStatus(401); // No token provided
     }
 
-   
-    // Assuming `refreshTokens` is an array or list of valid refresh tokens
     if (!refreshTokens.includes(refreshToken)) {
-  
       return res.sendStatus(403); // Invalid token
     }
 
@@ -48,7 +45,7 @@ const Servicerefreshtoken = async (req, res, refreshToken) => {
 
       console.log("Token verification succeeded for ID:", data.id);
       const tokennew = jwt.sign({ id: data.id }, process.env.SECRET, { expiresIn: '1d' });
-      console.log("firstrefeshtokennservicerefeshtokennew", tokennew);
+      // console.log("firstrefeshtokennservicerefeshtokennew", tokennew);
 
       res.json({ tokennew }); // Return the new access token
     });
