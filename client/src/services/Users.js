@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Userlogin = async (email, password) => {
+const ServiceUserlogin = async (email, password) => {
     try {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/dang-nhap`, { email, password });
         if (response.status === 200) {
@@ -10,6 +10,7 @@ const Userlogin = async (email, password) => {
             sessionStorage.setItem('name', data.name);
             sessionStorage.setItem('id', data.id);
             sessionStorage.setItem('email', email);
+            sessionStorage.setItem('refreshToken', data.refreshToken);
         return {success: true}
         } else {
          
@@ -38,4 +39,4 @@ const Userregister = async (email, password) => {
 };
 
 
-export { Userlogin,Userregister };
+export { ServiceUserlogin,Userregister };

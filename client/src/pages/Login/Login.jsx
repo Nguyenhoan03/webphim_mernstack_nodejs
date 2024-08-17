@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import "./Style.scss";
-import { Userlogin } from "../../services/Users";
-import { useNavigate } from 'react-router-dom';
+import { ServiceUserlogin } from "../../services/Users";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const [error, setError] = useState('');
 
   const handleLogin = async () => {
     try {
-      const data = await Userlogin(email, password);
+      const data = await ServiceUserlogin(email, password);
       if (data.success) {
         // navigate('/');
         window.location.href = "/"

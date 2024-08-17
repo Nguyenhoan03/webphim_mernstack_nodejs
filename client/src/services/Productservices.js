@@ -339,11 +339,11 @@ const HandleRating = async (token,titlefilm,id,email,starselect) => {
 }
 
 
-const userchildcomment = async (token, titlefilm, contentcomment,parent_id) =>{
+const userchildcomment = async (token, titlefilm, contentcomment, parent_id) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/product/comment`,
-      { titlefilm, contentcomment,parent_id },
+      { titlefilm, contentcomment, parent_id },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -355,13 +355,91 @@ const userchildcomment = async (token, titlefilm, contentcomment,parent_id) =>{
     if (response.status === 200) {
       window.location.reload();
     } else {
-      console.error('Server error:', response.data);
-      return "Server error";
+      console.log("Response status:", response.status); // Add this log
+      if (response.status === 403) {
+        const refreshToken = sessionStorage.getItem('refreshToken');
+    
+        if (refreshToken) {
+          try {
+            const { data } = await axios.post(
+              `${process.env.REACT_APP_API_URL}/refresh_token`,
+              { token: refreshToken }
+            );
+
+            console.log("New token received:", data.tokennew); // Add this log
+            sessionStorage.setItem('token', data.tokennew); // Update the access token
+            const newToken = data.tokennew; // Store the new token here
+                
+            // Retry the comment posting after refreshing the token
+            const retryResponse = await axios.post(
+              `${process.env.REACT_APP_API_URL}/product/comment`,
+              { titlefilm, contentcomment, parent_id },
+              {
+                headers: {
+                  Authorization: `Bearer ${newToken}`, // Use the new token here
+                  'Content-Type': 'application/json',
+                }
+              }
+            );
+
+            if (retryResponse.status === 200) {
+              window.location.reload();
+            } else {
+              console.error("Failed to post comment after refreshing token, retryResponse status:", retryResponse.status);
+            }
+          } catch (error) {
+            console.error("Error refreshing token:", error);
+          }
+        } else {
+          alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+        }
+      }
     }
   } catch (error) {
-     throw(error)
+    if (error.response && (error.response.status === 403 || error.response.status === 401)) {
+      // Handle token expiration and retry logic here if it's caught as an error.
+      const refreshToken = sessionStorage.getItem('refreshToken');
+    
+      if (refreshToken) {
+        try {
+          const { data } = await axios.post(
+            `${process.env.REACT_APP_API_URL}/refresh_token`,
+            { token: refreshToken }
+          );
+
+          console.log("New token received after catching error:", data.tokennew); // Add this log
+          sessionStorage.setItem('token', data.tokennew); // Update the access token
+          const newToken = data.tokennew; // Store the new token here
+              
+          // Retry the comment posting after refreshing the token
+          const retryResponse = await axios.post(
+            `${process.env.REACT_APP_API_URL}/product/comment`,
+            { titlefilm, contentcomment, parent_id },
+            {
+              headers: {
+                Authorization: `Bearer ${newToken}`, // Use the new token here
+                'Content-Type': 'application/json',
+              }
+            }
+          );
+
+          if (retryResponse.status === 200) {
+            window.location.reload();
+          } else {
+            console.error("Failed to post comment after refreshing token, retryResponse status:", retryResponse.status);
+          }
+        } catch (refreshError) {
+          console.error("Error refreshing token after catching error:", refreshError);
+        }
+      } else {
+        alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+      }
+    } else {
+      console.error("Error in userchildcomment:", error);
+    }
   }
-}
+};
+
 
 
 

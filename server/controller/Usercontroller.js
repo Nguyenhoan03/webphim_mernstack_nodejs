@@ -5,7 +5,7 @@ const Login = async (req, res) => {
         const data = await Userservice.Servicelogin(email, password);
        
         if (data.success) {
-            res.status(200).json({ token: data.token , name: data.name, id: data.id});
+            res.status(200).json({ token: data.token,refreshToken: data.refreshToken, name: data.name, id: data.id});
         } else {
             res.status(401).json({ message: data.message });
         }
@@ -13,6 +13,15 @@ const Login = async (req, res) => {
         console.error("Error in login:", error);
         res.status(500).json("Server error");
     }
+}
+const Refreshtoken =async (req,res ) => {
+     try {
+        const refeshToken = req.body.token;
+        await Userservice.Servicerefreshtoken(req,res,refeshToken);
+        // return res.status(200).json({})
+     } catch (error) {
+        console.log(error)
+     }
 }
 
 const Register = async (req, res) => {
@@ -30,4 +39,4 @@ const Register = async (req, res) => {
     }
 }
 
-module.exports={Login,Register}
+module.exports={Login,Register,Refreshtoken}

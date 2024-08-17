@@ -2,7 +2,7 @@ const { User } = require('../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
-
+let refreshTokens = [];
 const Servicelogin = async (email, password) => {
   try {
     const data = await User.findOne({ where: { email } });
@@ -13,10 +13,11 @@ const Servicelogin = async (email, password) => {
     if (!isMatch) {
       return { success: false, message: 'Thông tin đăng nhập không chính xác' };
     }
-    const token = jwt.sign({ id: data.id}, process.env.SECRET, { expiresIn: '30m' });
+    const token = jwt.sign({ id: data.id}, process.env.SECRET, { expiresIn: '30s' });
     const refreshToken = jwt.sign({ id: data.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' }); 
     const name = data.username;
     const id = data.id;
+    refreshTokens.push(refreshToken);
     return { success: true,refreshToken, token, name,id };
   } catch (error) {
     console.error("Error in Servicelogin:", error);
@@ -24,26 +25,36 @@ const Servicelogin = async (email, password) => {
   }
 }
 
-const refreshToken = async (req, res) => {
-  const { refreshToken } = req.body;
-
-  if (!refreshToken) {
-    return res.status(403).json({ error: 'Refresh token is required' });
-  }
-
+const Servicerefreshtoken = async (req, res, refreshToken) => {
   try {
-    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    const user = await User.findOne({ where: { id: decoded.id } });
+    console.log("firstrefeshtokennservicerefesh", refreshToken);
 
-    if (!user || user.refreshToken !== refreshToken) {
-      return res.status(403).json({ error: 'Invalid refresh token' });
+    if (!refreshToken) {
+      return res.sendStatus(401); // No token provided
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '15m' });
-    res.json({ token });
+   
+    // Assuming `refreshTokens` is an array or list of valid refresh tokens
+    if (!refreshTokens.includes(refreshToken)) {
+  
+      return res.sendStatus(403); // Invalid token
+    }
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
+      if (err) {
+        console.log("Token verification failed:", err); // Log the verification error
+        return res.sendStatus(403); // Token expired or invalid
+      }
+
+      console.log("Token verification succeeded for ID:", data.id);
+      const tokennew = jwt.sign({ id: data.id }, process.env.SECRET, { expiresIn: '1d' });
+      console.log("firstrefeshtokennservicerefeshtokennew", tokennew);
+
+      res.json({ tokennew }); // Return the new access token
+    });
   } catch (error) {
-    console.error('Error in refreshToken:', error);
-    res.status(403).json({ error: 'Invalid refresh token' });
+    console.error("Error in refreshToken service:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -67,4 +78,4 @@ const Serviceregister = async (email, name, password) => {
   }
 }
 
-module.exports = { Servicelogin, Serviceregister,refreshToken };
+module.exports = { Servicelogin, Serviceregister,Servicerefreshtoken };
