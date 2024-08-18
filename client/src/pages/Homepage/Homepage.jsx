@@ -1,12 +1,13 @@
-import React, { useEffect, useState,useContext,useMemo } from 'react';
+import React, { useEffect, useState,useContext,useMemo,Suspense } from 'react';
 import Slider from 'react-slick';
 import { Producthome } from '../../services/Productservices';
-import Slickslider from '../../compoment/Slickslider/Slickslider';
 import './Style.scss';
 import { Link } from 'react-router-dom';
-import Homepagebodyright from '../../compoment/Homepagebodyright/Homepagebodyright'
-import { HomeProvider } from '../../store/HomeContext';
+// import Slickslider from '../../compoment/Slickslider/Slickslider';
+// import Homepagebodyright from '../../compoment/Homepagebodyright/Homepagebodyright'
 import { HomeContext } from '../../store/HomeContext';
+const Homepagebodyright = React.lazy(() => import('../../compoment/Homepagebodyright/Homepagebodyright'));
+const Slickslider = React.lazy(() => import('../../compoment/Slickslider/Slickslider'));
 export default function Homepage() {
   const { settings,phimhot } = useContext(HomeContext);
  
@@ -26,11 +27,9 @@ export default function Homepage() {
       setphimbomoi(data.phimbomoicapnhat);
       setphimlemoi(data.phimlemoicapnhat);
       setphimhoanthanh(data.phimdahoanthanh);
-     
       setphimhoathinh(data.phimhoathinh);
       setphimtamlytinhcam(data.phimtamlytimcam);
       setphimvientuong(data.phimvientuong);
-     
       setDataphim(data.phimbomoicapnhat); 
     };
     fetchData();
@@ -41,6 +40,36 @@ export default function Homepage() {
     const newData = [phimbomoi, phimlemoi, phimhoanthanh][key];
     setDataphim(newData);
   };
+  
+  const rendercategorycontent = (title,data)=>(
+    <div className="phimhanquoc mt-4">
+    <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>{title}</h2>
+    <div className="category_phim">
+      <div className="row">
+        {data && data.map((pbm, index) => (
+          <div key={index} className="category_phim_card col-md-3" style={{ position: 'relative', height: '100%' }}>
+            <Link to={`/${pbm.title}`} style={{color:'white',}}>
+            <p
+              className="title-badge"
+              style={{ position: 'absolute', top: 5, left: 15, backgroundColor: '#BF1D28', color: 'white', fontWeight: 650, fontSize: 12, borderRadius: 4, width: 117, textAlign: 'center' }}
+            >
+              {pbm.trangthai}-{pbm.ngonngu}
+            </p>
+            <img style={{ width: 175, height: 245 }} src={pbm.hinhanh} alt={pbm.title} />
+            <p className="description-badge2" style={{ marginLeft: 12 }}>
+              {pbm.sotap && pbm.sotap.includes('Tập') ? pbm.sotap : `${pbm.sotap} Tập`}
+            </p>
+            <p className="description-badge" style={{ marginLeft: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {pbm.title}
+            </p>
+              </Link>
+          </div>
+        ))}
+      </div>
+    </div>
+    </div>
+  )
+
 
   return (
     <div className='homepage'>
@@ -53,7 +82,9 @@ export default function Homepage() {
             <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>PHIM HOT</h2>
             <div className="slider-container">
               <div className="row">
+                <Suspense fallback={<div>Loadding...</div>}>
                 {phimhot.length > 0 && <Slickslider settings={settings} data={phimhot} />}
+                </Suspense>
               </div>
             </div>
           </div>
@@ -97,7 +128,6 @@ export default function Homepage() {
                   Phim đã hoàn thành
                 </p>
               </div>
-
               <div className="category_phim">
                 <div className="row">
                   {dataphim && dataphim.map((pbm, index) => (
@@ -122,92 +152,16 @@ export default function Homepage() {
                 </div>
               </div>
 
-              <div className="phimhanquoc mt-4">
-              <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>PHIM HOẠT HÌNH</h2>
-              <div className="category_phim">
-                <div className="row">
-                  {phimhoathinh && phimhoathinh.map((pbm, index) => (
-                    <div key={index} className="category_phim_card col-md-3" style={{ position: 'relative', height: '100%' }}>
-                      <Link to={`/${pbm.title}`} style={{color:'white',}}>
-                      <p
-                        className="title-badge"
-                        style={{ position: 'absolute', top: 5, left: 15, backgroundColor: '#BF1D28', color: 'white', fontWeight: 650, fontSize: 12, borderRadius: 4, width: 117, textAlign: 'center' }}
-                      >
-                        {pbm.trangthai}-{pbm.ngonngu}
-                      </p>
-                      <img style={{ width: 175, height: 245 }} src={pbm.hinhanh} alt={pbm.title} />
-                      <p className="description-badge2" style={{ marginLeft: 12 }}>
-                        {pbm.sotap && pbm.sotap.includes('Tập') ? pbm.sotap : `${pbm.sotap} Tập`}
-                      </p>
-                      <p className="description-badge" style={{ marginLeft: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {pbm.title}
-                      </p>
-                        </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              </div>
-
-              <div className="phimhanquoc mt-4">
-              <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>PHIM TÂM LÝ TÌNH CẢM</h2>
-              <div className="category_phim">
-                <div className="row">
-                  {phimtamlytinhcam && phimtamlytinhcam.map((pbm, index) => (
-                    <div key={index} className="category_phim_card col-md-3" style={{ position: 'relative', height: '100%' }}>
-                      <Link to={`/${pbm.title}`} style={{color:'white',}}>
-                      <p
-                        className="title-badge"
-                        style={{ position: 'absolute', top: 5, left: 15, backgroundColor: '#BF1D28', color: 'white', fontWeight: 650, fontSize: 12, borderRadius: 4, width: 117, textAlign: 'center' }}
-                      >
-                        {pbm.trangthai}-{pbm.ngonngu}
-                      </p>
-                      <img style={{ width: 175, height: 245 }} src={pbm.hinhanh} alt={pbm.title} />
-                      <p className="description-badge2" style={{ marginLeft: 12 }}>
-                        {pbm.sotap && pbm.sotap.includes('Tập') ? pbm.sotap : `${pbm.sotap} Tập`}
-                      </p>
-                      <p className="description-badge" style={{ marginLeft: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {pbm.title}
-                      </p>
-                        </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              </div>
-
-              <div className="phimhanquoc mt-4">
-              <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>PHIM VIỄN TƯỞNG</h2>
-              <div className="category_phim">
-                <div className="row">
-                  {phimvientuong && phimvientuong.map((pbm, index) => (
-                    <div key={index} className="category_phim_card col-md-3" style={{ position: 'relative', height: '100%' }}>
-                      <Link to={`/${pbm.title}`} style={{color:'white',}}>
-                      <p
-                        className="title-badge"
-                        style={{ position: 'absolute', top: 5, left: 15, backgroundColor: '#BF1D28', color: 'white', fontWeight: 650, fontSize: 12, borderRadius: 4, width: 117, textAlign: 'center' }}
-                      >
-                        {pbm.trangthai}-{pbm.ngonngu}
-                      </p>
-                      <img style={{ width: 175, height: 245 }} src={pbm.hinhanh} alt={pbm.title} />
-                      <p className="description-badge2" style={{ marginLeft: 12 }}>
-                        {pbm.sotap && pbm.sotap.includes('Tập') ? pbm.sotap : `${pbm.sotap} Tập`}
-                      </p>
-                      <p className="description-badge" style={{ marginLeft: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {pbm.title}
-                      </p>
-                        </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              </div>
-
+              {rendercategorycontent('PHIM HOẠT HÌNH', phimhoathinh)}
+              {rendercategorycontent('PHIM TÂM LÝ TÌNH CẢM', phimtamlytinhcam)}
+              {rendercategorycontent('PHIM VIỄN TƯỞNG', phimvientuong)}
             </div>
           </div>
-        <div className="col-md-3">
-          <Homepagebodyright />
-          </div>
+          <div className="col-md-3">
+              <Suspense fallback={<div>Loading...</div>}>
+                <Homepagebodyright />
+              </Suspense>
+            </div>
         </div>
       </div>
     </div>

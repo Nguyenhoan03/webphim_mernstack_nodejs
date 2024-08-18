@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { LuChevronDown } from "react-icons/lu";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa6";
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+
 export default function HeaderCompoment() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = sessionStorage.getItem("token");
@@ -16,7 +18,8 @@ export default function HeaderCompoment() {
     if (token && name) {
       setIsLoggedIn(true);
     }
-  }, []);
+  }, [token, name]);
+
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("name");
@@ -99,138 +102,110 @@ export default function HeaderCompoment() {
   ];
 
   return (
-    <div className="Headercompoment">
-      <div className="container">
-        <div className="header">
-          <div className="header_logo">
-            <Link to="/">
-              <img
-                src="https://motchillj.net/motchill.png?v1.0.2"
-                alt="Motchill Logo"
-                style={{ height: "auto", maxHeight: 70 }}
-              />
-            </Link>{" "}
-          </div>
-          <div className="header_search">
-            <div className="search_container">
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <input
-                  type="text"
-                  className="d-flex"
-                  style={{
-                    backgroundColor: "#27272A",
-                    width: 450,
-                    marginLeft: 50,
-                    height: 50,
-                    border: "1px solid gray",
-                    borderRadius: 8,
-                    paddingLeft: 10,
-                  }}
-                  placeholder="Ví dụ: tên phim, tên diễn viên,..."
-                />
-                <CiSearch className="search_icon" style={{ marginLeft: 10 }} />
+    <Navbar expand="lg" bg="dark" variant="dark" className="Headercompoment">
+      <Container>
+        <Navbar.Brand as={Link} to="/">
+          <img
+            src="https://motchillj.net/motchill.png?v1.0.2"
+            alt="Motchill Logo"
+            style={{ height: "auto", maxHeight: 70 }}
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <div className="d-flex align-items-center w-100 justify-content-between">
+            <div className="header_search w-100">
+              <div className="search_container">
+                <div className="d-flex align-items-center">
+                  <input
+                    type="text"
+                    className="form-control"
+                    style={{
+                      backgroundColor: "#27272A",
+                      width: 450,
+                      height: 50,
+                      border: "1px solid gray",
+                      borderRadius: 8,
+                      paddingLeft: 10,
+                    }}
+                    placeholder="Ví dụ: tên phim, tên diễn viên,..."
+                  />
+                  <CiSearch className="ms-2" />
+                </div>
               </div>
             </div>
-          </div>
-          {isLoggedIn ? (
-            <>
-              <div className="header_user">
-                <span
-                  style={{ color: "white", cursor: "pointer" }}
-                  onClick={toggleDropdown}
+            <div className="d-flex align-items-center">
+            {isLoggedIn ? (
+              <div className="d-flex align-items-center">
+                <div 
+                  className="dropdown" 
+                  onMouseEnter={() => setShowDropdown(true)} 
+                  onMouseLeave={() => setShowDropdown(false)}
                 >
-                  <FaUser style={{marginRight:7}}/> {name} <LuChevronDown style={{marginTop:3}}/>
-                </span>
-                {showDropdown && (
-                  <div className="dropdown_menu">
-                    <ul>
+                  <div className="d-flex align-items-center">
+                    <RxAvatar size={28} className="text-white me-2" />
+                    <span className="text-white">minh hoàn</span>
+                  </div>
+                  {showDropdown && (
+                    <ul className="dropdown-menu show" style={{ position: 'absolute', top: '100%', left: 0, minWidth: '200px' }}>
                       <li>
-                        <Link to="/thong-tin-tai-khoan">
+                        <Link to="/account" className="dropdown-item">
                           Thông tin tài khoản
                         </Link>
                       </li>
                       <li>
-                        <Link to="/cai-dat">Cài đặt</Link>
+                        <Link to="/" onClick={handleLogout} className="dropdown-item">
+                          Đăng xuất
+                        </Link>
                       </li>
-                      <li onClick={handleLogout}>Đăng xuất</li>
                     </ul>
-                  </div>
-                )}
+                  )}
+                </div>
+                <div className="ms-3">
+                  <CiBookmark size={28} className="text-white" />
+                </div>
               </div>
-              <div className="header_bookmark">
-                <Link to="/bookmark">
-                  <CiBookmark style={{ marginRight: 10 }} /> Bookmark
+            ) : (
+              <div className="d-flex align-items-center">
+                <Link to="/dang-nhap" className="text-white">
+                Đăng Nhập <CiLogin size={28} className="text-white me-3" /> 
                 </Link>
+                {/* <Link to="/register">
+                  <RxAvatar size={28} className="text-white" />
+                </Link> */}
               </div>
-            </>
-          ) : (
-            <div className="header_actions d-flex">
-              <div className="header_login mt-2">
-                <Link to="/dang-nhap">
-                  <CiLogin style={{ marginRight: 10 }} /> Đăng nhập
-                </Link>
-              </div>
-              <div className="header_register mt-2">
-                <Link to="/dang-ky">
-                  <RxAvatar style={{ marginRight: 10 }} /> Đăng ký
-                </Link>
-              </div>
-              <div className="header_bookmark">
-                <Link to="/bookmark">
-                  <CiBookmark style={{ marginRight: 10 }} /> Bookmark
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="header_footer">
-          <ul className="nav_list">
-            <li
-              className="nav_item"
-              style={{ borderBottom: "3px solid white" }}
-            >
-              <Link className="nav_link">TRANG CHỦ</Link>
-            </li>
-            <li className="nav_item">
-              <Link className="nav_link">
-                THỂ LOẠI <LuChevronDown className="nav_icon" />
-              </Link>
-              <ul className="ul_theloai">
+            )}
+          </div>
+          </div>
+          <Nav className="ms-auto">
+          <NavDropdown title="Thể Loại" id="basic-nav-dropdown" className="multi-column-dropdown">
+              <div className="d-flex flex-wrap" style={{ width: '300px' }}>
                 {data_theloai.map((item, index) => (
-                  <li key={index}>
-                    <Link to={item.to}>{item.theloai}</Link>
-                  </li>
+                  <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
+                    {item.theloai}
+                  </NavDropdown.Item>
                 ))}
-              </ul>
-            </li>
-            <li className="nav_item">
-              <Link className="nav_link">
-                QUỐC GIA <LuChevronDown className="nav_icon" />
-              </Link>
-              <ul className="ul_theloai">
-                {data_quocgia.map((item, index) => (
-                  <li key={index}>
-                    <Link to={item.to}>{item.quocgia}</Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-            <li className="nav_item">
-              <Link className="nav_link">
-                DANH MỤC <LuChevronDown className="nav_icon" />
-                <ul className="ul_theloai">
-                  {data_danhmuc.map((item, index) => (
-                    <li key={index}>
-                      <Link to={item.to}>{item.danhmuc}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+              </div>
+            </NavDropdown>
+            <NavDropdown title="Quốc Gia" id="basic-nav-dropdown" >
+            <div className="d-flex flex-wrap" style={{ width: '300px' }}>
+              {data_quocgia.map((item, index) => (
+                <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
+                  {item.quocgia}
+                </NavDropdown.Item>
+              ))}
+              </div>
+            </NavDropdown>
+            <NavDropdown title="Danh Mục" id="basic-nav-dropdown" >
+              {data_danhmuc.map((item, index) => (
+                <NavDropdown.Item as={Link} to={item.to} key={index}>
+                  {item.danhmuc}
+                </NavDropdown.Item>
+              ))}
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
