@@ -11,6 +11,14 @@ const Product_home = async (req, res) => {
     });
   }
 };
+const Product =async (req,res,next ) => {
+      try {
+        const data = await Productservices.Productservice();
+        return res.status(200).json(data);
+      } catch (error) {
+         next(error);
+      }
+}
 
 const getProductByCategory = async (req, res, categoryId) => {
   try {
@@ -362,5 +370,5 @@ module.exports = {
   Product_quocgia_arapxeut,
   Product_quocgia_trungquoc,
   // Product_quocgia_quocgiakhac
-
+  Product
 };

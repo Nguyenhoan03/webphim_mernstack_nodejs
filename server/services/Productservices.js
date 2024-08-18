@@ -103,6 +103,16 @@ const home = async () => {
   }
 };
 
+  const Productservice = async()=>{
+  try {
+    const data =await Product.findAll();
+    return data
+  } catch (error) {
+    throw(error)
+  }  
+
+}
+
 //file services
 const getProductByCategory = async (categoryId) => {
   try {
@@ -333,4 +343,4 @@ const post_ratingstar = async (titlefilm, id, starselect) => {
 
 
 
-module.exports = { home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar};
+module.exports = { home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice};

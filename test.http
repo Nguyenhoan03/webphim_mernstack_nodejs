@@ -1,5 +1,5 @@
-POST http://localhost:5000/product/product-home
-Content-Type: application/json
+# POST http://localhost:5000/product/product-home
+# Content-Type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNzIzNDU2MDIyLCJleHAiOjE3MjM0NTc4MjJ9.rHtjpputGCQSWXjnEUJbnQZ-_2_HBZlhbp0RDo6WbaY
 
 # {
@@ -7,3 +7,6 @@ Content-Type: application/json
 #     "id": 5,
 #     "starselect": 5
 # }
+
+GET http://localhost:5000/product
+Content-Type: : application/json

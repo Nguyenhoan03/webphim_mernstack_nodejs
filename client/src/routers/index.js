@@ -4,7 +4,7 @@ import Detailpage from '../pages/Detailpage/Detailpage';
 import Xemphim from '../pages/Xemphim/Xemphim';
 import Phimbo from '../pages/Theloai/Phimbo/Phimbo';
 import Vientuong from '../pages/Theloai/Vientuong/Vientuong';
-
+import Search from '../pages/Search/Search'
 import Plus18 from '../pages/Theloai/18+/Plus18';
 import Amnhac from '../pages/Theloai/amnhac/Amnhac';
 import Chientranh from '../pages/Theloai/chientranh/Chientranh';
@@ -230,6 +230,11 @@ export const routes = [
   {
     path: '/the-loai/vo-thuat',
     page: Vothuat,
+    isShowHeader: true,
+  },
+  {
+    path: '/tim-kiem/:content_search',
+    page: Search ,
     isShowHeader: true,
   },
 

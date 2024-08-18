@@ -98,7 +98,7 @@ export default function Xemphim() {
         <div className="caption mt-3 d-flex">
           <p><IoIosHome /> Motchill</p>
           <p> &gt; </p>
-          <p> Thể loại phim</p>
+          <p> {datadetail.theloai}</p>
           <p> &gt; </p>
           <p style={{ color: 'white' }}> {datafilm.title} - Tập {datafilm.episode}</p>
       

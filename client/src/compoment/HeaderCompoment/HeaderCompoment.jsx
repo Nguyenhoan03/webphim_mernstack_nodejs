@@ -3,16 +3,41 @@ import "./Styles.scss";
 import { CiSearch, CiLogin, CiBookmark } from "react-icons/ci";
 import { RxAvatar } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import { LuChevronDown } from "react-icons/lu";
 import { useState } from "react";
-import { FaUser } from "react-icons/fa6";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
-
+import axios from "axios";
 export default function HeaderCompoment() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = sessionStorage.getItem("token");
   const name = sessionStorage.getItem("name");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [data, setdata] = useState([]);
+  const [search,setsearch] = useState();
+  const [filteredData, setFilteredData] = useState([]);
+  useEffect(() => { 
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/product`);
+        setdata(response.data); // Đảm bảo rằng 'response.data' là mảng
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
+  
+  const handlesearch = () => {
+      if (typeof search === 'string') {
+        const filter_search = data.filter(item =>
+          item.title && item.title.toLowerCase().includes(search.toLowerCase())
+        );
+        setFilteredData(filter_search);
+        console.log(filteredData);
+      } else {
+        console.error('search is not a string');
+      }
+  }
+  
 
   useEffect(() => {
     if (token && name) {
@@ -29,6 +54,7 @@ export default function HeaderCompoment() {
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+
 
   const data_theloai = [
     { theloai: "Hành Động", to: "/the-loai/hanh-dong" },
@@ -116,22 +142,92 @@ export default function HeaderCompoment() {
           <div className="d-flex align-items-center w-100 justify-content-between">
             <div className="header_search w-100">
               <div className="search_container">
-                <div className="d-flex align-items-center">
-                  <input
-                    type="text"
-                    className="form-control"
-                    style={{
-                      backgroundColor: "#27272A",
-                      width: 450,
-                      height: 50,
-                      border: "1px solid gray",
-                      borderRadius: 8,
-                      paddingLeft: 10,
-                    }}
-                    placeholder="Ví dụ: tên phim, tên diễn viên,..."
-                  />
-                  <CiSearch className="ms-2" />
-                </div>
+              <div className="d-flex align-items-center" style={{ position: "relative", width: 450 }}>
+                <input
+                  type="text"
+                  className="form-control text-white"
+                  style={{
+                    backgroundColor: "#27272A",
+                    width: "100%",
+                    height: 50,
+                    border: "1px solid gray",
+                    borderRadius: 8,
+                    paddingLeft: 10, // add padding to the left for the icon
+                  }}
+                  placeholder="Ví dụ: tên phim, tên diễn viên,..."
+                  onKeyDown={()=>handlesearch()}
+                  onChange={(e)=>setsearch(e.target.value)}
+                />
+                <CiSearch 
+                  className="position-absolute" 
+                  style={{ 
+                    right: 10, 
+                    top: "50%", 
+                    transform: "translateY(-50%)", 
+                    color: 'white', 
+                    fontSize: 30 
+                  }} 
+                  onClick={()=>handlesearch()}
+                />
+              </div>
+              <div className="data_search" style={{}}>
+  <div className="data_search_card d-flex align-items-center mb-2 p-2" style={{ backgroundColor: "#2C2C2C", borderRadius: "8px" }}>
+    <div className="me-2">
+      <img style={{ width: 40, borderRadius: "4px" }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPv3c3SrdzMUGwyPMPxmkPyO9gcXewOnZP5g&s" alt="" />
+    </div>
+    <div>
+      <p className="mb-0" style={{ fontWeight: "bold", color: "#FFF" }}>gsdfgsdfgsgds</p>
+      <p className="mb-0" style={{ fontSize: "12px", color: "#AAA" }}>fgsdfg</p>
+    </div>
+  </div>
+  <div className="data_search_card d-flex align-items-center mb-2 p-2" style={{ backgroundColor: "#2C2C2C", borderRadius: "8px" }}>
+    <div className="me-2">
+      <img style={{ width: 40, borderRadius: "4px" }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPv3c3SrdzMUGwyPMPxmkPyO9gcXewOnZP5g&s" alt="" />
+    </div>
+    <div>
+      <p className="mb-0" style={{ fontWeight: "bold", color: "#FFF" }}>gsdfgsdfgsgds</p>
+      <p className="mb-0" style={{ fontSize: "12px", color: "#AAA" }}>fgsdfg</p>
+    </div>
+  </div>
+  <div className="data_search_card d-flex align-items-center mb-2 p-2" style={{ backgroundColor: "#2C2C2C", borderRadius: "8px" }}>
+    <div className="me-2">
+      <img style={{ width: 40, borderRadius: "4px" }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPv3c3SrdzMUGwyPMPxmkPyO9gcXewOnZP5g&s" alt="" />
+    </div>
+    <div>
+      <p className="mb-0" style={{ fontWeight: "bold", color: "#FFF" }}>gsdfgsdfgsgds</p>
+      <p className="mb-0" style={{ fontSize: "12px", color: "#AAA" }}>fgsdfg</p>
+    </div>
+  </div>
+  {search === "null" || search === undefined ? (
+  <Link
+    to="#"
+    style={{
+      textAlign: "center",
+      marginLeft: 5,
+      color: "#FFD700",
+      fontWeight: "bold",
+      cursor: "pointer"
+    }}
+  >
+    Xem tất cả kết quả
+  </Link>
+) : (
+  <Link
+    to={`/tim-kiem/${search}`}
+    style={{
+      textAlign: "center",
+      marginLeft: 5,
+      color: "#FFD700",
+      fontWeight: "bold",
+      cursor: "pointer"
+    }}
+  >
+    Xem tất cả kết quả
+  </Link>
+)}
+
+</div>
+
               </div>
             </div>
             <div className="d-flex align-items-center">
