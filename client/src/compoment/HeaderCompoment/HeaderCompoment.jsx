@@ -6,38 +6,46 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function HeaderCompoment() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate(); 
   const token = sessionStorage.getItem("token");
   const name = sessionStorage.getItem("name");
   const [showDropdown, setShowDropdown] = useState(false);
   const [data, setdata] = useState([]);
   const [search,setsearch] = useState();
   const [filteredData, setFilteredData] = useState([]);
-  useEffect(() => { 
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/product`);
-        setdata(response.data); // Đảm bảo rằng 'response.data' là mảng
-      } catch (error) {
-        console.log(error);
+
+    useEffect(() => {
+      if (search) {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/product`);
+            const filter_search = response.data
+              .filter(item => item.title && item.title.toLowerCase().includes(search.toLowerCase()))
+              .slice(0, 5);
+            setFilteredData(filter_search);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchData();
       }
+    }, [search, setFilteredData]);
+ 
+  
+  useEffect(() => {
+    if (typeof search === "string" && search.trim() !== "") {
+      const filter_search = data
+        .filter(item => item.title && item.title.toLowerCase().includes(search.toLowerCase()))
+        .slice(0, 5); // Limit to 5 items
+  
+      setFilteredData(filter_search);
+    } else {
+      setFilteredData([]);
     }
-    fetchData();
-  }, []);
-  
-  const handlesearch = () => {
-      if (typeof search === 'string') {
-        const filter_search = data.filter(item =>
-          item.title && item.title.toLowerCase().includes(search.toLowerCase())
-        );
-        setFilteredData(filter_search);
-        console.log(filteredData);
-      } else {
-        console.error('search is not a string');
-      }
-  }
-  
+  }, [search, data, navigate]);
 
   useEffect(() => {
     if (token && name) {
@@ -51,10 +59,11 @@ export default function HeaderCompoment() {
     setIsLoggedIn(false);
   };
 
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
-
+const handlesearch = () => {
+  const filter_search = data.filter(item => item.title && item.title.toLowerCase().includes(search.toLowerCase()))
+      navigate(`/tim-kiem/${search}`, { state: { data: filter_search } });
+  
+}
 
   const data_theloai = [
     { theloai: "Hành Động", to: "/the-loai/hanh-dong" },
@@ -140,94 +149,62 @@ export default function HeaderCompoment() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <div className="d-flex align-items-center w-100 justify-content-between">
-            <div className="header_search w-100">
+          <div className="header_search w-100">
               <div className="search_container">
-              <div className="d-flex align-items-center" style={{ position: "relative", width: 450 }}>
-                <input
-                  type="text"
-                  className="form-control text-white"
-                  style={{
-                    backgroundColor: "#27272A",
-                    width: "100%",
-                    height: 50,
-                    border: "1px solid gray",
-                    borderRadius: 8,
-                    paddingLeft: 10, // add padding to the left for the icon
-                  }}
-                  placeholder="Ví dụ: tên phim, tên diễn viên,..."
-                  onKeyDown={()=>handlesearch()}
-                  onChange={(e)=>setsearch(e.target.value)}
-                />
-                <CiSearch 
-                  className="position-absolute" 
-                  style={{ 
-                    right: 10, 
-                    top: "50%", 
-                    transform: "translateY(-50%)", 
-                    color: 'white', 
-                    fontSize: 30 
-                  }} 
-                  onClick={()=>handlesearch()}
-                />
-              </div>
-              <div className="data_search" style={{}}>
-  <div className="data_search_card d-flex align-items-center mb-2 p-2" style={{ backgroundColor: "#2C2C2C", borderRadius: "8px" }}>
-    <div className="me-2">
-      <img style={{ width: 40, borderRadius: "4px" }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPv3c3SrdzMUGwyPMPxmkPyO9gcXewOnZP5g&s" alt="" />
-    </div>
-    <div>
-      <p className="mb-0" style={{ fontWeight: "bold", color: "#FFF" }}>gsdfgsdfgsgds</p>
-      <p className="mb-0" style={{ fontSize: "12px", color: "#AAA" }}>fgsdfg</p>
-    </div>
-  </div>
-  <div className="data_search_card d-flex align-items-center mb-2 p-2" style={{ backgroundColor: "#2C2C2C", borderRadius: "8px" }}>
-    <div className="me-2">
-      <img style={{ width: 40, borderRadius: "4px" }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPv3c3SrdzMUGwyPMPxmkPyO9gcXewOnZP5g&s" alt="" />
-    </div>
-    <div>
-      <p className="mb-0" style={{ fontWeight: "bold", color: "#FFF" }}>gsdfgsdfgsgds</p>
-      <p className="mb-0" style={{ fontSize: "12px", color: "#AAA" }}>fgsdfg</p>
-    </div>
-  </div>
-  <div className="data_search_card d-flex align-items-center mb-2 p-2" style={{ backgroundColor: "#2C2C2C", borderRadius: "8px" }}>
-    <div className="me-2">
-      <img style={{ width: 40, borderRadius: "4px" }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPv3c3SrdzMUGwyPMPxmkPyO9gcXewOnZP5g&s" alt="" />
-    </div>
-    <div>
-      <p className="mb-0" style={{ fontWeight: "bold", color: "#FFF" }}>gsdfgsdfgsgds</p>
-      <p className="mb-0" style={{ fontSize: "12px", color: "#AAA" }}>fgsdfg</p>
-    </div>
-  </div>
-  {search === "null" || search === undefined ? (
-  <Link
-    to="#"
-    style={{
-      textAlign: "center",
-      marginLeft: 5,
-      color: "#FFD700",
-      fontWeight: "bold",
-      cursor: "pointer"
-    }}
-  >
-    Xem tất cả kết quả
-  </Link>
-) : (
-  <Link
-    to={`/tim-kiem/${search}`}
-    style={{
-      textAlign: "center",
-      marginLeft: 5,
-      color: "#FFD700",
-      fontWeight: "bold",
-      cursor: "pointer"
-    }}
-  >
-    Xem tất cả kết quả
-  </Link>
-)}
-
-</div>
-
+                <div className="d-flex align-items-center" style={{ position: "relative", width: 450 }}>
+                  <input
+                    type="text"
+                    className="form-control text-white"
+                    style={{
+                      backgroundColor: "#27272A",
+                      width: "100%",
+                      height: 50,
+                      border: "1px solid gray",
+                      borderRadius: 8,
+                      paddingLeft: 10,
+                    }}
+                    placeholder="Ví dụ: tên phim, tên diễn viên,..."
+                    onChange={(e) => setsearch(e.target.value)}
+                  />
+                  <CiSearch
+                    className="position-absolute"
+                    style={{
+                      right: 10,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      color: 'white',
+                      fontSize: 30,
+                    }}
+                    onClick={()=>handlesearch()}
+                  />
+                </div>
+                {filteredData.length > 0 && (
+                  <div className="data_search">
+                    {filteredData.map((item, index) => (
+                      <div key={index} className="data_search_card d-flex align-items-center mb-2 p-2" style={{ backgroundColor: "#2C2C2C", borderRadius: "8px" }}>
+                        <div className="me-2">
+                          <img style={{ width: 40, borderRadius: "4px" }} src={item.hinhanh} alt="search result"/>
+                        </div>
+                        <div>
+                          <Link to={`/${item.title}`} className="mb-0" style={{ fontWeight: "bold", color: "#FFF" }}>{item.title}</Link>
+                          <p className="mb-0" style={{ fontSize: "12px", color: "#AAA" }}>{item.nameenglish}</p>
+                        </div>
+                      </div>
+                    ))}
+                    <Link
+                      to={`/tim-kiem/${search}`}
+                      style={{
+                        textAlign: "center",
+                        marginLeft: 5,
+                        color: "#FFD700",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Xem tất cả kết quả
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
             <div className="d-flex align-items-center">
