@@ -26,6 +26,7 @@ export default function HeaderCompoment() {
               .filter(item => item.title && item.title.toLowerCase().includes(search.toLowerCase()))
               .slice(0, 5);
             setFilteredData(filter_search);
+            setdata(response.data)
           } catch (error) {
             console.log(error);
           }
@@ -55,16 +56,20 @@ export default function HeaderCompoment() {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("id");
     setIsLoggedIn(false);
   };
 
-const handlesearch = () => {
-  const filter_search = data.filter(item => item.title && item.title.toLowerCase().includes(search.toLowerCase()))
-      navigate(`/tim-kiem/${search}`, { state: { data: filter_search } });
+  const handlesearch = () => {
+    const filter_search = data.filter(item => 
+      item.title && item.title.toLowerCase().includes(search.toLowerCase())
+    );
+    navigate(`/tim-kiem/${search}`, { state: { data_tk: filter_search } });
+  };
   
-}
-
+ 
   const data_theloai = [
     { theloai: "Hành Động", to: "/the-loai/hanh-dong" },
     { theloai: "Cổ Trang", to: "/the-loai/co-trang" },
@@ -175,7 +180,7 @@ const handlesearch = () => {
                       color: 'white',
                       fontSize: 30,
                     }}
-                    onClick={()=>handlesearch()}
+                    onClick={(e)=>handlesearch(e)}
                   />
                 </div>
                 {filteredData.length > 0 && (
@@ -191,8 +196,8 @@ const handlesearch = () => {
                         </div>
                       </div>
                     ))}
-                    <Link
-                      to={`/tim-kiem/${search}`}
+                    <p 
+                      // to={`/tim-kiem/${search}`}
                       style={{
                         textAlign: "center",
                         marginLeft: 5,
@@ -200,14 +205,48 @@ const handlesearch = () => {
                         fontWeight: "bold",
                         cursor: "pointer",
                       }}
+                    onClick={(e)=>handlesearch(e)}
+
                     >
                       Xem tất cả kết quả
-                    </Link>
+                    </p>
                   </div>
                 )}
               </div>
             </div>
-            <div className="d-flex align-items-center">
+            
+          </div>
+          <Nav className="ms-auto">
+          <NavDropdown title="Thể Loại" id="basic-nav-dropdown" className="multi-column-dropdown">
+              <div className="d-flex flex-wrap" style={{ width: '300px' }}>
+                {data_theloai.map((item, index) => (
+                  <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
+                    {item.theloai}
+                  </NavDropdown.Item>
+                ))}
+              </div>
+            </NavDropdown>
+            <NavDropdown title="Quốc Gia" id="basic-nav-dropdown" >
+            <div className="d-flex flex-wrap" style={{ width: '300px' }}>
+              {data_quocgia.map((item, index) => (
+                <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
+                  {item.quocgia}
+                </NavDropdown.Item>
+              ))}
+              </div>
+            </NavDropdown>
+            <NavDropdown title="Danh Mục" id="basic-nav-dropdown" >
+              {data_danhmuc.map((item, index) => (
+                <NavDropdown.Item as={Link} to={item.to} key={index}>
+                  {item.danhmuc}
+                </NavDropdown.Item>
+              ))}
+            </NavDropdown>
+          </Nav>
+
+          
+        </Navbar.Collapse>
+        <div className="d-flex align-items-center" style={{marginLeft:25}}>
             {isLoggedIn ? (
               <div className="d-flex align-items-center">
                 <div 
@@ -249,35 +288,6 @@ const handlesearch = () => {
               </div>
             )}
           </div>
-          </div>
-          <Nav className="ms-auto">
-          <NavDropdown title="Thể Loại" id="basic-nav-dropdown" className="multi-column-dropdown">
-              <div className="d-flex flex-wrap" style={{ width: '300px' }}>
-                {data_theloai.map((item, index) => (
-                  <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
-                    {item.theloai}
-                  </NavDropdown.Item>
-                ))}
-              </div>
-            </NavDropdown>
-            <NavDropdown title="Quốc Gia" id="basic-nav-dropdown" >
-            <div className="d-flex flex-wrap" style={{ width: '300px' }}>
-              {data_quocgia.map((item, index) => (
-                <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
-                  {item.quocgia}
-                </NavDropdown.Item>
-              ))}
-              </div>
-            </NavDropdown>
-            <NavDropdown title="Danh Mục" id="basic-nav-dropdown" >
-              {data_danhmuc.map((item, index) => (
-                <NavDropdown.Item as={Link} to={item.to} key={index}>
-                  {item.danhmuc}
-                </NavDropdown.Item>
-              ))}
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
