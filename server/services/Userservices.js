@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User,role_user,roles } = require('../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
@@ -65,6 +65,11 @@ const Serviceregister = async (email, name, password) => {
         name,
         password: hashedPassword
       });
+      const userRole = await roles.findOne({ where: { name: 'user' } });
+      if (userRole) {
+        await role_user.create({ userid: newUser.id, roleid: userRole.id });
+      }
+
       return { success: true, user: newUser };
     } else {
       return { success: false, message: 'Email already exists' };

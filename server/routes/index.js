@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('./product');
 const Admin = require('./admin');
-const Crawlphimhanhdong = require('../controller/crawl/Crawlphimhanhdong');
+const Crawlphim = require('../controller/crawl/Crawlphimcontroller');
 const Usercontroller = require('../controller/Usercontroller');
 const ErrorHandler = require('../middleware/Errorhandle');
 
@@ -10,10 +10,11 @@ const initRoutes = (app) => {
   // Đảm bảo middleware session được áp dụng trước các route
   app.use('/product', Product);
   app.use('/admin', Admin);
+  // app.use('/crawl', Crawlphim);
   app.post('/dang-nhap', Usercontroller.Login);
   app.post('/dang-ky', Usercontroller.Register);
   app.post('/refresh_token', Usercontroller.Refreshtoken);
-  app.get('/crawlphimhanhdong', Crawlphimhanhdong.crawlphimhanhdong);
+  app.post('/crawl', Crawlphim.Crawlphim);
 
   // Use router
   app.use(router);

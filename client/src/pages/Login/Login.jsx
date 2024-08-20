@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import "./Style.scss";
 import { ServiceUserlogin } from "../../services/Users";
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -68,13 +69,14 @@ export default function Login() {
                 </label>
               </div>
               <div className="forgot-password">
-                <a href="#">Quên mật khẩu</a>
+                <a href="#">Quên mật khẩu ? </a> <Link to='/dang-ky'> Đăng kí tài khoản mới</Link>
               </div>
             </div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <button type="button" onClick={handleLogin} className="submit-btn">
               Đăng nhập
             </button>
+         
           </form>
         </div>
       </div>

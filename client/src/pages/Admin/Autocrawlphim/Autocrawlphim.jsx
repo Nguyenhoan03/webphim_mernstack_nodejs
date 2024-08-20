@@ -3,10 +3,10 @@ import Leftadmincompoment from '../../../compoment/AdminCompoment/Leftadmincompo
 import Right_navbarcompoment from '../../../compoment/AdminCompoment/Right_navbarcompoment/Right_navbarcompoment';
 import { MdShoppingCart, MdAttachMoney, MdOutlineShoppingBag } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
-// import "./Dashboard.scss"
-export default function Authcrawlphim() {
-   
+import axios from 'axios';
+import "./Autocrawlphim.scss";
 
+export default function Authcrawlphim() {
     const StatusCard = ({ icon, count, title }) => {
         return (
             <div className="status-card">
@@ -19,6 +19,28 @@ export default function Authcrawlphim() {
                 </div>
             </div>
         );
+    };
+
+    const categories = [
+        'Hành Động', 'Cổ Trang', 'Chiến Tranh', 'Viễn Tưởng', 'Kinh Dị',
+        'Tài Liệu', 'Bí Ẩn', 'Phim 18+', 'Tình Cảm', 'Tâm Lý',
+        'Thể Thao', 'Phiêu Lưu', 'Âm Nhạc', 'Gia Đình', 'Học Đường',
+        'Hài Hước', 'Hình Sự', 'Võ Thuật', 'Khoa học', 'Thần Thoại',
+        'Chính Kịch', 'Kinh Điển', 'Hoạt Hình', 'Phim Bộ', 'Phim Lẻ', 'Phim Shows', 'Phim Sắp Chiếu'
+    ];
+
+    const handleLinkClick = async (category) => {
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/crawl`, { category });
+
+            if (response.status === 200) {
+                window.location.reload();
+            } else {
+                console.error('Failed to trigger crawl:', response.status);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -43,7 +65,17 @@ export default function Authcrawlphim() {
                             <StatusCard icon={<MdOutlineShoppingBag />} count="2,001" title="Daily Visits" />
                         </div>
                     </div>
-                   
+                    <div className="category-buttons">
+                        {categories.map((category, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleLinkClick(category)}
+                                className="category-button"
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

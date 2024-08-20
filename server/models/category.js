@@ -48,7 +48,11 @@ module.exports = (sequelize, DataTypes) => {
       'Thần Thoại': 20,
       'Chính Kịch': 21,
       'Kinh Điển': 22,
-      'Hoạt Hình': 23
+      'Hoạt Hình': 23,
+      'Phim Bộ': 24,
+      'Phim Lẻ': 25,
+      'Phim Shows': 26,
+      'Phim Sắp Chiếu': 27,
     };
 
     return categoryMapping[categoryName] || null;

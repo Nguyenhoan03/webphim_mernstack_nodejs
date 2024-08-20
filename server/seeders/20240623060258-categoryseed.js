@@ -9,7 +9,7 @@ module.exports = {
       'Tài Liệu', 'Bí Ẩn', 'Phim 18+', 'Tình Cảm', 'Tâm Lý',
       'Thể Thao', 'Phiêu Lưu', 'Âm Nhạc', 'Gia Đình', 'Học Đường',
       'Hài Hước', 'Hình Sự', 'Võ Thuật', 'Khoa học', 'Thần Thoại',
-      'Chính Kịch', 'Kinh Điển','Hoạt Hình'
+      'Chính Kịch', 'Kinh Điển','Hoạt Hình','Phim Bộ','Phim Lẻ','Phim Shows','Phim Sắp Chiếu'
     ];
 
    
