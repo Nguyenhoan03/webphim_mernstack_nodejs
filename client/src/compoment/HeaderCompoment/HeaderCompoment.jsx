@@ -3,16 +3,50 @@ import "./Styles.scss";
 import { CiSearch, CiLogin, CiBookmark } from "react-icons/ci";
 import { RxAvatar } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import { LuChevronDown } from "react-icons/lu";
 import { useState } from "react";
-import { FaUser } from "react-icons/fa6";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function HeaderCompoment() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate(); 
   const token = sessionStorage.getItem("token");
   const name = sessionStorage.getItem("name");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [data, setdata] = useState([]);
+  const [search,setsearch] = useState();
+  const [filteredData, setFilteredData] = useState([]);
+
+    useEffect(() => {
+      if (search) {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/product`);
+            const filter_search = response.data
+              .filter(item => item.title && item.title.toLowerCase().includes(search.toLowerCase()))
+              .slice(0, 5);
+            setFilteredData(filter_search);
+            setdata(response.data)
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchData();
+      }
+    }, [search, setFilteredData]);
+ 
+  
+  useEffect(() => {
+    if (typeof search === "string" && search.trim() !== "") {
+      const filter_search = data
+        .filter(item => item.title && item.title.toLowerCase().includes(search.toLowerCase()))
+        .slice(0, 5); // Limit to 5 items
+  
+      setFilteredData(filter_search);
+    } else {
+      setFilteredData([]);
+    }
+  }, [search, data, navigate]);
 
   useEffect(() => {
     if (token && name) {
@@ -22,14 +56,20 @@ export default function HeaderCompoment() {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("id");
     setIsLoggedIn(false);
   };
 
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
+  const handlesearch = () => {
+    const filter_search = data.filter(item => 
+      item.title && item.title.toLowerCase().includes(search.toLowerCase())
+    );
+    navigate(`/tim-kiem/${search}`, { state: { data_tk: filter_search } });
   };
-
+  
+ 
   const data_theloai = [
     { theloai: "Hành Động", to: "/the-loai/hanh-dong" },
     { theloai: "Cổ Trang", to: "/the-loai/co-trang" },
@@ -114,27 +154,99 @@ export default function HeaderCompoment() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <div className="d-flex align-items-center w-100 justify-content-between">
-            <div className="header_search w-100">
+          <div className="header_search w-100">
               <div className="search_container">
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center" style={{ position: "relative", width: 450 }}>
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control text-white"
                     style={{
                       backgroundColor: "#27272A",
-                      width: 450,
+                      width: "100%",
                       height: 50,
                       border: "1px solid gray",
                       borderRadius: 8,
                       paddingLeft: 10,
                     }}
                     placeholder="Ví dụ: tên phim, tên diễn viên,..."
+                    onChange={(e) => setsearch(e.target.value)}
                   />
-                  <CiSearch className="ms-2" />
+                  <CiSearch
+                    className="position-absolute"
+                    style={{
+                      right: 10,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      color: 'white',
+                      fontSize: 30,
+                    }}
+                    onClick={(e)=>handlesearch(e)}
+                  />
                 </div>
+                {filteredData.length > 0 && (
+                  <div className="data_search">
+                    {filteredData.map((item, index) => (
+                      <div key={index} className="data_search_card d-flex align-items-center mb-2 p-2" style={{ backgroundColor: "#2C2C2C", borderRadius: "8px" }}>
+                        <div className="me-2">
+                          <img style={{ width: 40, borderRadius: "4px" }} src={item.hinhanh} alt="search result"/>
+                        </div>
+                        <div>
+                          <Link to={`/${item.title}`} className="mb-0" style={{ fontWeight: "bold", color: "#FFF" }}>{item.title}</Link>
+                          <p className="mb-0" style={{ fontSize: "12px", color: "#AAA" }}>{item.nameenglish}</p>
+                        </div>
+                      </div>
+                    ))}
+                    <p 
+                      // to={`/tim-kiem/${search}`}
+                      style={{
+                        textAlign: "center",
+                        marginLeft: 5,
+                        color: "#FFD700",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                      }}
+                    onClick={(e)=>handlesearch(e)}
+
+                    >
+                      Xem tất cả kết quả
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
-            <div className="d-flex align-items-center">
+            
+          </div>
+          <Nav className="ms-auto">
+          <NavDropdown title="Thể Loại" id="basic-nav-dropdown" className="multi-column-dropdown">
+              <div className="d-flex flex-wrap" style={{ width: '300px' }}>
+                {data_theloai.map((item, index) => (
+                  <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
+                    {item.theloai}
+                  </NavDropdown.Item>
+                ))}
+              </div>
+            </NavDropdown>
+            <NavDropdown title="Quốc Gia" id="basic-nav-dropdown" >
+            <div className="d-flex flex-wrap" style={{ width: '300px' }}>
+              {data_quocgia.map((item, index) => (
+                <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
+                  {item.quocgia}
+                </NavDropdown.Item>
+              ))}
+              </div>
+            </NavDropdown>
+            <NavDropdown title="Danh Mục" id="basic-nav-dropdown" >
+              {data_danhmuc.map((item, index) => (
+                <NavDropdown.Item as={Link} to={item.to} key={index}>
+                  {item.danhmuc}
+                </NavDropdown.Item>
+              ))}
+            </NavDropdown>
+          </Nav>
+
+          
+        </Navbar.Collapse>
+        <div className="d-flex align-items-center" style={{marginLeft:25}}>
             {isLoggedIn ? (
               <div className="d-flex align-items-center">
                 <div 
@@ -176,35 +288,6 @@ export default function HeaderCompoment() {
               </div>
             )}
           </div>
-          </div>
-          <Nav className="ms-auto">
-          <NavDropdown title="Thể Loại" id="basic-nav-dropdown" className="multi-column-dropdown">
-              <div className="d-flex flex-wrap" style={{ width: '300px' }}>
-                {data_theloai.map((item, index) => (
-                  <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
-                    {item.theloai}
-                  </NavDropdown.Item>
-                ))}
-              </div>
-            </NavDropdown>
-            <NavDropdown title="Quốc Gia" id="basic-nav-dropdown" >
-            <div className="d-flex flex-wrap" style={{ width: '300px' }}>
-              {data_quocgia.map((item, index) => (
-                <NavDropdown.Item as={Link} to={item.to} key={index} style={{ width: '50%' }}>
-                  {item.quocgia}
-                </NavDropdown.Item>
-              ))}
-              </div>
-            </NavDropdown>
-            <NavDropdown title="Danh Mục" id="basic-nav-dropdown" >
-              {data_danhmuc.map((item, index) => (
-                <NavDropdown.Item as={Link} to={item.to} key={index}>
-                  {item.danhmuc}
-                </NavDropdown.Item>
-              ))}
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

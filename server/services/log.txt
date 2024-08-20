@@ -16,3 +16,15 @@ Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 
 Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
 Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
 Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeDatabaseError: read ECONNRESET
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306

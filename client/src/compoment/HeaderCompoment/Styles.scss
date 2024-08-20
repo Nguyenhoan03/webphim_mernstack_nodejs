@@ -46,6 +46,11 @@
      color:white;
 
       }
+      .form-control::placeholder{
+        color: #FFD700; /* Light yellow color */
+        opacity: 1;
+      }
+
 
 }
 .search-input::placeholder {
@@ -228,4 +233,15 @@ li{
       margin-right: 5px;
     }
   }
+}
+.data_search {
+  position: absolute;
+  top: 100%; 
+  width: 30%;
+  background-color: #1E1E1E;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  padding: 10px;
+  // display: none;
 }

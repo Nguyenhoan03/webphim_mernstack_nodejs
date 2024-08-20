@@ -4,7 +4,7 @@ import Detailpage from '../pages/Detailpage/Detailpage';
 import Xemphim from '../pages/Xemphim/Xemphim';
 import Phimbo from '../pages/Theloai/Phimbo/Phimbo';
 import Vientuong from '../pages/Theloai/Vientuong/Vientuong';
-
+import Search from '../pages/Search/Search'
 import Plus18 from '../pages/Theloai/18+/Plus18';
 import Amnhac from '../pages/Theloai/amnhac/Amnhac';
 import Chientranh from '../pages/Theloai/chientranh/Chientranh';
@@ -68,8 +68,32 @@ import Namphi from '../pages/quocgia/Namphi';
 import Ukraina from '../pages/quocgia/Ukraina';
 import Arapxeut from '../pages/quocgia/Arapxeut';
 
+import Dashboard from '../pages/Admin/Dashboard/Dashboard';
+import Users from '../pages/Admin/Users/Users';
+import Autocrawlphim from '../pages/Admin/Autocrawlphim/Autocrawlphim';
+
 
 export const routes = [
+//admin
+{
+  path: '/admin/dashboard',
+  page: Dashboard,
+  isShowHeader: false,
+},
+{
+  path: '/admin/users',
+  page: Users,
+  isShowHeader: false,
+},
+{
+  path: '/admin/auto_crawlphim',
+  page: Autocrawlphim,
+  isShowHeader: false,
+},
+
+
+//
+
   {
     path: '/',
     page: Homepage,
@@ -78,6 +102,11 @@ export const routes = [
   {
     path: '/:title',
     page: Detailpage,
+    isShowHeader: true,
+  },
+  {
+    path: '/tim-kiem/:content_search',
+    page: Search ,
     isShowHeader: true,
   },
   {
@@ -232,6 +261,7 @@ export const routes = [
     page: Vothuat,
     isShowHeader: true,
   },
+ 
 
   //phim theo quốc gia
   { path: '/an-do', page: Ando, isShowHeader: true },

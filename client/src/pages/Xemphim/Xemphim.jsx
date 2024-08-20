@@ -98,7 +98,7 @@ export default function Xemphim() {
         <div className="caption mt-3 d-flex">
           <p><IoIosHome /> Motchill</p>
           <p> &gt; </p>
-          <p> Thể loại phim</p>
+          <p> {datadetail && datadetail.theloai}</p>
           <p> &gt; </p>
           <p style={{ color: 'white' }}> {datafilm.title} - Tập {datafilm.episode}</p>
       
@@ -106,7 +106,7 @@ export default function Xemphim() {
         <div className="row pagexemphim">
           <div className="xemphim_left col-md-9">
             <div className="xemphim" style={{ paddingLeft: 15, position: 'relative' }}>
-            <iframe
+            <iframe 
               id="videoFrame"
               src={datafilm.linkfilm}
               frameBorder="0"
@@ -155,8 +155,7 @@ export default function Xemphim() {
   {datadetail && datadetail.title} - {datadetail && datadetail.nameenglish} ({datadetail && datadetail.chatluong} - {datadetail && datadetail.ngonngu})
 </h2>
 
-                <div className="">
-                 
+                <div className="">  
                 <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
                 <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
                 <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
@@ -173,15 +172,9 @@ export default function Xemphim() {
                     <p style={{color:'rgb(156 163 175)'}}><span style={{fontWeight:'bold',}}> {datadetail && datadetail.title}</span> {datadetail && datadetail.descripts}</p>
                 </div>
           </div>
-          
-
           <div className="comment">
           <CommentCompoment titlefilm = {title} comments={comment} parent_id={parent_id}/>
           </div>
-
-
-
-
           </div>
           <div className="xemphim_right col-md-3">
             <Homepagebodyright />

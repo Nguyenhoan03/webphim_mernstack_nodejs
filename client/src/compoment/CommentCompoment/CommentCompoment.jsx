@@ -75,6 +75,7 @@ export default function CommentComponent({ comments, titlefilm }) {
                     required
                     value={childcontentcomment}
                     onChange={(e) => setchildcontentcomment(e.target.value)}
+                  
                   ></textarea>
                   <div className="button-container">
                     <button className="reply-button-submit">Reply</button>

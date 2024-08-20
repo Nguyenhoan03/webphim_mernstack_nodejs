@@ -13,7 +13,7 @@ const Servicelogin = async (email, password) => {
     if (!isMatch) {
       return { success: false, message: 'Thông tin đăng nhập không chính xác' };
     }
-    const token = jwt.sign({ id: data.id}, process.env.SECRET, { expiresIn: '30s' });
+    const token = jwt.sign({ id: data.id}, process.env.SECRET, { expiresIn: '30m' });
     const refreshToken = jwt.sign({ id: data.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' }); 
     const name = data.username;
     const id = data.id;
