@@ -1,0 +1,36 @@
+// src/compoment/AdminCompoment/Right_navbarcompoment/Right_navbarcompoment.scss
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #2b3b4d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.navbar input[type="text"] {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    width: 50%;
+    background-color: #3c475c;
+    color: #b8c1d4;
+}
+
+.navbar__icons {
+    display: flex;
+    align-items: center;
+}
+
+.navbar__icons svg {
+    margin-left: 15px;
+    font-size: 20px;
+    color: #b8c1d4;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbar__icons svg:hover {
+    color: #fff; // Thêm hiệu ứng hover
+}
