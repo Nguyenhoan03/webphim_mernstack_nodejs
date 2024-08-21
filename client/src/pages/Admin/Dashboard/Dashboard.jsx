@@ -79,13 +79,13 @@ export default function Dashboard() {
                     <Right_navbarcompoment />
                     <div className="row mt-4">
                         <div className="col-12 col-md-6 col-lg-3 mb-3">
-                            <StatusCard icon={<MdShoppingCart />} count="1,995" title="Total Sales" />
+                            <StatusCard icon={<MdShoppingCart />} count="1,995" title="Tổng số phim" />
                         </div>
                         <div className="col-12 col-md-6 col-lg-3 mb-3">
-                            <StatusCard icon={<MdAttachMoney />} count="$2,632" title="Total Income" />
+                            <StatusCard icon={<MdAttachMoney />} count="$2,632" title="" />
                         </div>
                         <div className="col-12 col-md-6 col-lg-3 mb-3">
-                            <StatusCard icon={<FaUserFriends />} count="1,711" title="Total Orders" />
+                            <StatusCard icon={<FaUserFriends />} count="1,711" title="Tổng số người dùng" />
                         </div>
                         <div className="col-12 col-md-6 col-lg-3 mb-3">
                             <StatusCard icon={<MdOutlineShoppingBag />} count="2,001" title="Daily Visits" />

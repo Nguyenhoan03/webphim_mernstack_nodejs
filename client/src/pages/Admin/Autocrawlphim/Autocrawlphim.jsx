@@ -34,6 +34,7 @@ export default function Authcrawlphim() {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/crawl`, { category });
 
             if (response.status === 200) {
+                alert('bạn đã crawl xong giữ liệu phim ' + category)
                 window.location.reload();
             } else {
                 console.error('Failed to trigger crawl:', response.status);
@@ -65,17 +66,19 @@ export default function Authcrawlphim() {
                             <StatusCard icon={<MdOutlineShoppingBag />} count="2,001" title="Daily Visits" />
                         </div>
                     </div>
+                        <h3 className='text-danger'>Crawl Phim</h3>
                     <div className="category-buttons">
-                        {categories.map((category, index) => (
-                            <button
-                                key={index}
-                                onClick={() => handleLinkClick(category)}
-                                className="category-button"
-                            >
-                                {category}
-                            </button>
-                        ))}
-                    </div>
+                    {categories.map((category, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handleLinkClick(category)}
+                            className="category-button"
+                        >
+                            {category}
+                        </button>
+                    ))}
+                </div>
+
                 </div>
             </div>
         </div>

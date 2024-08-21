@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Homepage from '../pages/Homepage/Homepage';
 import Detailpage from '../pages/Detailpage/Detailpage';
 import Xemphim from '../pages/Xemphim/Xemphim';
@@ -71,10 +71,20 @@ import Arapxeut from '../pages/quocgia/Arapxeut';
 import Dashboard from '../pages/Admin/Dashboard/Dashboard';
 import Users from '../pages/Admin/Users/Users';
 import Autocrawlphim from '../pages/Admin/Autocrawlphim/Autocrawlphim';
-
-
+import Product from '../pages/Admin/Product/Product';
+import Addphim from '../pages/Admin/Product/Addphim/Addphim';
 export const routes = [
 //admin
+{
+  path: '/admin/products',
+  page: Product,
+  isShowHeader: false,
+},
+{
+  path: '/admin/products/add',
+  page: Addphim,
+  isShowHeader: false,
+},
 {
   path: '/admin/dashboard',
   page: Dashboard,
@@ -90,6 +100,7 @@ export const routes = [
   page: Autocrawlphim,
   isShowHeader: false,
 },
+
 
 
 //
