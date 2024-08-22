@@ -25,6 +25,26 @@ const ProductDetail = async (title, id) => {
   }
 };
 
+const Getallproduct =async ()=>{
+    try {
+      const data = axios.get(`${process.env.REACT_APP_API_URL}/product`)
+      if(data){
+        return data;
+      }
+    } catch (error) {
+      throw(error)
+    }
+}
+const Getdetailfilm =async (titlefilm)=>{
+    try {
+      const data = axios.get(`${process.env.REACT_APP_API_URL}/product/getdetail_xemphim/${titlefilm}`)
+      if(data){
+        return data;
+      }
+    } catch (error) {
+      throw(error)
+    }
+}
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -425,10 +445,12 @@ const userchildcomment = async (token, titlefilm, contentcomment, parent_id) => 
 // Existing exports
 export {
   Producthome,
+  Getallproduct,
   ProductDetail,
   userchildcomment,
   usercomment,
-  HandleRating
+  HandleRating,
+  Getdetailfilm
 };
 
 

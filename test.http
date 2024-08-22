@@ -8,5 +8,5 @@
 #     "starselect": 5
 # }
 
-GET http://localhost:5000/product
+GET http://localhost:5000/category
 Content-Type: : application/json

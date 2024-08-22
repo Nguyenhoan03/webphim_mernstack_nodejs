@@ -5,6 +5,7 @@ const Admin = require('./admin');
 const Crawlphim = require('../controller/crawl/Crawlphimcontroller');
 const Usercontroller = require('../controller/Usercontroller');
 const ErrorHandler = require('../middleware/Errorhandle');
+const Categorycontroller = require('../controller/Categorycontroller');
 
 const initRoutes = (app) => {
   // Đảm bảo middleware session được áp dụng trước các route
@@ -15,7 +16,7 @@ const initRoutes = (app) => {
   app.post('/dang-ky', Usercontroller.Register);
   app.post('/refresh_token', Usercontroller.Refreshtoken);
   app.post('/crawl', Crawlphim.Crawlphim);
-
+  app.get('/category',Categorycontroller.getallcatecontroller);
   // Use router
   app.use(router);
   app.get('/error', (req, res, next) => {

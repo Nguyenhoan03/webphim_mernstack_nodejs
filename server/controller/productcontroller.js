@@ -19,6 +19,31 @@ const Product =async (req,res,next ) => {
          next(error);
       }
 }
+const Product_create_xemphim = async (req, res, next) => {
+  try {
+      const { selectedTitle, episode, linkfilm } = req.body;
+      const result = await Productservices.Productservices_create_xemphim(selectedTitle, episode, linkfilm);
+      
+      if (result.success) {
+          return res.status(200).json({ message: 'Tập phim mới đã được thêm thành công' });
+      } else {
+          return res.status(400).json({ message: 'Không thể thêm tập phim, vui lòng thử lại.' });
+      }
+  } catch (error) {
+      next(error);
+  }
+};
+
+const Product_Getdetail_xemphim =async (req,res,next)=>{
+  try {
+    const titlefilm = req.params.titlefilm;
+    console.log("firsttitlefilmProduct_Getdetail_xemphim",titlefilm);
+    const data = await Productservices.Productservices_Getdetail_xemphim(titlefilm);
+    return res.json(data);
+  } catch (error) {
+    next(error);
+  }
+}
 
 const getProductByCategory = async (req, res, categoryId) => {
   try {
@@ -42,7 +67,7 @@ const Product_Detailphim = async (req, res, next) => {
     const titlefilm = req.params.detailfilm;
     const userId = req.headers.userid; 
 
-    console.log('Received userId:', userId); 
+    console.log('Received userId:', userId);  
 
     const data = await Productservices.detailfilm(titlefilm, userId);
 
@@ -370,5 +395,7 @@ module.exports = {
   Product_quocgia_arapxeut,
   Product_quocgia_trungquoc,
   // Product_quocgia_quocgiakhac
-  Product
+  Product,
+  Product_Getdetail_xemphim,
+  Product_create_xemphim
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdDashboard } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { SiProtools } from "react-icons/si";
@@ -11,40 +11,56 @@ const Leftadmincompoment = () => {
   const location = useLocation();
   const url = location.pathname;
   const sliceurl = url.replace('/admin/', '');
+  const [isSubMenuVisible, setIsSubMenuVisible] = useState(false);
+
+  const toggleSubMenu = () => {
+    setIsSubMenuVisible(!isSubMenuVisible);
+  };
 
   return (
-    <div className="Leftadmincompoment bg-white">
+    <div className="Leftadmincompoment">
       <div className="sidebar__logo">
         <img src="https://png.pngtree.com/template/20200107/ourmid/pngtree-movie-logo-design-image_345319.jpg" alt="logo" />
       </div>
       <ul className="sidebar__menu">
-        <li style={{ backgroundColor: sliceurl === 'dashboard' ? '#3c475c' : '' }}>
-          <Link to="/admin/dashboard" style={{ color: sliceurl === 'dashboard' ? '#fff' : '#000' }}>
+        <li className={sliceurl === 'dashboard' ? 'active' : ''}>
+          <Link style={{color:'white'}} to="/admin/dashboard">
             <MdDashboard /> Dashboard
           </Link>
         </li>
-        <li style={{ backgroundColor: sliceurl === 'users' ? '#3c475c' : '' }}>
-          <Link to="/admin/users" style={{ color: sliceurl === 'users' ? '#fff' : '#000' }}>
+        <li className={sliceurl === 'users' ? 'active' : ''}>
+          <Link style={{color:'white'}} to="/admin/users">
             <FaUsers /> Users
           </Link>
         </li>
-        <li style={{ backgroundColor: sliceurl === 'products' ? '#3c475c' : '' }}>
-          <Link to="/admin/products" style={{ color: sliceurl === 'products' ? '#fff' : '#000' }}>
+        <li className={sliceurl === 'products' ? 'active' : ''} style={{ position: 'relative' }}>
+          <div onClick={toggleSubMenu} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Link to="/admin/products" style={{color:'white' }}>
             <SiProtools /> Products
           </Link>
+            <span style={{paddingLeft:10}}>{isSubMenuVisible ? '▲' : '▼'}</span>
+          </div>
+          <ul className={`sidebar__submenu ${isSubMenuVisible ? 'visible' : ''}`}>
+            <li>
+              <Link to="/admin/products/add_phim">Thêm phim mới</Link>
+            </li>
+            <li>
+              <Link to="/admin/products/add_episode">Thêm tập phim</Link>
+            </li>
+          </ul>
         </li>
-        <li style={{ backgroundColor: sliceurl === 'analytics' ? '#3c475c' : '' }}>
-          <Link to="/admin/analytics" style={{ color: sliceurl === 'analytics' ? '#fff' : '#000' }}>
+        <li className={sliceurl === 'analytics' ? 'active' : ''}>
+          <Link style={{color:'white'}} to="/admin/analytics">
             <GrAnalytics /> Analytics
           </Link>
         </li>
-        <li style={{ backgroundColor: sliceurl === 'auto_crawlphim' ? '#3c475c' : '' }}>
-          <Link to="/admin/auto_crawlphim" style={{ color: sliceurl === 'auto_crawlphim' ? '#fff' : '#000' }}>
+        <li className={sliceurl === 'auto_crawlphim' ? 'active' : ''}>
+          <Link style={{color:'white'}} to="/admin/auto_crawlphim">
             <GrAnalytics /> Auto crawl phim
           </Link>
         </li>
-        <li style={{ backgroundColor: sliceurl === 'settings' ? '#3c475c' : '' }}>
-          <Link to="/admin/settings" style={{ color: sliceurl === 'settings' ? '#fff' : '#000' }}>
+        <li className={sliceurl === 'settings' ? 'active' : ''}>
+          <Link style={{color:'white'}} to="/admin/settings">
             <IoSettings /> Settings
           </Link>
         </li>

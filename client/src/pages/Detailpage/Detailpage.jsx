@@ -10,7 +10,6 @@ import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import Slickslider from '../../compoment/Slickslider/Slickslider';
 import { HomeContext } from '../../store/HomeContext';
-import axios from 'axios';
 import { ProductDetail } from '../../services/Productservices';
 import { Helmet } from 'react-helmet';
 import { HandleRating } from '../../services/Productservices';

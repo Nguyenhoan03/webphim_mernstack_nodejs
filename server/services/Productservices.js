@@ -1,4 +1,4 @@
-const { Product , Linkfilm,Comment,User,Rating, sequelize} = require('../models');
+const { Product,Linkfilm ,Comment,User,Rating, sequelize} = require('../models');
 const { Op, where ,fn,col,literal } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
@@ -7,6 +7,7 @@ const { body, validationResult } = require('express-validator');
 const CheckNull = require ('../middleware/Validate/Checknull');
 const { title } = require('process');
 const { group } = require('console');
+const { xemphim } = require('./Xemphimservices');
 
 
 // Hàm ghi log vào file
@@ -103,15 +104,17 @@ const home = async () => {
   }
 };
 
-  const Productservice = async()=>{
+const Productservice = async () => {
   try {
-    const data =await Product.findAll();
-    return data
+    const data = await Product.findAll({
+      order: [['id', 'DESC']], 
+    });
+    return data;
   } catch (error) {
-    throw(error)
+    throw(error);
   }  
-
 }
+
 
 //file services
 const getProductByCategory = async (categoryId) => {
@@ -199,6 +202,34 @@ const detailfilm = async (titlefilm, userId) => {
   } catch (error) {
     console.error('Error while fetching film detail:', error);
     throw error;
+  }
+};
+
+const Productservices_Getdetail_xemphim =async (titlefilm)=>{
+  try {
+     const data = await Linkfilm.findAll({
+      where:{title: titlefilm}
+     })
+     console.log("firstdataProductservices_Getdetail_xemphim",data);
+     if(data){
+      return data;
+     }
+  } catch (error) {
+    throw(error)
+  }
+}
+
+const Productservices_create_xemphim = async (selectedTitle, episode, linkfilm) => {
+  try {
+      const newFilm = await Linkfilm.create({ title:selectedTitle, episode, linkfilm });
+
+      if (newFilm) {
+          return { success: true };
+      } else {
+          return { success: false };
+      }
+  } catch (error) {
+      throw error;
   }
 };
 
@@ -343,4 +374,4 @@ const post_ratingstar = async (titlefilm, id, starselect) => {
 
 
 
-module.exports = { home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice};
+module.exports = { home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice,Productservices_Getdetail_xemphim,Productservices_create_xemphim};

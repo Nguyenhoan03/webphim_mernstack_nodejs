@@ -73,6 +73,8 @@ import Users from '../pages/Admin/Users/Users';
 import Autocrawlphim from '../pages/Admin/Autocrawlphim/Autocrawlphim';
 import Product from '../pages/Admin/Product/Product';
 import Addphim from '../pages/Admin/Product/Addphim/Addphim';
+import Addepisode from '../pages/Admin/Product/Addepisode/Addepisode';
+
 export const routes = [
 //admin
 {
@@ -81,8 +83,13 @@ export const routes = [
   isShowHeader: false,
 },
 {
-  path: '/admin/products/add',
+  path: '/admin/products/add_phim',
   page: Addphim,
+  isShowHeader: false,
+},
+{
+  path: '/admin/products/add_episode',
+  page: Addepisode,
   isShowHeader: false,
 },
 {

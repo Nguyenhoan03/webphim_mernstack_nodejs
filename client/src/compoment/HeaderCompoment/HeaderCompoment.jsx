@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import axios from "axios";
+import {Getallproduct} from "../../services/Productservices"
 import { useNavigate } from "react-router-dom";
 export default function HeaderCompoment() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,11 +18,12 @@ export default function HeaderCompoment() {
   const [search,setsearch] = useState();
   const [filteredData, setFilteredData] = useState([]);
 
+
     useEffect(() => {
       if (search) {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/product`);
+            const response = await Getallproduct();
             const filter_search = response.data
               .filter(item => item.title && item.title.toLowerCase().includes(search.toLowerCase()))
               .slice(0, 5);
