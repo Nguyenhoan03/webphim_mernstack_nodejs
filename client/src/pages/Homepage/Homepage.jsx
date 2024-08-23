@@ -74,9 +74,10 @@ export default function Homepage() {
   return (
     <div className='homepage'>
       <div className="container">
-        <div className="" style={{ margin: 'auto', marginLeft: '28%' }}>
-          <img style={{ justifyContent: 'center', alignContent: 'center' }} src="https://motchillhot.net/banner/xembong88-607x75.gif" alt="" />
-        </div>
+      <div className="img_ad">
+    <img src="https://motchillhot.net/banner/xembong88-607x75.gif" alt="" />
+</div>
+
         <div className="homepagebody">
           <div className="phimhot" style={{backgroundColor:'black'}}>
             <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>PHIM HOT</h2>

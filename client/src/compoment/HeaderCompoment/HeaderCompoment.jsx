@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Styles.scss";
 import { CiSearch, CiLogin, CiBookmark } from "react-icons/ci";
-import { RxAvatar, RxHamburgerMenu } from "react-icons/rx";
+import { RxAvatar } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import { Getallproduct } from "../../services/Productservices";
+import { IoMdMenu } from "react-icons/io";
 
 export default function HeaderComponent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,7 +13,7 @@ export default function HeaderComponent() {
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [showMobileMenu, setShowMobileMenu] = useState(false); // State for mobile menu
+  const [tabMenuVisible, setTabMenuVisible] = useState(false);
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
   const name = sessionStorage.getItem("name");
@@ -35,7 +36,6 @@ export default function HeaderComponent() {
         console.error(error);
       }
     };
-
     fetchData();
   }, [search]);
 
@@ -55,6 +55,10 @@ export default function HeaderComponent() {
 
   const handleSearch = () => {
     navigate(`/tim-kiem/${search}`, { state: { data_tk: filteredData } });
+  };
+
+  const handleTabMenuToggle = () => {
+    setTabMenuVisible(!tabMenuVisible);
   };
 
   const data_theloai = [
@@ -128,57 +132,6 @@ export default function HeaderComponent() {
     { danhmuc: "Phim Vietsub", to: "/" },
   ];
 
-  const HeaderNav = ({ data_theloai, data_quocgia, data_danhmuc }) => (
-    <nav className={`header-nav ${showMobileMenu ? 'show' : ''}`}>
-      <div className="nav-dropdown">
-        <button
-          className="dropdown-toggle"
-          onClick={() => setActiveDropdown(activeDropdown === 'theloai' ? null : 'theloai')}
-        >
-          Thể Loại
-        </button>
-        <div className={`dropdown-menu ${activeDropdown === 'theloai' ? 'show' : ''}`}>
-          {data_theloai.map((item, index) => (
-            <Link to={item.to} key={index} className="dropdown-item">
-              {item.theloai}
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className="nav-dropdown">
-        <button
-          className="dropdown-toggle"
-          onClick={() => setActiveDropdown(activeDropdown === 'quocgia' ? null : 'quocgia')}
-        >
-          Quốc Gia
-        </button>
-        <div className={`dropdown-menu ${activeDropdown === 'quocgia' ? 'show' : ''}`}>
-          {data_quocgia.map((item, index) => (
-            <Link to={item.to} key={index} className="dropdown-item">
-              {item.quocgia}
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className="nav-dropdown">
-        <button
-          className="dropdown-toggle"
-          onClick={() => setActiveDropdown(activeDropdown === 'danhmuc' ? null : 'danhmuc')}
-        >
-          Danh Mục
-        </button>
-        <div className={`dropdown-menu ${activeDropdown === 'danhmuc' ? 'show' : ''}`}>
-          {data_danhmuc.map((item, index) => (
-            <Link to={item.to} key={index} className="dropdown-item">
-              {item.danhmuc}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </nav>
-  );
 
   return (
     <header className="header-component">
@@ -221,37 +174,85 @@ export default function HeaderComponent() {
             )}
           </div>
         </div>
-        <HeaderNav data_theloai={data_theloai} data_quocgia={data_quocgia} data_danhmuc={data_danhmuc} />
-        <div className="header-icons">
-          {isLoggedIn ? (
-            <div
-              className="user-menu"
-              onMouseEnter={() => setShowDropdown(true)}
-              onMouseLeave={() => setShowDropdown(false)}
+      
+        <nav className={`header-nav ${tabMenuVisible ? 'visible' : 'hidden'}`}>
+          <div className="nav-dropdown">
+            <button
+              className="dropdown-toggle"
+              onClick={() => setActiveDropdown(activeDropdown === 'theloai' ? null : 'theloai')}
             >
-              <div className="user-info">
-                <RxAvatar size={28} className="avatar" />
-                <span className="username">{name}</span>
-              </div>
-              {showDropdown && (
-                <ul className="dropdown-menu">
-                  <li><Link to="/account" className="dropdown-item">Thông tin tài khoản</Link></li>
-                  <li><Link to="/" onClick={handleLogout} className="dropdown-item">Đăng xuất</Link></li>
-                </ul>
-              )}
+              Thể Loại
+            </button>
+            <div className={`dropdown-menu ${activeDropdown === 'theloai' ? 'show' : ''}`}>
+              {data_theloai.map((item, index) => (
+                <Link to={item.to} key={index} className="dropdown-item">
+                  {item.theloai}
+                </Link>
+              ))}
             </div>
-          ) : (
-            <Link to="/dang-nhap" className="login-link">
-              Đăng Nhập <CiLogin size={28} className="login-icon" />
-            </Link>
-          )}
-          {isLoggedIn && <CiBookmark size={28} className="bookmark-icon" />}
+          </div>
+
+          <div className="nav-dropdown">
+            <button
+              className="dropdown-toggle"
+              onClick={() => setActiveDropdown(activeDropdown === 'quocgia' ? null : 'quocgia')}
+            >
+              Quốc Gia
+            </button>
+            <div className={`dropdown-menu ${activeDropdown === 'quocgia' ? 'show' : ''}`}>
+              {data_quocgia.map((item, index) => (
+                <Link to={item.to} key={index} className="dropdown-item">
+                  {item.quocgia}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="nav-dropdown">
+            <button
+              className="dropdown-toggle"
+              onClick={() => setActiveDropdown(activeDropdown === 'danhmuc' ? null : 'danhmuc')}
+            >
+              Danh Mục
+            </button>
+            <div className={`dropdown-menu ${activeDropdown === 'danhmuc' ? 'show' : ''}`}>
+              {data_danhmuc.map((item, index) => (
+                <Link to={item.to} key={index} className="dropdown-item">
+                  {item.danhmuc}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="header-icons">
+            {isLoggedIn ? (
+              <div
+                className="user-menu"
+                onMouseEnter={() => setShowDropdown(true)}
+                onMouseLeave={() => setShowDropdown(false)}
+              >
+                <div className="user-info">
+                  <RxAvatar size={28} className="avatar" />
+                  <span className="username">{name}</span>
+                </div>
+                {showDropdown && (
+                  <ul className="dropdown-menu">
+                    <li><Link to="/account" className="dropdown-item">Thông tin tài khoản</Link></li>
+                    <li><Link to="/" onClick={handleLogout} className="dropdown-item">Đăng xuất</Link></li>
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <Link to="/dang-nhap" className="login-link mx-2">
+                Đăng Nhập <CiLogin size={28} className="login-icon" />
+              </Link>
+            )}
+            {isLoggedIn && <CiBookmark size={28} className="bookmark-icon" />}
+          </div>
+        </nav>
+    
+        <div className="tab_menu" style={{ float: 'right', marginLeft: 15 }}>
+          <IoMdMenu onClick={handleTabMenuToggle} style={{ fontSize: 38, color: 'white' }} />
         </div>
-        <RxHamburgerMenu
-          className="hamburger-icon"
-          size={28}
-          onClick={() => setShowMobileMenu(!showMobileMenu)}
-        />
       </div>
     </header>
   );

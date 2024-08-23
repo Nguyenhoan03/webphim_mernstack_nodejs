@@ -81,6 +81,7 @@ router.get('/product-trung-quoc', productController.Product_quocgia_trungquoc);
 router.get('/getdetail_xemphim/:titlefilm',productController.Product_Getdetail_xemphim);
 router.post('/create_xemphim',productController.Product_create_xemphim);
 router.get('/:detailfilm',productController.Product_Detailphim);
+router.post('/edit_productphim',productController.Product_edit);
 router.get('/:titlefilm/tap-:episode', XemphimController.datafilm);
 
 

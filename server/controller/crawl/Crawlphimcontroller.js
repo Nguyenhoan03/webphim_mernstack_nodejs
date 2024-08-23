@@ -6,7 +6,7 @@ sequelize.sync()
   .then(() => console.log('Database synced'))
   .catch(err => console.error('Could not sync database', err));
 
-const Crawlphim = async (req, res,next) => {
+const Crawlphim = async (req, res, next) => {
   const { category } = req.body;
 
   if (!category) {
@@ -50,22 +50,25 @@ const Crawlphim = async (req, res,next) => {
   if (!categorySlug) {
     return res.status(400).json({ error: 'Invalid category' });
   }
-const baseUrl = ['Hoạt Hình', 'Phim Bộ', 'Phim Lẻ', 'Phim Shows', 'Phim Sắp Chiếu'].includes(category) ? 'https://ophim17.cc/danh-sach' : 'https://ophim17.cc/the-loai';
-    const urls = [
-      `${baseUrl}/${categorySlug}`,
-      `${baseUrl}/${categorySlug}?page=2`,
-      `${baseUrl}/${categorySlug}?page=3`,
-      `${baseUrl}/${categorySlug}?page=4`,
-      `${baseUrl}/${categorySlug}?page=5`,
-    ];
+
+  const baseUrl = ['Hoạt Hình', 'Phim Bộ', 'Phim Lẻ', 'Phim Shows', 'Phim Sắp Chiếu'].includes(category) 
+    ? 'https://ophim17.cc/danh-sach' 
+    : 'https://ophim17.cc/the-loai';
   
+  const urls = [
+    `${baseUrl}/${categorySlug}`,
+    `${baseUrl}/${categorySlug}?page=2`,
+    `${baseUrl}/${categorySlug}?page=3`,
+    `${baseUrl}/${categorySlug}?page=4`,
+    `${baseUrl}/${categorySlug}?page=5`,
+  ];
 
   try {
     const data = [];
 
     for (const url of urls) {
       const response = await axios.get(url);
-      const html = response;
+      const html = response.data; 
       const $ = cheerio.load(html);
 
       $('table.min-w-full tbody tr td.whitespace-nowrap .ml-4 a').each((index, element) => {
@@ -79,7 +82,7 @@ const baseUrl = ['Hoạt Hình', 'Phim Bộ', 'Phim Lẻ', 'Phim Shows', 'Phim S
     const getEpisodes = async (movie) => {
       try {
         const movieResponse = await axios.get(movie.href);
-        const movieHtml = movieResponse;
+        const movieHtml = movieResponse.data; 
         const $$ = cheerio.load(movieHtml);
 
         const title = $$('.text-center h1.uppercase').text();
@@ -157,8 +160,9 @@ const baseUrl = ['Hoạt Hình', 'Phim Bộ', 'Phim Lẻ', 'Phim Shows', 'Phim S
         await Product.create(movie);
       }
     }
-
     res.status(200).json(results);
+    console.log('Fetched data:', results);
+
   } catch (error) {
     next(error);
     console.error(`Failed to fetch data from external site: ${error.message}`);

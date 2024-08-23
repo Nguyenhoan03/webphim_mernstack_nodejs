@@ -115,6 +115,29 @@ const Productservice = async () => {
   }  
 }
 
+const Productservices_edit = async (data) => {
+  try {
+    const updatedProduct = await Product.update(
+      { ...data },  
+      { where: { id: data.id } }
+    );
+
+    if (updatedProduct[0] > 0) {
+      return { success: true };
+    } else {
+      return { success: false, message: 'No product was updated. Please check the provided ID.' };
+    }
+  } catch (error) {
+    console.error('Error updating product:', error.message || error);
+    throw new Error('Failed to update product');
+  }
+};
+
+
+
+
+
+
 
 //file services
 const getProductByCategory = async (categoryId) => {
@@ -374,4 +397,4 @@ const post_ratingstar = async (titlefilm, id, starselect) => {
 
 
 
-module.exports = { home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice,Productservices_Getdetail_xemphim,Productservices_create_xemphim};
+module.exports = {Productservices_edit, home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice,Productservices_Getdetail_xemphim,Productservices_create_xemphim};

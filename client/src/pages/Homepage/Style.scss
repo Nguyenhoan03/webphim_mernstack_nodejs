@@ -215,3 +215,22 @@ ul {
     color: white;
   }
 }
+.img_ad {
+  margin: auto; /* Căn giữa phần tử khi có đủ không gian */
+  width: fit-content; /* Để phần tử chỉ chiếm không gian cần thiết */
+}
+
+@media screen and (max-width: 765px) {
+  .img_ad {
+      background-color: red;
+      position: relative; /* Thay đổi từ float: left */
+      left: 0;
+      width: 100%; /* Đảm bảo .img_ad chiếm toàn bộ chiều rộng */
+      box-sizing: border-box; /* Đảm bảo padding và border được tính vào chiều rộng */
+  }
+  img {
+      width: 100%;
+      display: block; /* Loại bỏ khoảng trống phía dưới ảnh */
+  }
+ 
+}

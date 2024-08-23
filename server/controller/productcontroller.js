@@ -19,6 +19,19 @@ const Product =async (req,res,next ) => {
          next(error);
       }
 }
+const Product_edit =async (req,res,next)=>{
+  try {
+    const {data} = req.body;
+   
+    const response = await Productservices.Productservices_edit(data);
+    if(response.success){
+      return res.status(200).json('update thành công')
+    }
+    
+  } catch (error) {
+    next(error)
+  }
+}
 const Product_create_xemphim = async (req, res, next) => {
   try {
       const { selectedTitle, episode, linkfilm } = req.body;
@@ -397,5 +410,6 @@ module.exports = {
   // Product_quocgia_quocgiakhac
   Product,
   Product_Getdetail_xemphim,
-  Product_create_xemphim
+  Product_create_xemphim,
+  Product_edit
 };

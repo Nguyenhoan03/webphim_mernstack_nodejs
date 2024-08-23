@@ -35,6 +35,21 @@ const Getallproduct =async ()=>{
       throw(error)
     }
 }
+const services_edit_productphim = async (data) => {
+  try {
+      console.log("dataservices_edit_productphim", data);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/product/edit_productphim`, { data });
+
+      if (response.status === 200) {
+          return { success: true };
+      } else {
+          return { success: false };
+      }
+  } catch (error) {
+      console.error('Error:', error);
+      throw error;
+  }
+};
 const Getdetailfilm =async (titlefilm)=>{
     try {
       const data = axios.get(`${process.env.REACT_APP_API_URL}/product/getdetail_xemphim/${titlefilm}`)
@@ -450,7 +465,8 @@ export {
   userchildcomment,
   usercomment,
   HandleRating,
-  Getdetailfilm
+  Getdetailfilm,
+  services_edit_productphim
 };
 
 
