@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./Styles.scss";
+import "./Styles.scss"; 
 import { CiSearch, CiLogin, CiBookmark } from "react-icons/ci";
 import { RxAvatar } from "react-icons/rx";
 import { Link } from "react-router-dom";
