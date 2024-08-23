@@ -127,7 +127,7 @@ export default function Addepisode() {
                                             backgroundColor: '#E8F0FE',
                                             paddingLeft: 10,
                                         }}
-                                        placeholder="Chọn Thể loại phim"
+                                        placeholder="Nhập phim cần tìm ..."
                                         value={searchTerm}
                                         onChange={handleSearchChange}
                                     />
