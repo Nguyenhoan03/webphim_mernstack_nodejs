@@ -74,44 +74,76 @@ import Autocrawlphim from '../pages/Admin/Autocrawlphim/Autocrawlphim';
 import Product from '../pages/Admin/Product/Product';
 import Addphim from '../pages/Admin/Product/Addphim/Addphim';
 import Addepisode from '../pages/Admin/Product/Addepisode/Addepisode';
-
-export const routes = [
-//admin
-{
-  path: '/admin/products',
-  page: Product,
-  isShowHeader: false,
-},
-{
-  path: '/admin/products/add_phim',
-  page: Addphim,
-  isShowHeader: false,
-},
-{
-  path: '/admin/products/add_episode',
-  page: Addepisode,
-  isShowHeader: false,
-},
-{
-  path: '/admin/dashboard',
-  page: Dashboard,
-  isShowHeader: false,
-},
-{
-  path: '/admin/users',
-  page: Users,
-  isShowHeader: false,
-},
-{
-  path: '/admin/auto_crawlphim',
-  page: Autocrawlphim,
-  isShowHeader: false,
-},
-
-
+import PrivateRoute from '../compoment/PrivateRoute/PrivateRoute';
+import NotFound from '../pages/Notfound/Notfound';
+  export const routes = [
+    {
+      path: '/not-found',
+      page: NotFound,
+      isShowHeader: true,
+    },
+    {
+      path: '*',
+      page: NotFound,
+      isShowHeader: true,
+    },
+  // Admin Routes
+  {
+    path: '/admin/products',
+    page: ()=>(
+      <PrivateRoute roles={['admin']}>
+        <Product />
+      </PrivateRoute>
+    ),
+    isShowHeader: false,
+  },
+  {
+    path: '/admin/products/add_phim',
+    page: ()=>(
+      <PrivateRoute roles={['admin']}>
+        <Addphim />
+      </PrivateRoute>
+    ),
+    isShowHeader: false,
+  },
+  {
+    path: '/admin/products/add_episode',
+    page: ()=>(
+      <PrivateRoute roles={['admin']}>
+        <Addepisode />
+      </PrivateRoute>
+    ),
+    isShowHeader: false,
+  },
+  {
+    path: '/admin/dashboard',
+    page: ()=>(
+      <PrivateRoute roles={['admin']}>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    isShowHeader: false,
+  },
+  {
+    path: '/admin/users',
+    page: ()=>(
+      <PrivateRoute roles={['admin']}>
+        <Users />
+      </PrivateRoute>
+    ),
+    isShowHeader: false,
+  },
+  {
+    path: '/admin/auto_crawlphim',
+    page: ()=>(
+      <PrivateRoute roles={['admin']}>
+        <Autocrawlphim />
+      </PrivateRoute>
+    ),
+    isShowHeader: false,
+  },
 
 //
-
   {
     path: '/',
     page: Homepage,
@@ -316,5 +348,5 @@ export const routes = [
   { path: '/chau-phi', page: Chauphi, isShowHeader: true },
   { path: '/nam-phi', page: Namphi, isShowHeader: true },
   { path: '/ukraina', page: Ukraina, isShowHeader: true },
-  { path: '/a-rap-xe-ut', page: Arapxeut, isShowHeader: true }
+  { path: '/a-rap-xe-ut', page: Arapxeut, isShowHeader: true },
 ];

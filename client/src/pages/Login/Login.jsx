@@ -24,6 +24,12 @@ export default function Login() {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {  // Sửa thành "Enter"
+      handleLogin();
+    }
+  };
+
   return (
     <div className="">
       <div className="container">
@@ -48,6 +54,7 @@ export default function Login() {
                 value={email}
                 required
                 onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={handleKeyDown} // Thêm sự kiện onKeyDown cho input
               />
             </div>
             <div className="form-group">
@@ -59,6 +66,7 @@ export default function Login() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyDown} // Thêm sự kiện onKeyDown cho input
               />
             </div>
             <div className="d-flex">

@@ -5,7 +5,7 @@ const Login = async (req, res) => {
         const data = await Userservice.Servicelogin(email, password);
        
         if (data.success) {
-            res.status(200).json({ token: data.token,refreshToken: data.refreshToken, name: data.name, id: data.id});
+            res.status(200).json({ token: data.token,refreshToken: data.refreshToken, name: data.name, id: data.id,roles:data.roles});
         } else {
             res.status(401).json({ message: data.message });
         }
