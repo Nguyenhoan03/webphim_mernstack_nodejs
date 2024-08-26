@@ -5,6 +5,9 @@ import { RxAvatar } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import { Getallproduct } from "../../services/Productservices";
 import { IoMdMenu } from "react-icons/io";
+import { FaCaretDown } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function HeaderComponent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,6 +17,7 @@ export default function HeaderComponent() {
   const [filteredData, setFilteredData] = useState([]);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [tabMenuVisible, setTabMenuVisible] = useState(false);
+
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
   const name = sessionStorage.getItem("name");
@@ -46,12 +50,17 @@ export default function HeaderComponent() {
   }, [token, name]);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("email");
-    sessionStorage.removeItem("refreshToken");
-    sessionStorage.removeItem("id");
-    setIsLoggedIn(false);
+    const confirmLogout = window.confirm("Bạn có chắc chắn muốn đăng xuất?");
+    if (confirmLogout) {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("email");
+      sessionStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("id");
+      setIsLoggedIn(false);
+      toast.success("Bạn đã đăng xuất thành công!");
+    }
   };
+  
 
   const handleSearch = () => {
     navigate(`/tim-kiem/${search}`, { state: { data_tk: filteredData } });
@@ -232,12 +241,15 @@ export default function HeaderComponent() {
               >
                 <div className="user-info">
                   <RxAvatar size={28} className="avatar" />
-                  <span className="username">{name}</span>
+                  <span className="username">{name} <FaCaretDown />
+                  </span>
                 </div>
                 {showDropdown && (
                   <ul className="dropdown-menu">
+                    <li><Link to="/account" className="dropdown-item">Đăng Ký gói VIP</Link></li>
                     <li><Link to="/account" className="dropdown-item">Thông tin tài khoản</Link></li>
-                    <li><Link to="/" onClick={handleLogout} className="dropdown-item">Đăng xuất</Link></li>
+                    <li><Link to="/" onClick={handleLogout} className="dropdown-item">Đăng xuất</Link> </li>
+                    
                   </ul>
                 )}
               </div>
@@ -254,6 +266,7 @@ export default function HeaderComponent() {
           <IoMdMenu onClick={handleTabMenuToggle} style={{ fontSize: 38, color: 'white' }} />
         </div>
       </div>
+      <ToastContainer />
     </header>
   );
 }

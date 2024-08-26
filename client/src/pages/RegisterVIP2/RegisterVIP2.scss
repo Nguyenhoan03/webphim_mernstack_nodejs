@@ -1,0 +1,90 @@
+body {
+    background-color: #181818;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .subscription-page {
+    padding: 20px;
+  }
+  
+  .step-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 10px;
+  }
+  
+  .plan-options, .payment-options {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .plan-option, .payment-option {
+    background-color: #333;
+    color: #FFF;
+    border: 2px solid #444;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: border 0.3s;
+  }
+  
+  .plan-option:hover, .payment-option:hover {
+    border: 2px solid #FFD700;
+  }
+  
+  .plan-option.selected, .payment-option.selected {
+    border-color: #FFD700;
+  }
+  
+  .plan-option .price, .payment-option span {
+    font-weight: bold;
+    margin-left: auto;
+  }
+  
+  .summary-box {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 8px;
+    color: #DDD;
+    width: 300px;
+    margin-top: 20px;
+  }
+  
+  .summary-box h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #FFD700;
+  }
+  
+  .summary-box p {
+    margin: 5px 0;
+  }
+  
+  .total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  .pay-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .pay-button:hover {
+    background-color: #FFB700;
+  }
+  

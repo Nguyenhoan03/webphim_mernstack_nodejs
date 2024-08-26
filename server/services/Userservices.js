@@ -9,16 +9,20 @@ const Servicelogin = async (email, password) => {
     if (!data) {
       return { success: false, message: "User not found" };
     }
+   
     const isMatch = await bcrypt.compare(password, data.password);
     if (!isMatch) {
       return { success: false, message: 'Thông tin đăng nhập không chính xác' };
     }
+     // kiểm tra quyền user
+     const roles = await User.getroles(data.id);     
+     //
     const token = jwt.sign({ id: data.id}, process.env.SECRET, { expiresIn: '30m' });
     const refreshToken = jwt.sign({ id: data.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' }); 
     const name = data.username;
     const id = data.id;
     refreshTokens.push(refreshToken);
-    return { success: true,refreshToken, token, name,id };
+    return { success: true,refreshToken, token, name,id,roles };
   } catch (error) {
     console.error("Error in Servicelogin:", error);
     throw new Error("Server error");

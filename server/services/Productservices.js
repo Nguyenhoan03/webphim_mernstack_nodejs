@@ -25,7 +25,7 @@ const home = async () => {
       return data;
     }
 
-    const commonAttributes = ['trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap'];
+    const commonAttributes = ['theloai','namphathanh','trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap','descripts'];
 
     const findFilms = (options) => Product.findAll({
       ...options,
@@ -285,6 +285,8 @@ const danhmucphim = async (category_id, filters = {}) => {
       orderClause = [['views', 'DESC']];
     } else if (orderBy == "year") {
       orderClause = [['year', 'ASC']];
+    }else{
+      orderClause = [['id', 'DESC']];
     }
 
     const data = await Product.findAll({
