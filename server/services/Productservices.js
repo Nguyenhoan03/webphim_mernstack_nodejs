@@ -25,7 +25,7 @@ const home = async () => {
       return data;
     }
 
-    const commonAttributes = ['trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap'];
+    const commonAttributes = ['theloai','namphathanh','trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap','descripts'];
 
     const findFilms = (options) => Product.findAll({
       ...options,

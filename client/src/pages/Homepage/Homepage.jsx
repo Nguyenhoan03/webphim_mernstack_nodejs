@@ -3,8 +3,10 @@ import Slider from 'react-slick';
 import { Producthome } from '../../services/Productservices';
 import './Style.scss';
 import { Link } from 'react-router-dom';
+import AlertRegisterVIP from '../RegisterVIP/RegisterVIP';
 // import Slickslider from '../../compoment/Slickslider/Slickslider';
 // import Homepagebodyright from '../../compoment/Homepagebodyright/Homepagebodyright'
+import MovieCard from '../../compoment/MovieCard/MovieCard';
 import { HomeContext } from '../../store/HomeContext';
 const Homepagebodyright = React.lazy(() => import('../../compoment/Homepagebodyright/Homepagebodyright'));
 const Slickslider = React.lazy(() => import('../../compoment/Slickslider/Slickslider'));
@@ -44,7 +46,7 @@ export default function Homepage() {
   const rendercategorycontent = (title,data)=>(
     <div className="phimhanquoc mt-4">
     <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>{title}</h2>
-    <div className="category_phim">
+    {/* <div className="category_phim">
       <div className="row">
         {data && data.map((pbm, index) => (
           <div key={index} className="category_phim_card col-md-3" style={{ position: 'relative', height: '100%' }}>
@@ -66,7 +68,8 @@ export default function Homepage() {
           </div>
         ))}
       </div>
-    </div>
+    </div> */}
+    <MovieCard data={data}/>
     </div>
   )
 
@@ -74,6 +77,7 @@ export default function Homepage() {
   return (
     <div className='homepage'>
       <div className="container">
+    
       <div className="img_ad">
     <img src="https://motchillhot.net/banner/xembong88-607x75.gif" alt="" />
 </div>
@@ -129,7 +133,7 @@ export default function Homepage() {
                   Phim đã hoàn thành
                 </p>
               </div>
-              <div className="category_phim">
+              {/* <div className="category_phim">
                 <div className="row">
                   {dataphim && dataphim.map((pbm, index) => (
                     <div key={index} className="category_phim_card col-md-3" style={{ position: 'relative', height: '100%' }}>
@@ -151,7 +155,9 @@ export default function Homepage() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
+              <MovieCard data={dataphim}/>
+
 
               {rendercategorycontent('PHIM HOẠT HÌNH', phimhoathinh)}
               {rendercategorycontent('PHIM TÂM LÝ TÌNH CẢM', phimtamlytinhcam)}

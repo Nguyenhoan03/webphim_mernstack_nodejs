@@ -76,6 +76,8 @@ import Addphim from '../pages/Admin/Product/Addphim/Addphim';
 import Addepisode from '../pages/Admin/Product/Addepisode/Addepisode';
 import PrivateRoute from '../compoment/PrivateRoute/PrivateRoute';
 import NotFound from '../pages/Notfound/Notfound';
+import AlertRegisterVIP from '../pages/RegisterVIP/RegisterVIP';
+import RegisterVIP2 from '../pages/RegisterVIP2/RegisterVIP2';
   export const routes = [
     {
       path: '/not-found',
@@ -85,6 +87,16 @@ import NotFound from '../pages/Notfound/Notfound';
     {
       path: '*',
       page: NotFound,
+      isShowHeader: true,
+    },
+    {
+      path: '/AlertRegisterVIP',
+      page: AlertRegisterVIP,
+      isShowHeader: true,
+    },
+    {
+      path: '/RegisterVIP2',
+      page: RegisterVIP2,
       isShowHeader: true,
     },
   // Admin Routes
@@ -149,6 +161,7 @@ import NotFound from '../pages/Notfound/Notfound';
     page: Homepage,
     isShowHeader: true,
   },
+
   {
     path: '/:title',
     page: Detailpage,

@@ -1,236 +1,273 @@
 .homepage {
-    .container {
-      margin: 0 auto;
-    }
+  .container {
+    margin: 0 auto;
+  }
+
+  .phimhot {
+    padding: 20px;
   
-    .phimhot {
-      padding: 20px;
-    
-      border-radius: 8px;
-  
-      .slider-container {
-        .phim-item {
-          padding: 10px;
-          text-align: center;
-         
-  
-          .phim-image {
-            width: 166px;
-            border-radius: 8px;
-            height: 265px;
-            object-fit: cover;
-            position: relative;
+    border-radius: 8px;
+
+    .slider-container {
+      .phim-item {
+        padding: 10px;
+        text-align: center;
+       
+
+        .phim-image {
+          width: 166px;
+          border-radius: 8px;
+          height: 265px;
+          object-fit: cover;
+          position: relative;
+        }
+
+        .phim-info {
+          padding: 10px 0;
+          position: absolute;
+          bottom: 0;
+          left:50%;
+          z-index: 10;
+          .phim-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
           }
-  
-          .phim-info {
-            padding: 10px 0;
-            position: absolute;
-            bottom: 0;
-            left:50%;
-            z-index: 10;
-            .phim-title {
-              font-size: 18px;
-              font-weight: bold;
-              color: #333;
-            }
-  
-            .phim-views {
-              font-size: 14px;
-              color: #999;
-            }
+
+          .phim-views {
+            font-size: 14px;
+            color: #999;
           }
         }
       }
-  
-      .next-arrow, .prev-arrow {
-        &:before {
-          font-size: 20px;
-          color: #fff;
-          align-items: center;
+    }
 
-        cursor: pointer;
+    .next-arrow, .prev-arrow {
+      &:before {
+        font-size: 20px;
+        color: #fff;
+        align-items: center;
 
-        }
-      }
-      .next-arrow{
-        padding-left: 10px;
+      cursor: pointer;
+
       }
     }
-  }
-  
-
-  //thể loại phim bộ
-  .category_caption{
-      display: flex;
-      gap: 20px;
-    p{
-     font-size: 18px;
+    .next-arrow{
+      padding-left: 10px;
     }
   }
+}
 
-  .title-badge {
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    background-color: #BF1D28;
-    color: white;
-    font-weight: 650;
-    font-size: 12px;
-    border-radius: 4px;
-    width: 57px;
-    text-align: center;
-  }
-  .category_phim_card {
-    position: relative;
-    width: 175px; 
-   margin-left: 12px;
-   margin-top: 8px;
-   &:hover{
-    transform: scale(1.1);
-    
-   }
-    transition: transform 0.3s ease, filter 0.3s ease;
-  
- 
-    
-  }
-  .category_phim_card {
-    position: relative;
-    width: 175px; 
-    margin-left: 12px;
-    margin-top: 8px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-  }
-  
-  .category_phim_card:hover {
-    transform: scale(1.1);
-    filter: brightness(1.2); /* Sáng hơn khi được hover */
-  }
-  
-  .category_phim_card:not(:hover) {
-    filter: brightness(1); /* Bình thường khi không được hover */
-  }
-  
-  /* Chọn tất cả các phần tử con của .category_phim khi phần tử cha đang được hover */
-  // .category_phim:hover .category_phim_card {
-  //   filter: brightness(0.5); /* Tối hơn khi phần tử khác được hover */
-  // }
-  
-  /* Đảm bảo phần tử đang được hover không bị ảnh hưởng */
-  .category_phim_card:hover {
-    filter: brightness(1.2);
-  }
-  
-  /* Khi .category_phim đang được hover và phần tử cụ thể đang được hover */
-  .category_phim:hover .category_phim_card:hover {
-    filter: brightness(1.2); /* Sáng hơn phần tử đang được hover */
-  }
-  
-  .title-badge {
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    background-color: #BF1D28;
-    color: white;
-    font-weight: 650;
-    font-size: 12px;
-    border-radius: 4px;
-    width: 117px;
-    text-align: center;
-  }
-  
-  .description-badge {
-    position: absolute;
-    bottom: -17px;
-    padding-top: 4px;
-    left: 0px;
-    background-color: #181818;
-    color: white;
-    font-weight: 650;
-    font-size: 12px;
-   
-    width: 100%;
-    height:30px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  .description-badge2 {
-    position: absolute;
-    bottom: 20px;
-    padding-top: 3px;
-    left: 0px;
-    background-color: #522E75;
-    color: white;
-    font-weight: 650;
-    font-size: 12px;
-   border-bottom-right-radius: 15px;
-    width: 60%;
-    height:30px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .homepagebodyright_phimmsapchieu_detail{
-    
+
+//thể loại phim bộ
+.category_caption{
+    display: flex;
+    gap: 20px;
   p{
-    margin-top: -15px;
-    margin-left: 10px;
+   font-size: 18px;
   }
+}
+
+.title-badge {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  background-color: #BF1D28;
+  color: white;
+  font-weight: 650;
+  font-size: 12px;
+  border-radius: 4px;
+  width: 57px;
+  text-align: center;
+}
+.category_phim_card {
+  position: relative;
+  width: 190px;
+  height: 260px;
+  margin-left: 5px;
+  margin-top: 5px;
+  transition: transform 0.3s ease, filter 0.3s ease, width 0.3s ease, height 0.3s ease;
+  overflow: hidden; /* Đảm bảo nội dung không tràn ra ngoài */
+}
+
+.category_phim_card:hover {
+  transform: scale(1.3);
+  filter: brightness(1.2);
+  // width: 100%; /* Tăng chiều rộng khi hover */
+  // height: 290px; /* Tăng chiều cao khi hover */
+  z-index: 100;
+  p{
+    font-size: 12px;
+    margin-top: -13px;
+  }
+}
+
+.category_phim_card:not(:hover) {
+  filter: brightness(1);
+}
+
+.category_phim:hover .category_phim_card:hover {
+  filter: brightness(1.2);
+}
+
+/* Style cho phần mô tả */
+.category_phim_card .description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4; /* Limit to 3 lines */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+  white-space: normal; /* Allow the text to wrap */
+  max-height: calc(4 * 1.5em); /* Adjust the max-height to fit 3 lines */
+  margin-bottom: 10px; 
+}
+
+
+.title-badge {
+  font-size: 12px;
+  background-color: #BF1D28;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 650;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  z-index: 2;
+  color: white;
+}
+
+.description-badge2 {
+  font-weight: 500;
+  font-size: 14px;
+  margin-left: 12px;
+  margin-top: 10px;
+}
+
+.description-badge {
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 12px;
+  margin-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hover-info {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 15px;
+  font-size: 14px;
+}
+
+
+.title-badge {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  background-color: #BF1D28;
+  color: white;
+  font-weight: 650;
+  font-size: 12px;
+  border-radius: 4px;
+  width: 117px;
+  text-align: center;
+}
+
+.description-badge {
+  position: absolute;
+  bottom: -17px;
+  padding-top: 4px;
+  left: 0px;
+  background-color: #181818;
+  color: white;
+  font-weight: 650;
+  font-size: 12px;
+ 
+  width: 100%;
+  height:30px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.description-badge2 {
+  position: absolute;
+  bottom: 20px;
+  padding-top: 3px;
+  left: 0px;
+  background-color: #522E75;
+  color: white;
+  font-weight: 650;
+  font-size: 12px;
+ border-bottom-right-radius: 15px;
+  width: 60%;
+  height:30px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.homepagebodyright_phimmsapchieu_detail{
+  
+p{
+  margin-top: -15px;
+  margin-left: 10px;
+}
 }
 
 /* src/TrendingList.css */
 
 .trending-list {
-  font-family: Arial, sans-serif;
+font-family: Arial, sans-serif;
 }
 
 h2 {
-  color: #d2691e;
+color: #d2691e;
 }
 
 ul {
-  list-style: none;
-  padding: 0;
+list-style: none;
+padding: 0;
 }
 
 
 .rank {
-  font-weight: bold;
+font-weight: bold;
 }
 
 .title {
-  flex-grow: 1;
-  margin-left: 10px;
+flex-grow: 1;
+margin-left: 10px;
 }
 
 .views {
-  color: gray;
+color: gray;
 }
 .homepagebodyright_phimmsapchieu{
-  a{
-    color: white;
-  }
+a{
+  color: white;
+}
 }
 .img_ad {
-  margin: auto; /* Căn giữa phần tử khi có đủ không gian */
-  width: fit-content; /* Để phần tử chỉ chiếm không gian cần thiết */
+margin: auto; /* Căn giữa phần tử khi có đủ không gian */
+width: fit-content; /* Để phần tử chỉ chiếm không gian cần thiết */
 }
 
 @media screen and (max-width: 765px) {
-  .img_ad {
-      background-color: red;
-      position: relative; /* Thay đổi từ float: left */
-      left: 0;
-      width: 100%; /* Đảm bảo .img_ad chiếm toàn bộ chiều rộng */
-      box-sizing: border-box; /* Đảm bảo padding và border được tính vào chiều rộng */
-  }
-  img {
-      width: 100%;
-      display: block; /* Loại bỏ khoảng trống phía dưới ảnh */
-  }
- 
+.img_ad {
+    background-color: red;
+    position: relative; /* Thay đổi từ float: left */
+    left: 0;
+    width: 100%; /* Đảm bảo .img_ad chiếm toàn bộ chiều rộng */
+    box-sizing: border-box; /* Đảm bảo padding và border được tính vào chiều rộng */
+}
+img {
+    width: 100%;
+    display: block; /* Loại bỏ khoảng trống phía dưới ảnh */
+}
+
 }
