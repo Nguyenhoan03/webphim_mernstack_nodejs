@@ -234,7 +234,6 @@
   }
   
   .dropdown-item {
-    padding: 10px;
     border-bottom: 1px solid #ddd;
   }
   
@@ -275,3 +274,16 @@
   }
 }
 
+/* RegisterVIP2.scss or your relevant CSS file */
+
+@keyframes colorChange {
+  0% { color: yellow; }
+  50% { color: red; }
+  100% { color: yellow; }
+}
+
+.dynamic-text {
+  font-size: 14px;
+  text-decoration: none;
+  animation: colorChange 2s infinite; /* 2 seconds for a full cycle, infinite loop */
+}

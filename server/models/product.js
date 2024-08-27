@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     views: DataTypes.INTEGER,
     likes: DataTypes.INTEGER,
     category_id: DataTypes.INTEGER,
+    VIP1: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Product',

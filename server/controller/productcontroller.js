@@ -131,7 +131,6 @@ const Product_danhmucphimchinhkich = async (req, res) => handledanhmucphim(req, 
 const handledanhmucphim = async (req, res,category, next) => {
   try {
       const filters = req.query;
-      console.log(filters,"filllllllterrrr")
       const data = await Productservices.danhmucphim(category, filters);
       return res.status(200).json(data);
   } catch (error) {

@@ -232,6 +232,13 @@ export default function HeaderComponent() {
               ))}
             </div>
           </div>
+          <div className="">
+      <Link className="dynamic-text" to="/dang-ky-goi-vip">
+        Đăng ký gói VIP
+      </Link>
+    </div>
+
+
           <div className="header-icons">
             {isLoggedIn ? (
               <div
@@ -246,7 +253,7 @@ export default function HeaderComponent() {
                 </div>
                 {showDropdown && (
                   <ul className="dropdown-menu">
-                    <li><Link to="/account" className="dropdown-item">Đăng Ký gói VIP</Link></li>
+                    <li><Link to="/dang-ky-goi-vip" className="dropdown-item">Đăng Ký gói VIP</Link></li>
                     <li><Link to="/account" className="dropdown-item">Thông tin tài khoản</Link></li>
                     <li><Link to="/" onClick={handleLogout} className="dropdown-item">Đăng xuất</Link> </li>
                     

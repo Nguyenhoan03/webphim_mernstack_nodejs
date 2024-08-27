@@ -5,11 +5,15 @@
 
     .plans-container {
         display: flex;
-        justify-content: space-between;
+        // justify-content: space-between;
         margin-top: 20px;
+        margin: auto;
+        justify-content: center;
+        align-items: center;
 
         .plan-card {
             width: 22%;
+            margin-left: 18px;
             background-color: #f9f9f9;
             padding: 15px;
             border-radius: 8px;

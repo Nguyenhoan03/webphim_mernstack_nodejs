@@ -20,7 +20,7 @@ export default function Slickslider({ settings, data = [] }) {
                   <p className="title-badge" style={{ position: 'absolute', top: 5, left: 10, backgroundColor: '#BF1D28', color: 'white', fontWeight: 650, fontSize: 12, borderRadius: 4, width: 107, textAlign: 'center' }}>
                     {dt.trangthai}-{dt.ngonngu}
                   </p>
-                  <p className="description-badge">
+                  <p className="description-badge" style={{marginLeft:0}}>
                 {dt.sotap.includes('Tập') ? dt.sotap : `${dt.sotap} Tập`}
               </p>
 

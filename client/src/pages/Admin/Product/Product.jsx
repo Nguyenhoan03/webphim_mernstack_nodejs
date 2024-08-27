@@ -368,6 +368,7 @@ export default function Product() {
               </div>
 
               <table className="tableadminproduct">
+              
                 <Items currentItems={currentItems} selectedRow={selectedRow} handleEditClick={handleEditClick} />
               </table>
               <ReactPaginate

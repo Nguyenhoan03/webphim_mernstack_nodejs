@@ -2,8 +2,6 @@ import React, { useEffect, useState,useContext,useMemo,Suspense } from 'react';
 import Slider from 'react-slick';
 import { Producthome } from '../../services/Productservices';
 import './Style.scss';
-import { Link } from 'react-router-dom';
-import AlertRegisterVIP from '../RegisterVIP/RegisterVIP';
 // import Slickslider from '../../compoment/Slickslider/Slickslider';
 // import Homepagebodyright from '../../compoment/Homepagebodyright/Homepagebodyright'
 import MovieCard from '../../compoment/MovieCard/MovieCard';

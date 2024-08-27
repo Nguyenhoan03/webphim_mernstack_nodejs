@@ -4,7 +4,9 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
  const permission = [
-  'VIP'
+  'VIP1',
+  'VIP2',
+
  ] 
  const permissionsobj = permission.map(name => ({ Name: name }));
 

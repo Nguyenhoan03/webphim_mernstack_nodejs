@@ -76,7 +76,7 @@ import Addphim from '../pages/Admin/Product/Addphim/Addphim';
 import Addepisode from '../pages/Admin/Product/Addepisode/Addepisode';
 import PrivateRoute from '../compoment/PrivateRoute/PrivateRoute';
 import NotFound from '../pages/Notfound/Notfound';
-import AlertRegisterVIP from '../pages/RegisterVIP/RegisterVIP';
+import RegisterVIP from '../pages/RegisterVIP/RegisterVIP';
 import RegisterVIP2 from '../pages/RegisterVIP2/RegisterVIP2';
   export const routes = [
     {
@@ -90,12 +90,12 @@ import RegisterVIP2 from '../pages/RegisterVIP2/RegisterVIP2';
       isShowHeader: true,
     },
     {
-      path: '/AlertRegisterVIP',
-      page: AlertRegisterVIP,
+      path: '/dang-ky-goi-vip',
+      page: RegisterVIP,
       isShowHeader: true,
     },
     {
-      path: '/RegisterVIP2',
+      path: '/dang-ky-goi-vip/:title',
       page: RegisterVIP2,
       isShowHeader: true,
     },

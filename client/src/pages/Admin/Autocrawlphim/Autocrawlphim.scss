@@ -1,3 +1,4 @@
+
 .category-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -25,4 +26,7 @@
 
 .category-button:active {
   transform: translateY(0); /* Button returns to normal when clicked */
+}
+.dashboard-container{
+  color: black
 }

@@ -27,17 +27,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  
-    button {
     
-  
+    button {
+      
       &:nth-child(2) {
         background-color: #d9534f;
-        color: white; // Màu chữ nếu cần
-        border: none; // Loại bỏ viền nếu cần
+        color: white; 
+        border: none; 
       margin-left: 10px;
         border-radius: 5px; // Bo góc nếu cần
-        cursor: pointer; // Con trỏ chuột
+        cursor: pointer; // Con trỏ chuột;
+        
       }
     }
   }
@@ -276,17 +276,92 @@
     color: #fff;
   }
 }
-// .description-badge {
-//   position: absolute;
-//   bottom: 10px;
-//   left: 0px;
-//   background-color: #522E75;
-//   color: white;
-//   font-weight: 650;
-//   font-size: 12px;
-//  border-bottom-right-radius: 15px;
-//   width: 60%;
-//   height:30px;
- 
-// }
 
+@media screen and (max-width: 765px) {
+     .image_card_detailpage{
+         margin: auto;
+     }
+     .card_detailpage_film{
+      margin: auto;
+      margin-top: 10px;
+      justify-content: center;
+      text-align: center;
+     }
+     .evaluatestar_detail_page{
+         margin: auto;
+     }
+    .content_detailpage_card_button{
+      width: 200px;
+    }
+}
+@media screen and (max-width: 991px) {
+  .content_detail_card_child {
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .image_card_detailpage img {
+    width: 80%;
+    max-width: 250px;
+    height: auto;
+  }
+
+  .movie-title {
+    font-size: 24px;
+  }
+
+  .movie-subtitle {
+    font-size: 18px;
+  }
+
+  .movie-details li {
+    font-size: 14px;
+  }
+
+  .content_detailpage_card_button button {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  .movie-details-button button {
+    font-size: 14px;
+    margin: 0 5px;
+  }
+
+  .evaluatestar_detail_page p {
+    font-size: 14px;
+  }
+
+  .detailpage_right {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .content_detail_card_child {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image_card_detailpage {
+    width: 100%;
+    height: auto;
+  }
+
+  .card_detailpage_film {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 15px;
+  }
+
+  .content_detailpage_card_button {
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
