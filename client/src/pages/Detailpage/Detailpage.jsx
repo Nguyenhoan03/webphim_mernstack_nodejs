@@ -16,7 +16,7 @@ import { HandleRating } from '../../services/Productservices';
 
 import CommentCompoment from '../../compoment/CommentCompoment/CommentCompoment';
 export default function Detailpage() {
-  const { token,id,email,phimhot} = useContext(HomeContext);
+  const { token,id,email,phimhot,permissions} = useContext(HomeContext);
   const memophimhot = useMemo(()=> phimhot, [phimhot])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -132,16 +132,23 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       if (title) {
-        const data = await ProductDetail(title, id);
-        setdatadetail(data.datafilm);
-        setcomment(data.comments);
-        setparent_id(data.parent_id);
-        setSelectedStar(data.rating_star ? data.rating_star.rating : 0);
+        const data = await ProductDetail(title, id, permissions);
 
-        // Ensure the values are numbers
-        setratingtotal(Number(data.general_assessment.totalRatings) || 0);
-        setAverageRating(Number(data.general_assessment.averageRating) || 0);
+        if (data.error) {
+          setError(data.error); 
+          alert("Bạn cần mua gói xem VIP1 để có thể xem được phim này!")
+          window.history.back();
 
+        } else {
+          setdatadetail(data.datafilm);
+          setcomment(data.comments);
+          setparent_id(data.parent_id);
+          setSelectedStar(data.rating_star ? data.rating_star.rating : 0);
+
+          // Ensure the values are numbers
+          setratingtotal(Number(data.general_assessment.totalRatings) || 0);
+          setAverageRating(Number(data.general_assessment.averageRating) || 0);
+        }
       }
     } catch (error) {
       setError(error);
@@ -152,7 +159,8 @@ useEffect(() => {
   };
 
   fetchData();
-}, [title]);
+}, [title, id, permissions]);
+
     
    console.log("firstratingtotal",ratingtotal);
   if (loading) return <div>Loading...</div>;

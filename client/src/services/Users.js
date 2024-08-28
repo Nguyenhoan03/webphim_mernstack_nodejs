@@ -11,7 +11,8 @@ const ServiceUserlogin = async (email, password) => {
             sessionStorage.setItem('id', data.id);
             sessionStorage.setItem('email', email);
             sessionStorage.setItem('refreshToken', data.refreshToken);
-            sessionStorage.setItem('roles', JSON.stringify(data.roles));
+            sessionStorage.setItem('roles', data.roles);
+            sessionStorage.setItem('permissions',data.permissions);
         return {success: true}
         } else {
          

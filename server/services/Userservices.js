@@ -15,14 +15,17 @@ const Servicelogin = async (email, password) => {
       return { success: false, message: 'Thông tin đăng nhập không chính xác' };
     }
      // kiểm tra quyền user
-     const roles = await User.getroles(data.id);     
+     const data_role_permission = await User.getRolesAndPermissions(data.id);     
+     const roles = data_role_permission.roles;
+     const permissions = data_role_permission.permissions;
+
      //
     const token = jwt.sign({ id: data.id}, process.env.SECRET, { expiresIn: '30m' });
     const refreshToken = jwt.sign({ id: data.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' }); 
     const name = data.username;
     const id = data.id;
     refreshTokens.push(refreshToken);
-    return { success: true,refreshToken, token, name,id,roles };
+    return { success: true,refreshToken, token, name,id,roles,permissions };
   } catch (error) {
     console.error("Error in Servicelogin:", error);
     throw new Error("Server error");

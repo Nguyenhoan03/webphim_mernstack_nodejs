@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Styles.scss";
 import { CiSearch, CiLogin, CiBookmark } from "react-icons/ci";
 import { RxAvatar } from "react-icons/rx";
@@ -8,8 +8,9 @@ import { IoMdMenu } from "react-icons/io";
 import { FaCaretDown } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { HomeContext } from "../../store/HomeContext";
 export default function HeaderComponent() {
+  const {roles} = useContext(HomeContext)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [data, setData] = useState([]);
@@ -21,7 +22,9 @@ export default function HeaderComponent() {
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
   const name = sessionStorage.getItem("name");
-
+  const hasRole = (role) => {
+    return roles.includes(role);
+  }
   useEffect(() => {
     if (search.trim() === "") {
       setFilteredData([]);
@@ -253,7 +256,16 @@ export default function HeaderComponent() {
                 </div>
                 {showDropdown && (
                   <ul className="dropdown-menu">
-                    <li><Link to="/dang-ky-goi-vip" className="dropdown-item">Đăng Ký gói VIP</Link></li>
+                    {
+                      hasRole('admin') && (
+                        <li><Link to="/admin/dashboard" className="dropdown-item">Truy cập trang quản trị cho admin</Link></li>
+                      )
+                    }
+                                        {
+                      hasRole('user') && (
+                        <li><Link to="/dang-ky-goi-vip" className="dropdown-item">Đăng Ký gói VIP</Link></li>
+                      )
+                    }
                     <li><Link to="/account" className="dropdown-item">Thông tin tài khoản</Link></li>
                     <li><Link to="/" onClick={handleLogout} className="dropdown-item">Đăng xuất</Link> </li>
                     

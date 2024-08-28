@@ -44,29 +44,6 @@ export default function Homepage() {
   const rendercategorycontent = (title,data)=>(
     <div className="phimhanquoc mt-4">
     <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>{title}</h2>
-    {/* <div className="category_phim">
-      <div className="row">
-        {data && data.map((pbm, index) => (
-          <div key={index} className="category_phim_card col-md-3" style={{ position: 'relative', height: '100%' }}>
-            <Link to={`/${pbm.title}`} style={{color:'white',}}>
-            <p
-              className="title-badge"
-              style={{ position: 'absolute', top: 5, left: 15, backgroundColor: '#BF1D28', color: 'white', fontWeight: 650, fontSize: 12, borderRadius: 4, width: 117, textAlign: 'center' }}
-            >
-              {pbm.trangthai}-{pbm.ngonngu}
-            </p>
-            <img style={{ width: 175, height: 245 }} src={pbm.hinhanh} alt={pbm.title} />
-            <p className="description-badge2" style={{ marginLeft: 12 }}>
-              {pbm.sotap && pbm.sotap.includes('Tập') ? pbm.sotap : `${pbm.sotap} Tập`}
-            </p>
-            <p className="description-badge" style={{ marginLeft: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {pbm.title}
-            </p>
-              </Link>
-          </div>
-        ))}
-      </div>
-    </div> */}
     <MovieCard data={data}/>
     </div>
   )
@@ -131,29 +108,7 @@ export default function Homepage() {
                   Phim đã hoàn thành
                 </p>
               </div>
-              {/* <div className="category_phim">
-                <div className="row">
-                  {dataphim && dataphim.map((pbm, index) => (
-                    <div key={index} className="category_phim_card col-md-3" style={{ position: 'relative', height: '100%' }}>
-                      <Link to={`/${pbm.title}`} style={{color:'white',}}>
-                      <p
-                        className="title-badge"
-                        style={{ position: 'absolute', top: 5, left: 15, backgroundColor: '#BF1D28', color: 'white', fontWeight: 650, fontSize: 12, borderRadius: 4, width: 117, textAlign: 'center' }}
-                      >
-                        {pbm.trangthai}-{pbm.ngonngu}
-                      </p>
-                      <img style={{ width: 175, height: 245 }} src={pbm.hinhanh} alt={pbm.title} />
-                      <p className="description-badge2" style={{ marginLeft: 12 }}>
-                        {pbm.sotap && pbm.sotap.includes('Tập') ? pbm.sotap : `${pbm.sotap} Tập`}
-                      </p>
-                      <p className="description-badge" style={{ marginLeft: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {pbm.title}
-                      </p>
-                        </Link>
-                    </div>
-                  ))}
-                </div>
-              </div> */}
+            
               <MovieCard data={dataphim}/>
 
 

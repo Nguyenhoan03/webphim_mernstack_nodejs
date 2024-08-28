@@ -47,6 +47,20 @@ const Product_create_xemphim = async (req, res, next) => {
   }
 };
 
+const Product_editpackageVIP1 = async (req,res )=>{
+  try {
+    const {title,VIP1} = req.body;
+    const data = await Productservices.Productservices_editpackageVIP1(title,VIP1);
+    if(data.success){
+      return res.status(200).json("update thành công");
+    }
+
+  } catch (error) {
+       console.log(error)    
+  }
+    
+}
+
 const Product_Getdetail_xemphim =async (req,res,next)=>{
   try {
     const titlefilm = req.params.titlefilm;
@@ -79,11 +93,7 @@ const Product_Detailphim = async (req, res, next) => {
   try {
     const titlefilm = req.params.detailfilm;
     const userId = req.headers.userid; 
-
-    console.log('Received userId:', userId);  
-
     const data = await Productservices.detailfilm(titlefilm, userId);
-
     if (data) {
       res.json(data);
       console.log(data, "data product_detailfilm");
@@ -410,5 +420,6 @@ module.exports = {
   Product,
   Product_Getdetail_xemphim,
   Product_create_xemphim,
-  Product_edit
+  Product_edit,
+  Product_editpackageVIP1
 };

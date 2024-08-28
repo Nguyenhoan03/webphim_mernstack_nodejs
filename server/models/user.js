@@ -28,27 +28,37 @@
         });
       }
 
-      static async getroles(userId) {
+      static async getRolesAndPermissions(userId) {
         try {
           const user = await User.findByPk(userId, {
             include: [{
               model: sequelize.models.roles, 
               as: 'roles',
               attributes: ['Name'], 
-              through: { attributes: [] } 
+              through: { attributes: [] },
+              include: [{
+                model: sequelize.models.permissions, 
+                as: 'permissions', 
+                attributes: ['Name'],
+                through: { attributes: [] }
+              }]
             }]
           });
           
           if (!user) {
             throw new Error('User not found');
           }
-          
-          return user.roles.map(role => role.Name); 
+      
+          const roles = user.roles.map(role => role.Name);
+          const permissions = user.roles.flatMap(role => role.permissions.map(permission => permission.Name));
+      
+          return { roles, permissions };
         } catch (error) {
-          console.error("Error in getroles:", error);
+          console.error("Error in getRolesAndPermissions:", error);
           throw error;
         }
       }
+      
 
       
     }

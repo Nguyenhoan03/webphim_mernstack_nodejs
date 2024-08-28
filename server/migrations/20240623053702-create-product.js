@@ -80,6 +80,11 @@ module.exports = {
       category_id:{
         allowNull:true,
         type:Sequelize.INTEGER
+      },
+      VIP1:{
+        allowNull:true,
+        type:Sequelize.INTEGER,
+        defaultValue: 0,
       }
       
    

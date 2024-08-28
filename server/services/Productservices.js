@@ -156,9 +156,8 @@ const getProductByCategory = async (categoryId) => {
 };
 const detailfilm = async (titlefilm, userId) => {
   try {
-    // Fetch film details with associated episodes
     const datafilm = await Product.findOne({
-      where: { title: titlefilm },
+      where: {title:titlefilm},
       include: [{
         model: Linkfilm,
         as: 'linkfilms',
@@ -166,7 +165,6 @@ const detailfilm = async (titlefilm, userId) => {
       }]
     });
 
-    // Fetch comments with associated usernames
     const comments = await Comment.findAll({
       where: { titlefilm: titlefilm },
       order: [['id', 'DESC']],
@@ -177,7 +175,6 @@ const detailfilm = async (titlefilm, userId) => {
       }],
     });
 
-    // Fetch and calculate general assessment
     const general_assessment = await Rating.findAll({
       where: { titlefilm: titlefilm },
       attributes: [
@@ -393,10 +390,22 @@ const post_ratingstar = async (titlefilm, id, starselect) => {
   }
 }
 
+const Productservices_editpackageVIP1 = async (title, VIP1) => {
+  try {
+    const data = await Product.update(
+      { VIP1: VIP1 }, 
+      { where: { title: title }} 
+    );
+    if (data[0] > 0){
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.error("Error in Productservices_editpackageVIP1:", error);
+    throw error;
+  }
+};
 
 
-
-
-
-
-module.exports = {Productservices_edit, home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice,Productservices_Getdetail_xemphim,Productservices_create_xemphim};
+module.exports = {Productservices_edit, home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice,Productservices_Getdetail_xemphim,Productservices_create_xemphim,Productservices_editpackageVIP1};
