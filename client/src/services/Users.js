@@ -26,9 +26,9 @@ const ServiceUserlogin = async (email, password) => {
 
 
 
-const Userregister = async (email, password) => {
+const Userregister = async (email, password,name) => {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/dang-ky`, { email, password });
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/dang-ky`, { email, password,name });
     if (response.status === 201) {
       return { success: true };
     } else {

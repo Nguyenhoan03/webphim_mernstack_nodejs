@@ -3,29 +3,37 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 let refreshTokens = [];
+
 const Servicelogin = async (email, password) => {
   try {
     const data = await User.findOne({ where: { email } });
     if (!data) {
       return { success: false, message: "User not found" };
     }
-   
     const isMatch = await bcrypt.compare(password, data.password);
     if (!isMatch) {
       return { success: false, message: 'Thông tin đăng nhập không chính xác' };
     }
-     // kiểm tra quyền user
-     const data_role_permission = await User.getRolesAndPermissions(data.id);     
-     const roles = data_role_permission.roles;
-     const permissions = data_role_permission.permissions;
-
-     //
-    const token = jwt.sign({ id: data.id}, process.env.SECRET, { expiresIn: '30m' });
-    const refreshToken = jwt.sign({ id: data.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' }); 
+    let roles, permissions;
+    if (data.status === 1) {
+      const data_role_permission = await User.getRolesAndPermissions(data.id);     
+      roles = data_role_permission.roles;
+      permissions = data_role_permission.permissions;
+    }
+    const token = jwt.sign({ id: data.id }, process.env.SECRET, { expiresIn: '30m' });
+    const refreshToken = jwt.sign({ id: data.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
     const name = data.username;
     const id = data.id;
     refreshTokens.push(refreshToken);
-    return { success: true,refreshToken, token, name,id,roles,permissions };
+    return { 
+      success: true, 
+      refreshToken, 
+      token, 
+      name, 
+      id, 
+      ...(roles && { roles }),
+      ...(permissions && { permissions })
+    };
   } catch (error) {
     console.error("Error in Servicelogin:", error);
     throw new Error("Server error");
@@ -64,13 +72,15 @@ const Servicerefreshtoken = async (req, res, refreshToken) => {
 
 const Serviceregister = async (email, name, password) => {
   try {
+    console.log("firstnameuserregister",name)
     const existingUser = await User.findOne({ where: { email } });
     if (!existingUser) {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await User.create({
         email,
-        name,
-        password: hashedPassword
+        username:name,
+        password: hashedPassword,
+        status: 0,
       });
       const userRole = await roles.findOne({ where: { name: 'user' } });
       if (userRole) {

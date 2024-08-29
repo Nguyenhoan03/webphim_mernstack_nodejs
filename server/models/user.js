@@ -66,7 +66,8 @@
     User.init({
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      username: DataTypes.STRING
+      username: DataTypes.STRING,
+      status: DataTypes.INTEGER,
     }, {
       sequelize,
       modelName: 'User',

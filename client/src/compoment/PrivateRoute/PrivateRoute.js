@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({ children, roles }) => {
-  const userRoles = JSON.parse(sessionStorage.getItem('roles') || '[]');
+  const userRoles = sessionStorage.getItem('roles');
 
   const hasRequiredRole = roles.some(role => userRoles.includes(role));
 
