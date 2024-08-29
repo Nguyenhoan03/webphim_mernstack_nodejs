@@ -17,6 +17,7 @@ const initRoutes = (app) => {
   app.post('/refresh_token', Usercontroller.Refreshtoken);
   app.post('/crawl', Crawlphim.Crawlphim);
   app.get('/category',Categorycontroller.getallcatecontroller);
+  app.get('/getalluser',Usercontroller.getallusercontroller);
   // Use router
   app.use(router);
   app.get('/error', (req, res, next) => {

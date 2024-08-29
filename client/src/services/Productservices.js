@@ -1,5 +1,5 @@
 import axios from 'axios';
-const permissions = sessionStorage.getItem('permissions');
+// const permissions = sessionStorage.getItem('permissions');
  const Producthome = async () => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/product/product-home`);
@@ -18,17 +18,18 @@ const ProductDetail = async (title, id, permissions) => {
       }
     });
 
-    // Kiểm tra nếu phim yêu cầu quyền VIP1
-    if (response.data.datafilm.VIP1 === 1) {
-      // Kiểm tra nếu người dùng có quyền VIP1 hoặc VIP2
-      if (permissions.includes("VIP1") || permissions.includes("VIP2")) {
-        return response.data; // Người dùng có quyền, trả về dữ liệu phim
-      } else {
-        return { error: "Bạn cần đăng ký mua gói VIP1 để xem được phim này" };
-      }
-    }
-
-    return response.data; // Phim không yêu cầu quyền VIP, trả về dữ liệu phim
+    // // Kiểm tra nếu phim yêu cầu quyền VIP1
+    // if (response.data.datafilm.VIP1 === 1) {
+    //   // Kiểm tra nếu người dùng có quyền VIP1 hoặc VIP2
+    //   if (permissions.includes("VIP1") || permissions.includes("VIP2")) {
+    //     return response.data; // Người dùng có quyền, trả về dữ liệu phim
+    //   } else {
+    //     return { error: "Bạn cần đăng ký mua gói VIP1 để xem được phim này" };
+    //   }
+    // }
+   if(response){
+     return response.data; // Phim không yêu cầu quyền VIP, trả về dữ liệu phim
+   }
   } catch (error) {
     throw error;
   }

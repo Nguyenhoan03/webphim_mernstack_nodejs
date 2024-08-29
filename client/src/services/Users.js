@@ -12,7 +12,6 @@ const ServiceUserlogin = async (email, password) => {
             sessionStorage.setItem('email', email);
             sessionStorage.setItem('refreshToken', data.refreshToken);
             sessionStorage.setItem('roles', data.roles);
-            sessionStorage.setItem('permissions',data.permissions);
         return {success: true}
         } else {
          
@@ -26,9 +25,9 @@ const ServiceUserlogin = async (email, password) => {
 
 
 
-const Userregister = async (email, password) => {
+const Userregister = async (email, password,name) => {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/dang-ky`, { email, password });
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/dang-ky`, { email, password,name });
     if (response.status === 201) {
       return { success: true };
     } else {
@@ -39,6 +38,15 @@ const Userregister = async (email, password) => {
     return { success: false, message: "An error occurred during registration" };
   }
 };
+const Getalluser = async()=>{
+  try {
+      const data = await axios.get(`${process.env.REACT_APP_API_URL}/getalluser`);
+      if(data.status === 200){
+        return data;
+      }
+  } catch (error) {
+      throw(error)
+  }
+}
 
-
-export { ServiceUserlogin,Userregister };
+export { ServiceUserlogin,Userregister,Getalluser };

@@ -16,7 +16,7 @@ export default function Register() {
       setError("Passwords do not match. Please check your inputs.");
     } else {
       try {
-        const response = await Userregister(email, password);
+        const response = await Userregister(email, password,name);
         if (response.success) {
           navigate('/dang-nhap'); // Chuyển hướng đến trang đăng nhập sau khi đăng ký thành công
         } else {
