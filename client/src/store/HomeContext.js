@@ -10,7 +10,6 @@ export const HomeProvider = ({children}) =>{
     const id = sessionStorage.getItem('id');
     const email = sessionStorage.getItem('email');
     const roles = sessionStorage.getItem('roles'); 
-    const permissions = sessionStorage.getItem('permissions'); 
 
     function SampleNextArrow(props) {
       const { className, style, onClick } = props;
@@ -111,7 +110,7 @@ export const HomeProvider = ({children}) =>{
         fetchData();
       }, []);
      return (
-        <HomeContext.Provider value={{ phimhanhdong, trendingData, phimsapchieu,phimhot,settings,token ,id,email,roles,permissions}}>
+        <HomeContext.Provider value={{ phimhanhdong, trendingData, phimsapchieu,phimhot,settings,token ,id,email,roles}}>
              {children}
        </HomeContext.Provider>
      )

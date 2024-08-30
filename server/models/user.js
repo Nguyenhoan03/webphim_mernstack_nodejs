@@ -28,7 +28,7 @@
         });
       }
 
-      static async getRolesAndPermissions(userId) {
+      static async getRoles(userId) {
         try {
           const user = await User.findByPk(userId, {
             include: [{
@@ -36,12 +36,7 @@
               as: 'roles',
               attributes: ['Name'], 
               through: { attributes: [] },
-              include: [{
-                model: sequelize.models.permissions, 
-                as: 'permissions', 
-                attributes: ['Name'],
-                through: { attributes: [] }
-              }]
+             
             }]
           });
           
@@ -50,17 +45,33 @@
           }
       
           const roles = user.roles.map(role => role.Name);
-          const permissions = user.roles.flatMap(role => role.permissions.map(permission => permission.Name));
       
-          return { roles, permissions };
+          return { roles };
         } catch (error) {
           console.error("Error in getRolesAndPermissions:", error);
           throw error;
         }
       }
-      
 
+      static async getPermissions(userId) {
+        try {
+          const userPermissions = await sequelize.models.user_permissions.findAll({
+            where: { userid: userId },
+            include: [{
+              model: sequelize.models.permissions,
+              as: 'permission',
+              attributes: ['Name']
+            }]
+          });
       
+          const permissions = userPermissions.map(up => up.permission.Name);
+      
+          return permissions;
+        } catch (error) {
+          console.error("Error in getPermissions:", error);
+          throw error;
+        }
+      }
     }
     
     User.init({

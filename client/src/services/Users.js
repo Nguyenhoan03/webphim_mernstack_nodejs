@@ -12,7 +12,6 @@ const ServiceUserlogin = async (email, password) => {
             sessionStorage.setItem('email', email);
             sessionStorage.setItem('refreshToken', data.refreshToken);
             sessionStorage.setItem('roles', data.roles);
-            sessionStorage.setItem('permissions',data.permissions);
         return {success: true}
         } else {
          
@@ -39,6 +38,32 @@ const Userregister = async (email, password,name) => {
     return { success: false, message: "An error occurred during registration" };
   }
 };
+const Getalluser = async()=>{
+  try {
+      const data = await axios.get(`${process.env.REACT_APP_API_URL}/getalluser`);
+      if(data.status === 200){
+        return data;
+      }
+  } catch (error) {
+      throw(error)
+  }
+}
+const Update_user_roles = async(id_user_update,edited_roles)=>{
+     try {
+        const data = await axios.post(`${process.env.REACT_APP_API_URL}/update_roles`,{id_user_update,edited_roles})
+        if(data.status === 200){
+          return {success: true};
+        }
+     } catch (error) {
+      throw(error)
+     }
+}
+const Update_user_permission = async(id_user_update,edited_Permissions)=>{
+  try {
+    
+  } catch (error) {
+    throw(error);
+  }
 
-
-export { ServiceUserlogin,Userregister };
+}
+export { ServiceUserlogin,Userregister,Getalluser,Update_user_roles,Update_user_permission };

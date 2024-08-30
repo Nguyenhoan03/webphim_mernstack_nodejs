@@ -25,9 +25,9 @@ const Refreshtoken =async (req,res ) => {
 }
 
 const Register = async (req, res) => {
-    const { email,name, password } = req.body;
+    const { email, password,name } = req.body;
     try {
-        const data = await Userservice.Serviceregister(email,name, password);
+        const data = await Userservice.Serviceregister(email, password,name);
         if (data.success) {
             res.status(201).json({ message: 'User registered successfully' });
         } else {
@@ -38,5 +38,32 @@ const Register = async (req, res) => {
         res.status(500).json("Server error");
     }
 }
-
-module.exports={Login,Register,Refreshtoken}
+const getallusercontroller = async (req, res) => {
+    try {
+      const result = await Userservice.ServicegetallUser();
+      
+      if (result.success) {
+        return res.status(200).json(result.data); 
+      } else {
+        return res.status(404).json({ message: result.message }); 
+      }
+    } catch (error) {
+      console.error("Error in getallusercontroller:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  };
+  const Updateroles = async (req,res,next)=>{
+    try {
+        const {id_user_update,edited_roles} = req.body;
+        const data = await Userservice.ServiceUpdateRoles(id_user_update,edited_roles);
+        console.log("firstdataaaa",data);
+        if(data.success){
+            return res.status(200).json("update thành công");
+        }
+    } catch (error) {
+        
+        next(error);
+    }   
+  }
+  
+module.exports={Login,Register,Refreshtoken,getallusercontroller,Updateroles}
