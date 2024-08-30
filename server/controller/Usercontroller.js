@@ -52,5 +52,18 @@ const getallusercontroller = async (req, res) => {
       return res.status(500).json({ message: "Internal server error" });
     }
   };
+  const Updateroles = async (req,res,next)=>{
+    try {
+        const {id_user_update,edited_roles} = req.body;
+        const data = await Userservice.ServiceUpdateRoles(id_user_update,edited_roles);
+        console.log("firstdataaaa",data);
+        if(data.success){
+            return res.status(200).json("update thành công");
+        }
+    } catch (error) {
+        
+        next(error);
+    }   
+  }
   
-module.exports={Login,Register,Refreshtoken,getallusercontroller}
+module.exports={Login,Register,Refreshtoken,getallusercontroller,Updateroles}

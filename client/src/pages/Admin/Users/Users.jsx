@@ -4,7 +4,8 @@ import Right_navbarcompoment from '../../../compoment/AdminCompoment/Right_navba
 import { MdShoppingCart, MdAttachMoney, MdOutlineShoppingBag } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import { Getalluser } from '../../../services/Users';
-
+import { Update_user_roles } from '../../../services/Users';
+import { Update_user_permission } from '../../../services/Users';
 export default function Users() {
     const [datauser, setdatauser] = useState([]);
 
@@ -33,7 +34,34 @@ export default function Users() {
             </div>
         </div>
     );
+   const handleRoleChange =async (e,index)=>{
+    try {
+        const edited_roles = e.target.value;
+        const id_user_update = datauser[index].id;
+        const data = await Update_user_roles(id_user_update,edited_roles);
+         if(data && data.success){
+              alert("update quyền người dùng" +datauser[index].username+ "thành công");
+              window.location.reload();
+        }
+    } catch (error) {
+        console.log(error)
+    }    
+     
 
+   }
+   const handlePermissionChange =async (e,index)=>{
+      try {
+        const edited_Permissions = e.target.value;
+        
+        const id_user_update = datauser[index].id;
+        console.log("firstedited_Permissions",edited_Permissions)
+        const data = await Update_user_permission(id_user_update,edited_Permissions);
+
+
+      } catch (error) {
+        
+      }
+   }
     return (
         <div className="container-fluid">
             <div className="row">
@@ -74,18 +102,24 @@ export default function Users() {
                                         <td>{data.password}</td>
                                         <td>{data.username}</td>
                                         <td>
-                                            <select className="form-control" value={data.roles}>
-                                                <option>{data.roles}</option>
-                                                <option>Admin</option>
+                                            <select className="form-control" value={data.roles} onChange={(e) => handleRoleChange(e,index)}>
+                                                <option value="user" selected={data.roles === "user"}>User</option>
+                                                <option value="admin" selected={data.roles === "admin"}>Admin</option>
                                             </select>
                                         </td>
+
                                         <td>
-                                            <select className="form-control">
-                                                <option>Not Purchased</option>
-                                                <option>VIP1</option>
-                                                <option>VIP2</option>
-                                            </select>
+                                        <select
+                                            className="form-control"
+                                            value={data.permissions[0]} // Assuming one permission per user
+                                            onChange={(e) => handlePermissionChange(e, index)}
+                                        >
+                                            <option value="No_Permissions">Not Purchased</option>
+                                            <option value="VIP1">VIP1</option>
+                                            <option value="VIP2">VIP2</option>
+                                        </select>
                                         </td>
+
                                     </tr>
                                 ))}
                             </tbody>

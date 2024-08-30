@@ -18,13 +18,14 @@ const initRoutes = (app) => {
   app.post('/crawl', Crawlphim.Crawlphim);
   app.get('/category',Categorycontroller.getallcatecontroller);
   app.get('/getalluser',Usercontroller.getallusercontroller);
+  app.post('/update_roles',Usercontroller.Updateroles);
   // Use router
   app.use(router);
   app.get('/error', (req, res, next) => {
     const error = new Error('Something went wrong!');
     error.statusCode = 400;
     error.stack = new Error().stack;
-    next(error);
+    next(error);  
   });
 
   // Error handler should be the last middleware

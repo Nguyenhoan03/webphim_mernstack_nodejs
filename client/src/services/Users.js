@@ -48,5 +48,22 @@ const Getalluser = async()=>{
       throw(error)
   }
 }
+const Update_user_roles = async(id_user_update,edited_roles)=>{
+     try {
+        const data = await axios.post(`${process.env.REACT_APP_API_URL}/update_roles`,{id_user_update,edited_roles})
+        if(data.status === 200){
+          return {success: true};
+        }
+     } catch (error) {
+      throw(error)
+     }
+}
+const Update_user_permission = async(id_user_update,edited_Permissions)=>{
+  try {
+    
+  } catch (error) {
+    throw(error);
+  }
 
-export { ServiceUserlogin,Userregister,Getalluser };
+}
+export { ServiceUserlogin,Userregister,Getalluser,Update_user_roles,Update_user_permission };

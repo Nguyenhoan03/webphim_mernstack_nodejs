@@ -86,22 +86,23 @@ const Serviceregister = async (email, password,name) => {
 }
 const ServicegetallUser = async () => {
   try {
-  
     const users = await User.findAll();
 
- 
-    const usersWithRoles = await Promise.all(
+    const usersWithRolesAndPermissions = await Promise.all(
       users.map(async (user) => {
-        const roles = await User.getRoles(user.id); 
+        const roles = await User.getRoles(user.id);
+        const permissions = await User.getPermissions(user.id);
+
         return {
-          ...user.dataValues, 
+          ...user.dataValues,
           roles: roles.roles,
+          permissions: permissions.length ? permissions : ["No_Permissions"]
         };
       })
     );
 
-    if (usersWithRoles && usersWithRoles.length > 0) {
-      return { success: true, data: usersWithRoles };
+    if (usersWithRolesAndPermissions && usersWithRolesAndPermissions.length > 0) {
+      return { success: true, data: usersWithRolesAndPermissions };
     } else {
       return { success: false, message: "No users found" };
     }
@@ -112,4 +113,30 @@ const ServicegetallUser = async () => {
 };
 
 
-module.exports = { Servicelogin, Serviceregister,Servicerefreshtoken,ServicegetallUser };
+const ServiceUpdateRoles = async (id_user_update,edited_roles)=>{
+      try {
+        const user = await User.findByPk(id_user_update);
+        if (!user) {
+          throw new Error('User not found');
+        }
+        
+        const all_roles = await roles.findAll({
+          where: {
+            name: edited_roles,
+          }
+        });
+        if (all_roles.length === 0) {
+          throw new Error('One or more roles not found');
+        }
+        
+        // Cập nhật vai trò cho người dùng bằng cách thiết lập lại liên kết thông qua bảng trung gian `role_user`
+        await user.setRoles(all_roles);
+        return { success: true, message: 'Roles updated successfully' };
+      } catch (error) {
+        console.error("Error in ServiceUpdateRoles:", error);
+        throw error;
+      }
+}
+
+
+module.exports = { Servicelogin, Serviceregister,Servicerefreshtoken,ServicegetallUser,ServiceUpdateRoles };

@@ -52,9 +52,26 @@
           throw error;
         }
       }
-      
 
+      static async getPermissions(userId) {
+        try {
+          const userPermissions = await sequelize.models.user_permissions.findAll({
+            where: { userid: userId },
+            include: [{
+              model: sequelize.models.permissions,
+              as: 'permission',
+              attributes: ['Name']
+            }]
+          });
       
+          const permissions = userPermissions.map(up => up.permission.Name);
+      
+          return permissions;
+        } catch (error) {
+          console.error("Error in getPermissions:", error);
+          throw error;
+        }
+      }
     }
     
     User.init({
