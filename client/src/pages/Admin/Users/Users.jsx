@@ -46,22 +46,26 @@ export default function Users() {
     } catch (error) {
         console.log(error)
     }    
-     
-
    }
-   const handlePermissionChange =async (e,index)=>{
-      try {
-        const edited_Permissions = e.target.value;
-        
-        const id_user_update = datauser[index].id;
-        console.log("firstedited_Permissions",edited_Permissions)
-        const data = await Update_user_permission(id_user_update,edited_Permissions);
-
-
-      } catch (error) {
-        
-      }
-   }
+   const handlePermissionChange = async (e, index, permissionType) => {
+    try {
+      const id_user_update = datauser[index].id;
+      const isChecked = e.target.checked;
+  
+      const edited_Permissions = isChecked
+        ? [...datauser[index].permissions, permissionType]  
+        : datauser[index].permissions.filter(permission => permission !== permissionType);  
+      console.log("Edited Permissions", edited_Permissions);
+     const data = await Update_user_permission(id_user_update, edited_Permissions);
+     if(data.success){
+         datauser[index].permissions = edited_Permissions;
+         setdatauser([...datauser]); 
+         alert("Cập nhật thành công người dùng" + datauser[index].username);
+     }   
+    } catch (error) {
+      console.log(error);
+    }
+  };
     return (
         <div className="container-fluid">
             <div className="row">
@@ -102,24 +106,25 @@ export default function Users() {
                                         <td>{data.password}</td>
                                         <td>{data.username}</td>
                                         <td>
-                                            <select className="form-control" value={data.roles} onChange={(e) => handleRoleChange(e,index)}>
-                                                <option value="user" selected={data.roles === "user"}>User</option>
-                                                <option value="admin" selected={data.roles === "admin"}>Admin</option>
+                                            <select className="form-control" value={data.roles} onChange={(e) => handleRoleChange(e, index)}>
+                                                <option value="user">User</option>
+                                                <option value="admin">Admin</option>
                                             </select>
                                         </td>
-
                                         <td>
-                                        <select
-                                            className="form-control"
-                                            value={data.permissions[0]} // Assuming one permission per user
-                                            onChange={(e) => handlePermissionChange(e, index)}
-                                        >
-                                            <option value="No_Permissions">Not Purchased</option>
-                                            <option value="VIP1">VIP1</option>
-                                            <option value="VIP2">VIP2</option>
-                                        </select>
+                                            <input
+                                            type="checkbox"
+                                            value="VIP1"
+                                            checked={datauser[index].permissions.includes('VIP1')}
+                                            onChange={(e) => handlePermissionChange(e, index, 'VIP1')}
+                                            /> VIP1
+                                            <input
+                                            type="checkbox"
+                                            value="VIP2"
+                                            checked={datauser[index].permissions.includes('VIP2')}
+                                            onChange={(e) => handlePermissionChange(e, index, 'VIP2')}
+                                            /> VIP2
                                         </td>
-
                                     </tr>
                                 ))}
                             </tbody>

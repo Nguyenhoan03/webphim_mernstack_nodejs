@@ -12,6 +12,7 @@ const ServiceUserlogin = async (email, password) => {
             sessionStorage.setItem('email', email);
             sessionStorage.setItem('refreshToken', data.refreshToken);
             sessionStorage.setItem('roles', data.roles);
+            sessionStorage.setItem('permissions', data.permissions);
         return {success: true}
         } else {
          
@@ -60,7 +61,10 @@ const Update_user_roles = async(id_user_update,edited_roles)=>{
 }
 const Update_user_permission = async(id_user_update,edited_Permissions)=>{
   try {
-    
+     const data = await axios.post(`${process.env.REACT_APP_API_URL}/update_permissions`,{id_user_update,edited_Permissions});
+     if(data.status === 200){
+      return {success:true}
+     }
   } catch (error) {
     throw(error);
   }

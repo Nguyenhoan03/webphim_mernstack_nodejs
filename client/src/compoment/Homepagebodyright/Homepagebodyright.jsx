@@ -43,7 +43,7 @@ export default function Homepagebodyright() {
       <Link to={`/${item.title}`} key={item.id}>
         <li className="trending-item">
           <span className="title">{item.title}</span>
-          <span className="views">{item.likes} lượt quan tâm</span>
+          <span className="views">{item.views} lượt xem</span>
         </li>
       </Link>
     ))}

@@ -8,8 +8,10 @@ export const HomeProvider = ({children}) =>{
     const [phimhot, setPhimhot] = useState([]);
     const token = sessionStorage.getItem('token');
     const id = sessionStorage.getItem('id');
+    const name = sessionStorage.getItem('name'); 
     const email = sessionStorage.getItem('email');
     const roles = sessionStorage.getItem('roles'); 
+    const permissions = sessionStorage.getItem('permissions'); 
 
     function SampleNextArrow(props) {
       const { className, style, onClick } = props;
@@ -110,7 +112,7 @@ export const HomeProvider = ({children}) =>{
         fetchData();
       }, []);
      return (
-        <HomeContext.Provider value={{ phimhanhdong, trendingData, phimsapchieu,phimhot,settings,token ,id,email,roles}}>
+        <HomeContext.Provider value={{ phimhanhdong, trendingData, phimsapchieu,phimhot,settings,token,name ,id,email,roles,permissions}}>
              {children}
        </HomeContext.Provider>
      )

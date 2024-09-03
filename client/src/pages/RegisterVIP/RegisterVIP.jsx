@@ -30,7 +30,7 @@ const SubscriptionPlans = () => {
     const {token} = useContext(HomeContext);
       const handlechoose_package = (plan)=>{
           if(token ){
-             navigate(`${plan.nam}?price=${plan.price}`)
+             navigate(`${plan.name}?price=${plan.price}`)
           }else{
             alert("Bạn cần đăng nhập để có thể đăng ký gói cao cấp")
           }

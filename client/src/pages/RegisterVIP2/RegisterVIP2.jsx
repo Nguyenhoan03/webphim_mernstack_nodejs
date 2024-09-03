@@ -2,8 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import './RegisterVIP2.scss';
 import { useLocation } from 'react-router';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router';
+import { HomeContext } from '../../store/HomeContext';
+
 const RegisterVIP2 = () => {
-  const [selectedPlan, setSelectedPlan] = useState('1'); // Keep as string initially for radio inputs
+  const {token} = useContext(HomeContext);
+  const navigate = useNavigate();
+  const [selectedPlan, setSelectedPlan] = useState('1'); 
   const [selectedPayment, setSelectedPayment] = useState('momo');
   const [selectedPricePlan, setSelectedPricePlan] = useState(0);
   const [nextPaymentDate, setNextPaymentDate] = useState('');
@@ -43,7 +48,15 @@ const RegisterVIP2 = () => {
   }, [selectedPlan]); // Only depend on selectedPlan
   
   const calculatedPrice = selectedPricePlan * Number(selectedPlan);
-
+  console.log("firstPay_banktranferv",selectedPayment)
+  const Handle_pay = (selectedPayment) =>{
+    
+      if(token ){
+         navigate(`${selectedPayment}?price=${selectedPricePlan * selectedPlan}`)
+      }else{
+        alert("Bạn cần đăng nhập để có thể đăng ký gói cao cấp")
+      }
+  }
   return (
     <div className="subscription-page">
       <div className="row">
@@ -123,13 +136,13 @@ const RegisterVIP2 = () => {
               <span>Ví điện tử ZaloPay</span>
             </label>
 
-            <label className={`payment-option ${selectedPayment === 'visa' ? 'selected' : ''}`}>
+            <label className={`payment-option ${selectedPayment === 'bank_transfer' ? 'selected' : ''}`}>
               <input
                 type="radio"
                 name="payment"
-                value="visa"
-                checked={selectedPayment === 'visa'}
-                onChange={() => setSelectedPayment('visa')}
+                value="bank_transfer"
+                checked={selectedPayment === 'bank_transfer'}
+                onChange={() => setSelectedPayment('bank_transfer')}
               />
               <span>Chuyển khoản ngân hàng</span>
             </label>
@@ -146,10 +159,10 @@ const RegisterVIP2 = () => {
             <p>Trị giá: {calculatedPrice}.000 VND</p>
             <p>Giảm giá: 0 VND</p>
             <div className="total">
-              <span>Thành tiền:</span>
+              <span style={{color:'red'}}>Thành tiền:</span>
               <span>{calculatedPrice}.000 VND</span>
             </div>
-            <button className="pay-button">Thanh toán</button>
+            <button className="pay-button" onClick={()=>Handle_pay(selectedPayment)}>Thanh toán</button>
           </div>
         </div>
       </div>

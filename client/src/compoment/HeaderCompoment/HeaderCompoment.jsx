@@ -67,6 +67,8 @@ export default function HeaderComponent() {
 
   const handleSearch = () => {
     navigate(`/tim-kiem/${search}`, { state: { data_tk: filteredData } });
+    search('');
+
   };
 
   const handleTabMenuToggle = () => {

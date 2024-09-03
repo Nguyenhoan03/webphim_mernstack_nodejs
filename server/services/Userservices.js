@@ -1,7 +1,8 @@
-const { User,role_user,roles } = require('../models');
+const { User,role_user,roles,permissions } = require('../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
+const { where } = require('sequelize');
 let refreshTokens = [];
 const Servicelogin = async (email, password) => {
   try {
@@ -9,7 +10,6 @@ const Servicelogin = async (email, password) => {
     if (!data) {
       return { success: false, message: "User not found" };
     }
-   
     const isMatch = await bcrypt.compare(password, data.password);
     if (!isMatch) {
       return { success: false, message: 'Thông tin đăng nhập không chính xác' };
@@ -17,13 +17,17 @@ const Servicelogin = async (email, password) => {
      // kiểm tra quyền user
      const data_role = await User.getRoles(data.id);     
      const roles = data_role.roles;
+    //  const data_permissions = await User.getPermissions(data.id);     
+     const permissions = await User.getPermissions(data.id) || []; 
+
+     console.log("firstpermissionspermissions",permissions)
      //
     const token = jwt.sign({ id: data.id}, process.env.SECRET, { expiresIn: '30m' });
     const refreshToken = jwt.sign({ id: data.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' }); 
     const name = data.username;
     const id = data.id;
     refreshTokens.push(refreshToken);
-    return { success: true,refreshToken, token, name,id,roles };
+    return { success: true,refreshToken, token, name,id,roles,permissions };
   } catch (error) {
     console.error("Error in Servicelogin:", error);
     throw new Error("Server error");
@@ -87,12 +91,11 @@ const Serviceregister = async (email, password,name) => {
 const ServicegetallUser = async () => {
   try {
     const users = await User.findAll();
-
     const usersWithRolesAndPermissions = await Promise.all(
       users.map(async (user) => {
         const roles = await User.getRoles(user.id);
         const permissions = await User.getPermissions(user.id);
-
+        console.log("firstpermission",permissions);
         return {
           ...user.dataValues,
           roles: roles.roles,
@@ -100,7 +103,6 @@ const ServicegetallUser = async () => {
         };
       })
     );
-
     if (usersWithRolesAndPermissions && usersWithRolesAndPermissions.length > 0) {
       return { success: true, data: usersWithRolesAndPermissions };
     } else {
@@ -111,15 +113,12 @@ const ServicegetallUser = async () => {
     throw new Error("Server error");
   }
 };
-
-
 const ServiceUpdateRoles = async (id_user_update,edited_roles)=>{
       try {
         const user = await User.findByPk(id_user_update);
         if (!user) {
           throw new Error('User not found');
         }
-        
         const all_roles = await roles.findAll({
           where: {
             name: edited_roles,
@@ -128,8 +127,7 @@ const ServiceUpdateRoles = async (id_user_update,edited_roles)=>{
         if (all_roles.length === 0) {
           throw new Error('One or more roles not found');
         }
-        
-        // Cập nhật vai trò cho người dùng bằng cách thiết lập lại liên kết thông qua bảng trung gian `role_user`
+       
         await user.setRoles(all_roles);
         return { success: true, message: 'Roles updated successfully' };
       } catch (error) {
@@ -137,6 +135,25 @@ const ServiceUpdateRoles = async (id_user_update,edited_roles)=>{
         throw error;
       }
 }
+const ServiceUpdatePermissions = async (id_user_update, edited_Permissions) => {
+  try {
+    const user = await User.findByPk(id_user_update);
+    if (!user) {
+      throw new Error("User not found");
+    }
 
+    const all_permissions = await permissions.findAll({
+      where: {
+        name: edited_Permissions, 
+      }
+    });
 
-module.exports = { Servicelogin, Serviceregister,Servicerefreshtoken,ServicegetallUser,ServiceUpdateRoles };
+    await user.setPermissions(all_permissions);  
+    return { success: true, message: 'Permissions updated successfully' };
+
+  } catch (error) {
+    throw (error);
+  }
+}
+
+module.exports = { Servicelogin, Serviceregister,Servicerefreshtoken,ServicegetallUser,ServiceUpdateRoles,ServiceUpdatePermissions };

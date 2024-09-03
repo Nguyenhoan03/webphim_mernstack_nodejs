@@ -26,6 +26,12 @@
           otherKey: 'roleid',
           as: 'roles'
         });
+        User.belongsToMany(models.permissions, {
+          through: models.user_permissions, 
+          foreignKey: 'userid',
+          otherKey: 'permissionid',
+          as: 'permissions'
+        });
       }
 
       static async getRoles(userId) {
@@ -63,9 +69,7 @@
               attributes: ['Name']
             }]
           });
-      
           const permissions = userPermissions.map(up => up.permission.Name);
-      
           return permissions;
         } catch (error) {
           console.error("Error in getPermissions:", error);
@@ -78,7 +82,6 @@
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       username: DataTypes.STRING,
-      status: DataTypes.INTEGER,
     }, {
       sequelize,
       modelName: 'User',

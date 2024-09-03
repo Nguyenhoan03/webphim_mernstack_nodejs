@@ -92,11 +92,10 @@ const Product_phimsapchieu = (req, res) => getProductByCategory(req, res, 27);
 const Product_Detailphim = async (req, res, next) => {
   try {
     const titlefilm = req.params.detailfilm;
-    const userId = req.headers.userid; 
+    const userId = req.headers.userid;  
     const data = await Productservices.detailfilm(titlefilm, userId);
     if (data) {
       res.json(data);
-      console.log(data, "data product_detailfilm");
     } else {
       res.status(404).json({ message: 'Không tìm thấy thông tin phim' });
     }
@@ -341,9 +340,21 @@ const handlequocgia = async (req, res, country, next) => {
   }
 };
 
+const Product_updateview = async (req, res) => {
+  try {
+    const { title } = req.body;
+    const data = await Productservices.Productservices_updateview(title);
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error("Error in Product_updateview:", error);
+    return res.status(500).json({ success: false, message: "Error updating view count" });
+  }
+};
+
 
 
 module.exports = {
+  Product_updateview,
   Product_comment,
   Rating_star,
   Product_home,

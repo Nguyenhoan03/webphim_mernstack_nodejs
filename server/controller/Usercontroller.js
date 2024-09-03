@@ -18,7 +18,6 @@ const Refreshtoken =async (req,res ) => {
      try {
         const refeshToken = req.body.token;
         await Userservice.Servicerefreshtoken(req,res,refeshToken);
-        // return res.status(200).json({})
      } catch (error) {
         console.log(error)
      }
@@ -65,5 +64,19 @@ const getallusercontroller = async (req, res) => {
         next(error);
     }   
   }
+  const Updatepermissions = async (req, res) => {
+    try {
+      const { id_user_update, edited_Permissions } = req.body;
+
+      const data = await Userservice.ServiceUpdatePermissions(id_user_update, edited_Permissions);
+      if(data.success){
+          res.status(200).json({ message: "Permissions updated successfully" });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "An error occurred while updating permissions" });
+    }
+  }
   
-module.exports={Login,Register,Refreshtoken,getallusercontroller,Updateroles}
+  
+module.exports={Login,Register,Refreshtoken,getallusercontroller,Updateroles,Updatepermissions}

@@ -13,6 +13,7 @@ import { HomeContext } from '../../store/HomeContext';
 import { ProductDetail } from '../../services/Productservices';
 import { Helmet } from 'react-helmet';
 import { HandleRating } from '../../services/Productservices';
+import { ProductServiceUpdateView } from '../../services/Productservices';
 
 import CommentCompoment from '../../compoment/CommentCompoment/CommentCompoment';
 export default function Detailpage() {
@@ -131,25 +132,24 @@ const [averageRating, setAverageRating] = useState(0);
 useEffect(() => {
   const fetchData = async () => {
     try {
-      if (title) {
-        const data = await ProductDetail(title, id, permissions, roles);
-
-        if (data.error1) {
-          alert("Bạn cần đăng nhập và mua gói xem VIP1 để có thể xem được phim này!");
-          window.history.back();
-        } else if (data.error) {
-          alert("Bạn cần mua gói xem VIP1 để có thể xem được phim này!");
-          window.history.back();
-        } else {
-          setdatadetail(data.datafilm);
-          setcomment(data.comments);
-          setparent_id(data.parent_id);
-          setSelectedStar(data.rating_star ? data.rating_star.rating : 0);
-          // Ensure the values are numbers
-          setratingtotal(Number(data.general_assessment.totalRatings) || 0);
-          setAverageRating(Number(data.general_assessment.averageRating) || 0);
-        }
+      const data = await ProductDetail(title, id, permissions, roles);
+      if (data.error1) {
+        alert("Bạn cần đăng nhập và mua gói xem VIP để có thể xem được phim này!");
+        window.history.back();
+      } else if (data.error) {
+        alert("Bạn cần mua gói xem VIP để có thể xem được phim này!");
+        window.history.back();
+      } else {
+        const data_updateviews = await ProductServiceUpdateView(title);
+        console.log("firstdata_update",data_updateviews)
+        setdatadetail(data.datafilm);
+        setcomment(data.comments);
+        setparent_id(data.parent_id);
+        setSelectedStar(data.rating_star ? data.rating_star.rating : 0);
+        setratingtotal(Number(data.general_assessment.totalRatings) || 0);
+        setAverageRating(Number(data.general_assessment.averageRating) || 0);
       }
+    
     } catch (error) {
       setError(error);
       console.error('Error fetching data:', error);
@@ -160,6 +160,7 @@ useEffect(() => {
 
   fetchData();
 }, [title, id, permissions, roles]);
+
 
 
 
@@ -176,7 +177,6 @@ useEffect(() => {
        else{
         alert('Hiện tại phim này chưa cập nhật để xem !');
        }
-        
   }
 
   const handleFormSubmit =async (event,starselect) => {

@@ -56,9 +56,9 @@ const home = async () => {
         attributes: ['hinhanh', 'title', 'namphathanh'],
       }),
       findFilms({
-        attributes: ['title', 'likes'],
-        limit: 8,
-        order: [['likes', 'DESC']],
+        attributes: ['title', 'likes','views'],
+        limit: 10,
+        order: [['views', 'DESC']],
       }),
       findFilms({
         where: { category_id: 23 },
@@ -406,6 +406,36 @@ const Productservices_editpackageVIP1 = async (title, VIP1) => {
     throw error;
   }
 };
+const lastUpdated = {}; 
+const THROTTLE_TIME = 500;
+
+const Productservices_updateview = async (title) => {
+  const currentTime = Date.now();
+
+  if (!lastUpdated[title] || (currentTime - lastUpdated[title]) > THROTTLE_TIME) {
+    try {
+      const data = await Product.increment(
+        { views: 1 }, 
+        { where: { title: title } }
+      );
+
+      if (data[0][1] > 0) {
+        lastUpdated[title] = currentTime;
+        return { success: true };
+      } else {
+        return { success: false, message: "Failed to update view count" };
+      }
+    } catch (error) {
+      console.error("Error in Productservices_updateview:", error);
+      throw error;
+    }
+  } else {
+    return { success: true }; // View count not incremented due to throttling
+  }
+};
 
 
-module.exports = {Productservices_edit, home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice,Productservices_Getdetail_xemphim,Productservices_create_xemphim,Productservices_editpackageVIP1};
+
+
+
+module.exports = {Productservices_updateview,Productservices_edit, home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice,Productservices_Getdetail_xemphim,Productservices_create_xemphim,Productservices_editpackageVIP1};

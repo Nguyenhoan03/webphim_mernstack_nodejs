@@ -19,21 +19,27 @@ export default function Product() {
   const [dataphim, setDataphim] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataAllPhim = await axios.get(
-          `${process.env.REACT_APP_API_URL}/product`
-        );
-        if (dataAllPhim) {
-          setDataphim(dataAllPhim.data);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/product`);
+        let dataAllPhim = response.data;
+  
+        // Lọc dữ liệu theo từ khóa tìm kiếm
+        if (searchQuery) {
+          dataAllPhim = dataAllPhim.filter(item =>
+            item.title.toLowerCase().includes(searchQuery.toLowerCase())
+          );
         }
+        setDataphim(dataAllPhim);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, []);
+  }, [searchQuery]); 
+  
 
   const itemsPerPage = 50;
   const offset = currentPage * itemsPerPage;
@@ -406,17 +412,20 @@ export default function Product() {
                   className=""
                   style={{ display: "inline-block", position: "relative" }}
                 >
-                  <input
-                    type="text"
-                    placeholder="nhập phim cần tìm ..."
-                    style={{
-                      paddingLeft: "10px",
-                      position: "relative",
-                      width: "400px",
-                      height: "40px",
-                      borderRadius: "10px",
-                    }}
-                  />
+                <input
+                type="text"
+                placeholder="Nhập phim cần tìm ..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  paddingLeft: "10px",
+                  position: "relative",
+                  width: "400px",
+                  height: "40px",
+                  borderRadius: "10px",
+                }}
+              />
+
                   <FaSearch
                     style={{
                       position: "absolute",

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Defaultcomponent from './compoment/Defaultcompoment/Defaultcompoment'; // Corrected import path
 import { HomeProvider } from './store/HomeContext';
 import { routes } from './routers/index';
-
+import './App.scss'
 function App() {
   return (
     <div className="App" style={{backgroundColor:'black'}}>

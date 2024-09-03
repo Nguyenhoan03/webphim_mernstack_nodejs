@@ -77,6 +77,7 @@ import Addepisode from '../pages/Admin/Product/Addepisode/Addepisode';
 import PrivateRoute from '../compoment/PrivateRoute/PrivateRoute';
 import NotFound from '../pages/Notfound/Notfound';
 import RegisterVIP from '../pages/RegisterVIP/RegisterVIP';
+import Pay_banktranfer from '../pages/Pay/Pay_banktranfer/Pay_banktranfer';
 import RegisterVIP2 from '../pages/RegisterVIP2/RegisterVIP2';
   export const routes = [
     {
@@ -97,6 +98,11 @@ import RegisterVIP2 from '../pages/RegisterVIP2/RegisterVIP2';
     {
       path: '/dang-ky-goi-vip/:title',
       page: RegisterVIP2,
+      isShowHeader: true,
+    },
+    {
+      path: '/dang-ky-goi-vip/:title/:paymentMethod',
+      page: Pay_banktranfer,
       isShowHeader: true,
     },
   // Admin Routes

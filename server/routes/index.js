@@ -19,6 +19,7 @@ const initRoutes = (app) => {
   app.get('/category',Categorycontroller.getallcatecontroller);
   app.get('/getalluser',Usercontroller.getallusercontroller);
   app.post('/update_roles',Usercontroller.Updateroles);
+  app.post('/update_permissions',Usercontroller.Updatepermissions);
   // Use router
   app.use(router);
   app.get('/error', (req, res, next) => {
