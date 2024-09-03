@@ -18,7 +18,7 @@ export const HomeProvider = ({children}) =>{
       return (
         <div
           className={`next-arrow custom-arrow ${className}`}
-          style={style}
+          style={style} 
           onClick={onClick}
         >
           <i className="fas fa-chevron-right"></i>
@@ -39,7 +39,7 @@ export const HomeProvider = ({children}) =>{
       );
     }
     const settings = {
-      dots: true,
+      dots: false,
       infinite: true,
       speed: 500,
       slidesToShow: 6,
@@ -90,7 +90,14 @@ export const HomeProvider = ({children}) =>{
           }
         },
         {
-          breakpoint: 480,
+          breakpoint: 470,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          }
+        },
+        {
+          breakpoint: 330,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,

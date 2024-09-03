@@ -70,3 +70,27 @@ $btn-font-size: 12px;
     margin-top: 28px;
   }
 }
+@media (max-width: 765px) {
+  .container.mt-2 {
+    display: block; // Hiển thị dưới dạng khối để dễ dàng căn chỉnh
+  }
+
+  .container.mt-2 > div {
+    margin-bottom: 15px; 
+    text-align: center;
+  }
+
+  .xemphim_btnserver {
+    text-align: center; 
+  }
+
+  .xemphim_btnserverparent {
+    display: flex;
+    justify-content: center; // Căn giữa các nút server
+    flex-wrap: wrap; // Cho phép các nút xuống dòng nếu không đủ chỗ
+  }
+
+  .xemphim_btnserverparent button {
+    margin: 5px; // Thêm khoảng cách giữa các nút
+  }
+}

@@ -12,7 +12,7 @@ export default function Slickslider({ settings, data = [] }) {
     <Slider {...settings}>
       {
         data.map((dt, index) => (
-          <div key={index} className="col-md-3 col-lg-2 mt-3 d-flex">
+          <div key={index} className="mt-3 d-flex wd_slickslideer">
             <Link to={`/${dt.title}`} style={{ textDecoration: 'none' }}>
               <div className="news_outstanding_card border-radius-3" style={{ marginLeft: 0, marginRight: 20, borderRadius: 7, width: 190, backgroundColor: 'white', border: '1px solid gray' }}>
                 <div className="image-container" style={{ position: 'relative', textAlign: 'center' }}>

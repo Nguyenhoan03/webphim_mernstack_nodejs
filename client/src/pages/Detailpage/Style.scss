@@ -276,6 +276,71 @@
     color: #fff;
   }
 }
+@media screen and (min-width: 765px) and (max-width: 991px) {
+  .detailpage, .content_detailpage {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+  .caption-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  .card_detailpage_film {
+    float: none;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  h1.movie-title {
+    float: none;
+    font-size: 24px;
+    text-align: left;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #FFA500; /* Màu sắc tiêu đề */
+  }
+
+  h2.movie-subtitle {
+    float: none;
+    font-size: 18px;
+    text-align: left;
+    margin: 5px 0;
+    color: #ddd; /* Màu sắc phụ đề */
+  }
+
+  .movie-details {
+    padding: 0;
+    list-style: none;
+  }
+
+  .movie-details li {
+    float: none;
+    margin: 5px 0;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+  }
+  
+  .buttons .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}
+
+
 
 @media screen and (max-width: 765px) {
      .image_card_detailpage{
@@ -295,11 +360,14 @@
     }
 }
 @media screen and (max-width: 991px) {
+  
   .content_detail_card_child {
     flex-direction: column;
     align-items: center;
     overflow: hidden;
   }
+
+  
 
   .image_card_detailpage img {
     width: 80%;
@@ -343,6 +411,8 @@
   .content_detail_card_child {
     flex-direction: column;
     align-items: center;
+    max-width: 100%;
+    overflow: hidden; /* Prevent content overflow */
   }
 
   .image_card_detailpage {
@@ -354,6 +424,7 @@
     width: 100%;
     margin-left: 0;
     margin-top: 15px;
+    max-width: 100%; /* Ensure it doesn't exceed the container width */
   }
 
   .content_detailpage_card_button {
@@ -364,4 +435,11 @@
     width: 100%;
     height: auto;
   }
+  
+  /* Additional rule to prevent overflow on the right */
+  .phim-hanh-dong {
+    overflow: hidden; 
+    max-width: 100%; 
+  }
 }
+

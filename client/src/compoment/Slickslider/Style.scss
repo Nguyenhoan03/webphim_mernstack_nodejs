@@ -120,5 +120,51 @@
       }
     }
   }
+  @media screen and (max-width:340px) {
+    .news_outstanding_card {
+      width: 100% !important; /* Ensure the card takes full width */
+      margin-right: 0; /* Remove any right margin */
+    }
+    
+    .image-container {
+      justify-content: center;
+      align-items: center;
+    
+     img {
+      width: 100% !important; /* Make the image fill the container */
+      height: auto; /* Adjust height automatically to maintain aspect ratio */
+    }
+  }
+    .information {
+      padding: 5px; /* Adjust padding for smaller screens */
+    }
+    
+    .line-clamp {
+      font-size: 7px; /* Reduce font size for better fit */
+    }
+  }
   
+  @media screen and (min-width: 340px) and (max-width: 470px) {
+    .wd_slickslideer {
+      width: 100%;
+    }
+    
+    .news_outstanding_card {
+      width: 140px !important; /* Ensure the card takes full width */
+      margin-right: 0; /* Remove any right margin */
+    }
+    
+    .image-container img {
+      width: 140px !important; /* Make the image fill the container */
+      height: auto; /* Adjust height automatically to maintain aspect ratio */
+    }
+    
+    .information {
+      padding: 9px; /* Adjust padding for smaller screens */
+    }
+    
+    .line-clamp {
+      font-size: 12px; /* Reduce font size for better fit */
+    }
+  }
   

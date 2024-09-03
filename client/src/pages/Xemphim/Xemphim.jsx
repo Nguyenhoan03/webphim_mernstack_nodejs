@@ -1,7 +1,8 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Style.scss';
-import { useParams } from 'react-router';
+import { useParams, Link } from 'react-router-dom';
 import Homepagebodyright from '../../compoment/Homepagebodyright/Homepagebodyright';
+import CommentCompoment from '../../compoment/CommentCompoment/CommentCompoment';
 import { ProductDetail } from '../../services/Productservices';
 import { Dataxemphim } from '../../services/Xemfilmservices';
 import { MdError } from "react-icons/md";
@@ -9,173 +10,99 @@ import { FaRegLightbulb } from "react-icons/fa";
 import { TbPlayerTrackNext } from "react-icons/tb";
 import { IoIosHome } from 'react-icons/io';
 import { BsArrowsFullscreen } from "react-icons/bs";
-import { Link } from 'react-router-dom';
-import CommentCompoment from '../../compoment/CommentCompoment/CommentCompoment';
 import { Helmet } from 'react-helmet';
-
-
-
 
 export default function Xemphim() {
   const { title, episode } = useParams();
-  const [datafilm, setdatafilm] = useState(null);
-  const [datadetail, setdatadetail] = useState(null);
+  const [datafilm, setDataFilm] = useState(null);
+  const [datadetail, setDataDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [ktranextepisode, setktranextepisode] = useState(false);
-  const [parent_id, setparent_id] = useState(null);
- 
+  const [ktranextepisode, setKtraNextEpisode] = useState(false);
+  const [parent_id, setParentId] = useState(null);
+  const [comment, setComment] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const response = await Dataxemphim(title, episode);
-        setdatafilm(response.data);
+        setDataFilm(response.data);
       } catch (error) {
         setError(error);
-        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    if (title && episode) {
-      fetchData();
-    }
+    if (title && episode) fetchData();
   }, [title, episode]);
-  const [comment, setcomment] = useState(null); 
+
   useEffect(() => {
     const fetchDetail = async () => {
-      setLoading(true);
       try {
         if (title) {
           const data = await ProductDetail(title);
-          setdatadetail(data.datafilm);
-          setcomment(data.comments);
-          setparent_id(data.parent_id);
-
+          setDataDetail(data.datafilm);
+          setComment(data.comments);
+          setParentId(data.parent_id);
         }
       } catch (error) {
         setError(error);
-        console.error('Error fetching detail:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
-    if (title) {
-      fetchDetail();
-    }
+    if (title) fetchDetail();
   }, [title]);
- 
- 
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!datafilm) return null;
 
-  const tongsotapfilm =datadetail && datadetail.linkfilms.length;
-  const numbertapfilmcurent = parseInt(episode.replace('tap-', ''))
-  
+  const tongsotapfilm = datadetail?.linkfilms.length;
+  const numbertapfilmcurent = parseInt(episode.replace('tap-', ''));
   const tapTiepTheo = numbertapfilmcurent + 1;
+
   const handlenextepisode = () => {
     if (numbertapfilmcurent < tongsotapfilm) {
-     window.location.href=`/xem-phim/${datadetail && datadetail.title}/tap-${tapTiepTheo}`
+      window.location.href = `/xem-phim/${datadetail.title}/tap-${tapTiepTheo}`;
     } else {
-      setktranextepisode(true);
+      setKtraNextEpisode(true);
     }
   };
 
   return (
-    
     <div className=''>
-        <Helmet>
-      <title>xem phim {`${datafilm && datafilm.title} - Tập ${datafilm && datafilm.episode}`}</title>
-      <meta name='description' content= {`${datafilm && datafilm.title} - Tập ${datafilm && datafilm.episode}`} />
-    </Helmet>
+      <Helmet>
+        <title>Xem phim {`${datafilm?.title} - Tập ${datafilm?.episode}`}</title>
+        <meta name='description' content={`${datafilm?.title} - Tập ${datafilm?.episode}`} />
+      </Helmet>
 
       <div className="container">
-        <div className="caption mt-3 d-flex">
-          <p><IoIosHome /> Motchill</p>
-          <p> &gt; </p>
-          <p> {datadetail && datadetail.theloai}</p>
-          <p> &gt; </p>
-          <p style={{ color: 'white' }}> {datafilm.title} - Tập {datafilm.episode}</p>
-      
-        </div>
+        <Breadcrumb datadetail={datadetail} datafilm={datafilm} />
+        
         <div className="row pagexemphim">
           <div className="xemphim_left col-md-9">
-            <div className="xemphim" style={{ paddingLeft: 15, position: 'relative' }}>
-            <iframe 
-              id="videoFrame"
-              src={datafilm.linkfilm}
-              frameBorder="0"
-              allowFullScreen
-              style={{ display: 'block', width: '100%', height:400, border: 'none', scrolling: 'auto' }}
-          />
-            </div>
-           <div className="container mt-2" style={{display:'flex',justifyContent:'space-between'}}>
-                <div className="" style={{padding:'0px 14px'}}>
-                  <button className='btn text-white' style={{backgroundColor:'#27272A',fontWeight:550,fontSize:12}}><BsArrowsFullscreen /> Phóng to</button>
-                  <button className='btn text-white' style={{backgroundColor:'#27272A',fontWeight:550,fontSize:12,marginLeft:10}}> <MdError /> Báo lỗi</button>
-                </div>
-                <div className="xemphim_btnserver">
-                  <p style={{textTransform:'uppercase',fontWeight:500,color:'white'}}>đổi server (nếu lag)</p>
-                  <div className="xemphim_btnserverparent" >
-                    <button className='btn mx-2' style={{backgroundColor:'#27272A',color:'white'}}>server 1</button>
-                    <button className='btn mx-2' style={{backgroundColor:'#black',color:'white'}}>server 2</button>
-                    <button className='btn mx-2' style={{backgroundColor:'#black',color:'white'}}>server 3</button>
-               
-                  </div>
-                </div>
-                <div className="">
-                   <button className='btn text-white' style={{backgroundColor:'#27272A',fontWeight:550,fontSize:12}}><FaRegLightbulb /> Tắt đèn</button>
-                   <button onClick={()=>handlenextepisode()} className='btn' style={{backgroundColor:'#27272A', fontWeight:550, fontSize:12, marginLeft:10,color: ktranextepisode ? 'gray' : 'white'}}>
-                    <TbPlayerTrackNext />
-                     Tập tiếp
-                  </button>
-                </div>
-           </div>
-         
-          <div className="danhsachtap mt-5 px-3" style={{backgroundColor:'',borderBottom:'2px solid gray'}}>
-         <p style={{color:'tomato',paddingTop:5}}>Nếu không xem được vui lòng đổi server hoặc tải lại trang !</p>
-               <p style={{textTransform:'uppercase',color:'white',fontWeight:550}}>danh sách tập</p>
-               <div className="list_episodexemphim" style={{paddingBottom:25}}>
-               {datadetail && datadetail.linkfilms.map((episodelist,key)=>(
-                          
-                        <button style={{backgroundColor: numbertapfilmcurent === episodelist.episode ? '#A3765D' : ''}} key={key}><Link to={`/xem-phim/${datadetail.title}/tap-${episodelist.episode}`}>Tập {episodelist.episode}</Link></button>
-
-                      ))}
-               </div>
+            <VideoPlayer linkfilm={datafilm.linkfilm} />
+            <VideoControls 
+              handlenextepisode={handlenextepisode} 
+              ktranextepisode={ktranextepisode} 
+            />
+            <EpisodeList 
+              datadetail={datadetail} 
+              numbertapfilmcurent={numbertapfilmcurent} 
+            />
+            <Description 
+              datadetail={datadetail} 
+              datafilm={datafilm} 
+            />
+            <CommentCompoment 
+              titlefilm={title} 
+              comments={comment} 
+              parent_id={parent_id} 
+            />
           </div>
-
-          <div className="descriptsxemphim" style={{paddingTop:15}}>
-                <h1 style={{color:'rgb(229 231 235)',fontWeight:700,textTransform:'uppercase',fontSize:20}}>{datadetail && datadetail.title} TẬP {datafilm.episode}</h1>
-                <h2 style={{ fontSize: '19px', color: 'rgb(229, 231, 235)', fontWeight: 400 }}>
-  {datadetail && datadetail.title} - {datadetail && datadetail.nameenglish} ({datadetail && datadetail.chatluong} - {datadetail && datadetail.ngonngu})
-</h2>
-
-                <div className="">  
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                </div>
-                <p style={{color:'grey'}}>(7.5 điểm/55 lượt)</p>
-                <div className="motafilm">
-                    <p style={{color:'rgb(156 163 175)'}}><span style={{fontWeight:'bold',}}> {datadetail && datadetail.title}</span> {datadetail && datadetail.descripts}</p>
-                </div>
-          </div>
-          <div className="comment">
-          <CommentCompoment titlefilm = {title} comments={comment} parent_id={parent_id}/>
-          </div>
-          </div>
+          
           <div className="xemphim_right col-md-3">
             <Homepagebodyright />
           </div>
@@ -184,3 +111,98 @@ export default function Xemphim() {
     </div>
   );
 }
+
+const Breadcrumb = ({ datadetail, datafilm }) => (
+  <div className="caption mt-3 d-flex">
+    <p><IoIosHome /> Motchill</p>
+    <p> &gt; </p>
+    <p> {datadetail?.theloai}</p>
+    <p> &gt; </p>
+    <p style={{ color: 'white' }}> {datafilm?.title} - Tập {datafilm?.episode}</p>
+  </div>
+);
+
+const VideoPlayer = ({ linkfilm }) => (
+  <div className="xemphim" style={{ paddingLeft: 15, position: 'relative' }}>
+    <iframe 
+      id="videoFrame"
+      src={linkfilm}
+      frameBorder="0"
+      allowFullScreen
+      style={{ display: 'block', width: '100%', height: 400, border: 'none', scrolling: 'auto' }}
+    />
+  </div>
+);
+
+const VideoControls = ({ handlenextepisode, ktranextepisode }) => (
+  <div className="container mt-2 d-flex justify-content-between">
+    <div className="d-flex">
+      <button className='btn text-white' style={{ backgroundColor: '#27272A', fontWeight: 550, fontSize: 12 }}>
+        <BsArrowsFullscreen /> Phóng to
+      </button>
+      <button className='btn text-white ms-2' style={{ backgroundColor: '#27272A', fontWeight: 550, fontSize: 12 }}>
+        <MdError /> Báo lỗi
+      </button>
+    </div>
+    <ServerSwitch />
+    <div className="d-flex">
+      <button className='btn text-white' style={{ backgroundColor: '#27272A', fontWeight: 550, fontSize: 12 }}>
+        <FaRegLightbulb /> Tắt đèn
+      </button>
+      <button onClick={handlenextepisode} className='btn ms-2' style={{ backgroundColor: '#27272A', fontWeight: 550, fontSize: 12, color: ktranextepisode ? 'gray' : 'white' }}>
+        <TbPlayerTrackNext /> Tập tiếp
+      </button>
+    </div>
+  </div>
+);
+
+const ServerSwitch = () => (
+  <div className="xemphim_btnserver text-center">
+    <p style={{ textTransform: 'uppercase', fontWeight: 500, color: 'white' }}>Đổi Server (Nếu Lag)</p>
+    <div className="d-flex justify-content-center">
+      <button className='btn mx-2' style={{ backgroundColor: '#27272A', color: 'white' }}>Server 1</button>
+      <button className='btn mx-2' style={{ backgroundColor: '#27272A', color: 'white' }}>Server 2</button>
+      <button className='btn mx-2' style={{ backgroundColor: '#27272A', color: 'white' }}>Server 3</button>
+    </div>
+  </div>
+);
+
+const EpisodeList = ({ datadetail, numbertapfilmcurent }) => (
+  <div className="danhsachtap mt-5 px-3" style={{ borderBottom: '2px solid gray' }}>
+    <p style={{ color: 'tomato', paddingTop: 5 }}>Nếu không xem được vui lòng đổi server hoặc tải lại trang !</p>
+    <p style={{ textTransform: 'uppercase', color: 'white', fontWeight: 550 }}>Danh sách tập</p>
+    <div className="list_episodexemphim pb-3">
+      {datadetail?.linkfilms.map((episodelist, key) => (
+        <button key={key} style={{ backgroundColor: numbertapfilmcurent === episodelist.episode ? '#A3765D' : '' }}>
+          <Link to={`/xem-phim/${datadetail.title}/tap-${episodelist.episode}`}>Tập {episodelist.episode}</Link>
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
+const Description = ({ datadetail, datafilm }) => (
+  <div className="descriptsxemphim pt-3">
+    <h1 style={{ color: 'rgb(229 231 235)', fontWeight: 700, textTransform: 'uppercase', fontSize: 20 }}>
+      {datadetail?.title} TẬP {datafilm?.episode}
+    </h1>
+    <h2 style={{ fontSize: '19px', color: 'rgb(229, 231, 235)', fontWeight: 400 }}>
+      {datadetail?.title} - {datadetail?.nameenglish} ({datadetail?.chatluong} - {datadetail?.ngonngu})
+    </h2>
+    {/* <RatingStars /> */}
+    <p style={{ color: 'grey' }}>(7.5 điểm/55 lượt đánh giá)</p>
+    <div className="motafilm">
+      <p style={{ color: 'rgb(156 163 175)' }}>
+        <span style={{ fontWeight: 'bold' }}>{datadetail?.title}</span> {datadetail?.descripts}
+      </p>
+    </div>
+  </div>
+);
+
+// const RatingStars = () => (
+//   <div>
+//     {Array.from({ length: 10 }).map((_, index) => (
+//       <img key={index} src="https://motchillj.net/theme/images/star-off.png" alt="Star" />
+//     ))}
+//   </div>
+// );

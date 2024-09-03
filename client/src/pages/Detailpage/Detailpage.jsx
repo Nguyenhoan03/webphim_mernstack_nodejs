@@ -24,7 +24,7 @@ export default function Detailpage() {
   const [hoveredStar, setHoveredStar] = useState(0); 
   const [selectedStar, setSelectedStar] = useState(0);
   const settings = useMemo(() => ({
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
@@ -140,8 +140,7 @@ useEffect(() => {
         alert("Bạn cần mua gói xem VIP để có thể xem được phim này!");
         window.history.back();
       } else {
-        const data_updateviews = await ProductServiceUpdateView(title);
-        console.log("firstdata_update",data_updateviews)
+        await ProductServiceUpdateView(title);
         setdatadetail(data.datafilm);
         setcomment(data.comments);
         setparent_id(data.parent_id);
@@ -160,12 +159,23 @@ useEffect(() => {
 
   fetchData();
 }, [title, id, permissions, roles]);
+const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+useEffect(() => {
+    const handleResize = () => {
+        if (window.innerWidth < 991) {
+            setIsSmallScreen(true);
+        } else {
+            setIsSmallScreen(false);
+        }
+    };
 
+    handleResize(); // Gọi ngay khi component mount
+    window.addEventListener('resize', handleResize);
 
+    return () => window.removeEventListener('resize', handleResize);
+}, []);
 
-
-    
    console.log("firstratingtotal",ratingtotal);
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -199,8 +209,8 @@ useEffect(() => {
       <title>{datadetail && datadetail.title}</title>
       <meta name='description' content={datadetail && datadetail.title} />
       </Helmet>
-        <div className="container">
-            <div className="caption mt-3 d-flex">
+      <div className={isSmallScreen ? "caption-container" : "container caption-container"}>
+      <div className="caption mt-3 d-flex">
                 <p><IoIosHome /> Motchill</p>
                 <p> > </p>
                 <p> {datadetail.theloai.split(',')[0] || ''}</p>
