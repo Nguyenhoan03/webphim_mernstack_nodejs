@@ -1,6 +1,7 @@
 const { sequelize, Product, Linkfilm } = require('../../models');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { where } = require('sequelize');
 
 sequelize.sync()
   .then(() => console.log('Database synced'))
@@ -84,43 +85,43 @@ const Crawlphim = async (req, res, next) => {
         const movieResponse = await axios.get(movie.href);
         const movieHtml = movieResponse.data; 
         const $$ = cheerio.load(movieHtml);
-
+    
         const title = $$('.text-center h1.uppercase').text();
         const nameenglish = $$('.text-center h2.italic').text();
         const imageUrl = $$('.container .relative span img').attr('src');
         const hinhanh = imageUrl ? (imageUrl.startsWith('http') ? imageUrl : 'https://ophim17.cc' + imageUrl) : '';
         const descripts = $$('.text-gray-500 article').eq(0).text();
-
+    
         const dataFilm = {};
         $$('tbody.align-baseline tr').each((index, element) => {
           const key = $$(element).find('td').first().text().trim();
           const value = $$(element).find('td').eq(1).text().trim();
           dataFilm[key] = value;
         });
-
-        const products = [];
-
+    
         const episodeElements = $$('.grid.grid-cols-3.md\\:grid-cols-6.lg\\:grid-cols-16.gap-2 a');
-
         for (let i = 0; i < episodeElements.length; i++) {
           const episodeHref = $$(episodeElements[i]).attr('href');
-          products.push({
-            title: title,
-            href: episodeHref,
-            episode: i + 1,
+          const episodeNumber = i + 1;
+    
+          // Kiểm tra xem tập phim đã tồn tại chưa
+          const existingEpisode = await Linkfilm.findOne({
+            where: {
+              title: title,
+              episode: episodeNumber
+            }
           });
-
-          try {
+    
+          // Nếu tập phim chưa tồn tại, tạo mới
+          if (!existingEpisode) {
             await Linkfilm.create({
               title: title,
-              episode: i + 1,
+              episode: episodeNumber,
               linkfilm: episodeHref,
             });
-          } catch (error) {
-            console.error('Error creating linkfilm record:', error);
           }
         }
-
+    
         return {
           title,
           nameenglish,
@@ -145,7 +146,7 @@ const Crawlphim = async (req, res, next) => {
         return null;
       }
     };
-
+    
     const results = [];
     for (const movie of data) {
       const result = await getEpisodes(movie);
@@ -160,6 +161,7 @@ const Crawlphim = async (req, res, next) => {
         await Product.create(movie);
       }
     }
+
     res.status(200).json(results);
     console.log('Fetched data:', results);
 
