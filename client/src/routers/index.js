@@ -118,7 +118,7 @@ import RegisterVIP2 from '../pages/RegisterVIP2/RegisterVIP2';
   {
     path: '/admin/products/add_phim',
     page: ()=>(
-      <PrivateRoute roles={['admin']}>
+      <PrivateRoute roles={['admin']} permissions={['VIP2']}>
         <Addphim />
       </PrivateRoute>
     ),
@@ -127,7 +127,7 @@ import RegisterVIP2 from '../pages/RegisterVIP2/RegisterVIP2';
   {
     path: '/admin/products/add_episode',
     page: ()=>(
-      <PrivateRoute roles={['admin']}>
+      <PrivateRoute roles={['admin']} permissions={['VIP2']}>
         <Addepisode />
       </PrivateRoute>
     ),
@@ -136,7 +136,7 @@ import RegisterVIP2 from '../pages/RegisterVIP2/RegisterVIP2';
   {
     path: '/admin/dashboard',
     page: ()=>(
-      <PrivateRoute roles={['admin']}>
+      <PrivateRoute roles={['admin']} permissions={['VIP2']}>
         <Dashboard />
       </PrivateRoute>
     ),
@@ -145,7 +145,7 @@ import RegisterVIP2 from '../pages/RegisterVIP2/RegisterVIP2';
   {
     path: '/admin/users',
     page: ()=>(
-      <PrivateRoute roles={['admin']}>
+      <PrivateRoute roles={['admin']} >
         <Users />
       </PrivateRoute>
     ),

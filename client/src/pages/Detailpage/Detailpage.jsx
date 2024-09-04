@@ -37,7 +37,7 @@ export default function Detailpage() {
       {
         breakpoint: 1400,
         settings: {
-          slidesToShow: 4 ,
+          slidesToShow: 5 ,
           slidesToScroll: 3,
           infinite: true
         }
@@ -45,7 +45,7 @@ export default function Detailpage() {
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 4,
           slidesToScroll: 2,
           infinite: true
         }
@@ -62,14 +62,14 @@ export default function Detailpage() {
       {
         breakpoint: 765,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
           slidesToScroll: 1,
         }
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
           slidesToScroll: 1,
           initialSlide: 2,
         }
@@ -84,7 +84,7 @@ export default function Detailpage() {
       {
         breakpoint: 340,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
         }
       }

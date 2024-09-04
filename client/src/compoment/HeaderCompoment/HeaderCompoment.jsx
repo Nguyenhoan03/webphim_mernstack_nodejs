@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { HomeContext } from "../../store/HomeContext";
 export default function HeaderComponent() {
-  const {roles} = useContext(HomeContext)
+  const {roles,permissions} = useContext(HomeContext)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [data, setData] = useState([]);
@@ -24,6 +24,9 @@ export default function HeaderComponent() {
   const name = sessionStorage.getItem("name");
   const hasRole = (role) => {
     return roles.includes(role);
+  }
+  const hasPermissions = (permission) => {
+    return permissions.includes(permission);
   }
   useEffect(() => {
     if (search.trim() === "") {
@@ -258,9 +261,12 @@ export default function HeaderComponent() {
                 </div>
                 {showDropdown && (
                   <ul className="dropdown-menu">
-                    {
-                      hasRole('admin') && (
+                     {hasRole('admin') && (
                         <li><Link to="/admin/dashboard" className="dropdown-item">Truy cập trang quản trị cho admin</Link></li>
+                      )
+                    }
+                     { hasPermissions('VIP2') && (
+                        <li><Link to="/admin/dashboard" className="dropdown-item">Truy cập trang quản trị gói VIP2</Link></li>
                       )
                     }
                                         {
@@ -270,7 +276,6 @@ export default function HeaderComponent() {
                     }
                     <li><Link to="/account" className="dropdown-item">Thông tin tài khoản</Link></li>
                     <li><Link to="/" onClick={handleLogout} className="dropdown-item">Đăng xuất</Link> </li>
-                    
                   </ul>
                 )}
               </div>

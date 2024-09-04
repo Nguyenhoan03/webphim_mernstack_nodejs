@@ -6,8 +6,10 @@ import { GrAnalytics } from "react-icons/gr";
 import { IoSettings } from "react-icons/io5";
 import { useLocation, Link } from 'react-router-dom';
 import "./Leftadmincompoment.scss";
-
+import { HomeContext } from '../../../store/HomeContext';
+import { useContext } from 'react';
 const Leftadmincompoment = () => {
+  const {roles,permissions} = useContext(HomeContext);
   const location = useLocation();
   const url = location.pathname;
   const sliceurl = url.replace('/admin/', '');
@@ -16,6 +18,14 @@ const Leftadmincompoment = () => {
   const toggleSubMenu = () => {
     setIsSubMenuVisible(!isSubMenuVisible);
   };
+
+  
+  const hasRole = (role) => {
+    return roles.includes(role);
+  }
+  const hasPermissions = (permission) => {
+    return permissions.includes(permission);
+  }
 
   return (
     <div className="Leftadmincompoment">
@@ -28,17 +38,24 @@ const Leftadmincompoment = () => {
             <MdDashboard /> Dashboard
           </Link>
         </li>
+        {hasRole('admin') && (
         <li className={sliceurl === 'users' ? 'active' : ''}>
           <Link style={{color:'white'}} to="/admin/users">
             <FaUsers /> Users
           </Link>
         </li>
+        )
+      }
         <li className={sliceurl === 'products' ? 'active' : ''} style={{ position: 'relative' }}>
           <div onClick={toggleSubMenu} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          {hasRole('admin') && (
+
           <Link to="/admin/products" style={{color:'white' }}>
             <SiProtools /> Products
           </Link>
-            <span style={{paddingLeft:10}}>{isSubMenuVisible ? '▲' : '▼'}</span>
+          )
+        }
+<span style={{paddingLeft:10}}>{isSubMenuVisible ? '▲' : '▼'}</span>
           </div>
           <ul className={`sidebar__submenu ${isSubMenuVisible ? 'visible' : ''}`}>
             <li>
@@ -53,13 +70,16 @@ const Leftadmincompoment = () => {
           <Link style={{color:'white'}} to="/admin/analytics">
             <GrAnalytics /> Analytics
           </Link>
-        </li>
+        </li>   
+        {hasRole('admin') && (
         <li className={sliceurl === 'auto_crawlphim' ? 'active' : ''}>
           <Link style={{color:'white'}} to="/admin/auto_crawlphim">
             <GrAnalytics /> Auto crawl phim
           </Link>
         </li>
-        <li className={sliceurl === 'settings' ? 'active' : ''}>
+        )
+      }
+<li className={sliceurl === 'settings' ? 'active' : ''}>
           <Link style={{color:'white'}} to="/admin/settings">
             <IoSettings /> Settings
           </Link>
