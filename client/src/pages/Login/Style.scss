@@ -93,3 +93,9 @@ $link-color: $primary-color;
       }
     }
   }
+
+  @media screen and (max-width: 900px) {
+    .formlogin {
+      max-width: 100% !important;
+    }
+  }

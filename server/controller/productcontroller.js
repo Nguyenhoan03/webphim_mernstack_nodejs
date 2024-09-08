@@ -144,7 +144,7 @@ const handledanhmucphim = async (req, res,category, next) => {
       return res.status(200).json(data);
   } catch (error) {
       console.log(error, "Lỗi khi lấy thông tin quốc gia phim");
-      next(error); 
+      console.log(error) 
   }
 };
 
@@ -350,10 +350,25 @@ const Product_updateview = async (req, res) => {
     return res.status(500).json({ success: false, message: "Error updating view count" });
   }
 };
+const Delete_product = async (req, res) => {
+  try {
+    const { title } = req.query
+    console.log("firsttittttle", title);
+
+    const data = await Productservices.Productservices_delete(title);
+    if (data.success) {
+      return res.status(200).json("xóa thành công");
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json("error deleting product");
+  }
+};
 
 
 
 module.exports = {
+  Delete_product,
   Product_updateview,
   Product_comment,
   Rating_star,

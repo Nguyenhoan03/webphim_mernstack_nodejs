@@ -78,6 +78,7 @@ router.get('/product-trung-quoc', productController.Product_quocgia_trungquoc);
 
 
 
+router.delete('/delete_product', productController.Delete_product);
 router.get('/getdetail_xemphim/:titlefilm',productController.Product_Getdetail_xemphim);
 router.post('/create_xemphim',productController.Product_create_xemphim);
 router.get('/:detailfilm',productController.Product_Detailphim);

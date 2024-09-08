@@ -31,7 +31,7 @@ export default function Hongkong() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>HongKong</p>
                 </div>
                 <p
                     style={{

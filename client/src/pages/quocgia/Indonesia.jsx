@@ -31,7 +31,7 @@ export default function Indonesia() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Indonesia</p>
                 </div>
                 <p
                     style={{

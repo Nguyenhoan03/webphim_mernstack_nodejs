@@ -20,7 +20,7 @@ const home = async () => {
   try {
     const cacheKey = 'home_data';
     let data = cache.get(cacheKey);
-
+    // cache.del(cacheKey)
     if (data) {
       return data;
     }
@@ -93,7 +93,7 @@ const home = async () => {
       phimsapchieu
     };
 
-     cache.put(cacheKey, data, 3600 * 1000); 
+    cache.put(cacheKey, data, 3600 * 1000); 
 
     return data;
 
@@ -276,8 +276,8 @@ const danhmucphim = async (category_id, filters = {}) => {
     }
 
     let orderClause = [];
-    if (orderBy == "createdAt") {
-      orderClause = [['createdAt', 'DESC']];
+    if (orderBy == "id") {
+      orderClause = [['id', 'DESC']];
     } else if (orderBy == "views") {
       orderClause = [['views', 'DESC']];
     } else if (orderBy == "year") {
@@ -434,8 +434,32 @@ const Productservices_updateview = async (title) => {
   }
 };
 
+const Productservices_delete = async (title) => {
+  const transaction = await sequelize.transaction();
+  try {
+     const linkfilmDelete = await Linkfilm.destroy({
+       where: {title: title },
+       transaction
+     });
+     
+     const productDelete = await Product.destroy({
+       where: { title: title },
+       transaction
+     });
+
+     if (productDelete > 0 && linkfilmDelete >= 0) {
+         await transaction.commit();
+         return { success: true };
+     } else {
+         await transaction.rollback();
+         return { success: false, message: "No product or associated links found with the given title" };
+     }
+  } catch (error) {
+     await transaction.rollback();
+     throw error;
+  }
+}
 
 
 
-
-module.exports = {Productservices_updateview,Productservices_edit, home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice,Productservices_Getdetail_xemphim,Productservices_create_xemphim,Productservices_editpackageVIP1};
+module.exports = {Productservices_delete,Productservices_updateview,Productservices_edit, home, getProductByCategory,detailfilm,danhmucphim,quocgia,post_comment,post_ratingstar,Productservice,Productservices_Getdetail_xemphim,Productservices_create_xemphim,Productservices_editpackageVIP1};

@@ -31,7 +31,7 @@ export default function Hanquoc() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Hàn Quốc</p>
                 </div>
                 <p
                     style={{
@@ -45,7 +45,7 @@ export default function Hanquoc() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Hàn Quốc
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

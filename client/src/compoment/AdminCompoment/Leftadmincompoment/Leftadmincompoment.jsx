@@ -47,25 +47,36 @@ const Leftadmincompoment = () => {
         )
       }
         <li className={sliceurl === 'products' ? 'active' : ''} style={{ position: 'relative' }}>
-          <div onClick={toggleSubMenu} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          {hasRole('admin') && (
+  <div onClick={toggleSubMenu} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    
+    {hasRole('admin') && (
+      <Link to="/admin/products" style={{color: 'white'}}>
+        <SiProtools /> Products
+      </Link>
+    )}
+    
+    {hasPermissions('VIP2') && (
+      <span style={{paddingLeft: 10}}>VIP2</span>
+    )}
+    
+    {(hasRole('admin') || hasPermissions('VIP2')) && (
+      <span style={{paddingLeft: 10}}>{isSubMenuVisible ? '▲' : '▼'}</span>
+    )}
+    
+  </div>
 
-          <Link to="/admin/products" style={{color:'white' }}>
-            <SiProtools /> Products
-          </Link>
-          )
-        }
-<span style={{paddingLeft:10}}>{isSubMenuVisible ? '▲' : '▼'}</span>
-          </div>
-          <ul className={`sidebar__submenu ${isSubMenuVisible ? 'visible' : ''}`}>
-            <li>
-              <Link to="/admin/products/add_phim">Thêm phim mới</Link>
-            </li>
-            <li>
-              <Link to="/admin/products/add_episode">Thêm tập phim</Link>
-            </li>
-          </ul>
-        </li>
+  {(hasRole('admin') || hasPermissions('VIP2')) && (
+    <ul className={`sidebar__submenu ${isSubMenuVisible ? 'visible' : ''}`}>
+      <li>
+        <Link to="/admin/products/add_phim">Thêm phim mới</Link>
+      </li>
+      <li>
+        <Link to="/admin/products/add_episode">Thêm tập phim</Link>
+      </li>
+    </ul>
+  )}
+</li>
+
         <li className={sliceurl === 'analytics' ? 'active' : ''}>
           <Link style={{color:'white'}} to="/admin/analytics">
             <GrAnalytics /> Analytics

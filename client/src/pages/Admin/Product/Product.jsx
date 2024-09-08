@@ -14,6 +14,7 @@ import ReactPaginate from "react-paginate";
 import LazyLoad from "react-lazyload";
 import axios from "axios";
 import { services_edit_productphim } from "../../../services/Productservices";
+import { services_delete_productphim } from "../../../services/Productservices";
 
 export default function Product() {
   const [dataphim, setDataphim] = useState([]);
@@ -124,6 +125,17 @@ export default function Product() {
       console.error("Error updating VIP1:", error);
     }
   };
+  const handledeleteproduct =async (title)=>{
+      try {
+        const data = await services_delete_productphim(title);
+        if(data.success){
+          alert("Bạn đã xóa thành công phim: " + title);
+          window.location.reload();
+        }
+      } catch (error) {
+          console.log(error)
+      }
+  }
   
   const Items = ({ currentItems, selectedRow, handleEditClick }) => {
     return (
@@ -201,7 +213,7 @@ export default function Product() {
                       />
                     </td>
                     <td>
-                      <MdDeleteForever style={{ fontSize: 25, color: "red" }} />
+                      <MdDeleteForever onClick={()=>handledeleteproduct(data.title)} style={{ fontSize: 25, color: "red" }} />
                     </td>
                   </>
                 ) : (
@@ -231,7 +243,7 @@ export default function Product() {
                       type="text"
                       defaultValue={data.hinhanh}
                       name="hinhanh"
-                      style={{ display: "none" }} // Hide this if you don't need to edit the image URL directly
+                      style={{ display: "none" }} 
                     />
                   </td>
                   <td>

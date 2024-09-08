@@ -482,10 +482,23 @@ const ProductServiceUpdateView = async (title) => {
   }
 };
 
+const services_delete_productphim = async (title) => {
+  try {
+    const data = await axios.delete(`${process.env.REACT_APP_API_URL}/product/delete_product`, {
+      params: { title }
+    });
+    if (data.status === 200) {
+      return { success: true };
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 
 
 // Existing exports
 export {
+  services_delete_productphim,
   ProductServiceUpdateView,
   Producthome,
   Getallproduct,
