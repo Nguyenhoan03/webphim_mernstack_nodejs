@@ -1,0 +1,3 @@
+Error in phimhot service: SequelizeDatabaseError: Table '(temporary)' is marked as crashed and should be repaired
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
+Error in phimhot service: SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306
