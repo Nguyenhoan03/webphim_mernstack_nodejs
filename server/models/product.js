@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Product.hasMany(models.Linkfilm, {
-        foreignKey: 'title', // This is the title field in Linkfilm table
-        sourceKey: 'title', // This is the title field in Product table
+        foreignKey: 'title', 
+        sourceKey: 'title', 
         as: 'linkfilms'
       });
     }
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Product',
-    timestamps: false, // Ensure timestamps are not managed by Sequelize
+    timestamps: false, 
     tableName: 'products'
   });
   return Product;

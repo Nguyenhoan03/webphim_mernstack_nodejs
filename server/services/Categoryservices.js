@@ -1,8 +1,8 @@
-const {Category} = require('../models');
+const {category} = require('../models');
 
 const getallcateservices =async ()=>{
      try {
-        const data = await Category.findAll();
+        const data = await category.findAll();
         if(data){
             return data;
         }

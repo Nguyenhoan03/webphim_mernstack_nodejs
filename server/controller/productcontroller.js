@@ -47,7 +47,7 @@ const Product_create_xemphim = async (req, res, next) => {
   }
 };
 
-const Product_editpackageVIP1 = async (req,res )=>{
+const Product_editpackageVIP1 = async (req,res,next)=>{
   try {
     const {title,VIP1} = req.body;
     const data = await Productservices.Productservices_editpackageVIP1(title,VIP1);
@@ -56,7 +56,7 @@ const Product_editpackageVIP1 = async (req,res )=>{
     }
 
   } catch (error) {
-       console.log(error)    
+       next(error)    
   }
     
 }

@@ -3,9 +3,8 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
- 
 
-  class Category extends Model {
+  class category extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,16 +14,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Category.init({
+  category.init({
     namecategory: DataTypes.TEXT
   }, {
    
     sequelize,
-    modelName: 'Category',
+    modelName: 'category',
     timestamps: false, // Ensure timestamps are not managed by Sequelize
-    tableName: 'Category'
+    tableName: 'category'
   });
-  Category.mapping = (categoryName) => {
+  category.mapping = (categoryName) => {
     const categoryMapping = {
       'Hành Động': 1,
       'Cổ Trang': 2,
@@ -57,5 +56,5 @@ module.exports = (sequelize, DataTypes) => {
 
     return categoryMapping[categoryName] || null;
   };
-  return Category;
+  return category;
 };
