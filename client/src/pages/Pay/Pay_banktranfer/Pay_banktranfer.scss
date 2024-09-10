@@ -1,0 +1,103 @@
+.payment-container {
+    background-color: #fff;
+    padding: 20px;
+    max-width: 500px;
+    margin: 40px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.payment-header h2 {
+    color: #e50914;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.account-info {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.account-info .price {
+    color: #e50914;
+    font-weight: bold;
+}
+
+.payment-methods {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.payment-button {
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.payment-button:hover {
+    background-color: #bf0811;
+    transform: translateY(-2px);
+}
+
+.qr-code {
+    margin-bottom: 30px;
+}
+
+.qr-code img {
+    width: 180px;
+    height: 180px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.note {
+    color: #e50914;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.instructions {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.instructions em {
+    color: #e50914;
+    font-weight: bold;
+}
+
+.instructions .hotline {
+    font-weight: bold;
+    color: #e50914;
+}
+
+.security-logos {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.security-logos img {
+    height: 50px;
+    width: auto;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.security-logos img:hover {
+    opacity: 1;
+}
