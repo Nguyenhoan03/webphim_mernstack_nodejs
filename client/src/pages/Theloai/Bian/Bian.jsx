@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimbian } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Bian() {
     const [data, setData] = useState([]);
@@ -29,6 +27,12 @@ export default function Bian() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Bí Ẩn | Motchill - Xem phim online</title>
+  <meta name="description" content="Khám phá những bộ phim bí ẩn với các tình tiết ly kỳ, đầy bất ngờ tại nghienphim Xem phim bí ẩn chất lượng cao, miễn phí." />
+  <meta name="keywords" content="phim bí ẩn, phim ly kỳ, phim trinh thám, xem phim bí ẩn, phim bí ẩn 2024, phim huyền bí" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

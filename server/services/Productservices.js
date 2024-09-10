@@ -390,12 +390,13 @@ const post_ratingstar = async (titlefilm, id, starselect) => {
   }
 }
 
-const Productservices_editpackageVIP1 = async (title, VIP1) => {
+const Productservices_editpackageVIP1 = async (title,VIP1) => {
   try {
     const data = await Product.update(
       { VIP1: VIP1 }, 
       { where: { title: title }} 
     );
+    console.log("firstdataaaserrviceseditpackageVIP1",data);
     if (data[0] > 0){
       return { success: true };
     } else {

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimbo } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 import './Style.scss'
 export default function Phimbo() {
@@ -30,6 +29,12 @@ export default function Phimbo() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Bộ Hay Nhất | Motchill - Xem Phim Online Miễn Phí</title>
+  <meta name="description" content="Xem phim bộ hay nhất, tuyển chọn các bộ phim nhiều tập đặc sắc từ Hàn Quốc, Trung Quốc, Mỹ và nhiều quốc gia khác. Trải nghiệm xem phim bộ HD, miễn phí, với phụ đề tiếng Việt tại nghienphim" />
+  <meta name="keywords" content="phim bộ, phim bộ Hàn Quốc, phim bộ Trung Quốc, phim bộ Mỹ, phim bộ Thái Lan, phim bộ Nhật Bản, phim dài tập, phim bộ tâm lý tình cảm, phim bộ hành động, phim bộ hài hước, phim bộ mới, xem phim bộ online, phim bộ 2024" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

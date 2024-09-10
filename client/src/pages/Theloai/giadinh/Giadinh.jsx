@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimgiadinh } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Giadinh() {
     const [data, setData] = useState([]);
@@ -29,6 +28,12 @@ export default function Giadinh() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Gia Đình | Motchill - Xem phim online</title>
+  <meta name="description" content="Tuyển tập phim gia đình, những câu chuyện ấm áp, cảm động về tình thân gia đình tại nghienphim" />
+  <meta name="keywords" content="phim gia đình, phim tình cảm gia đình, phim cảm động, phim cho gia đình, xem phim gia đình" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimtamly } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Tamly() {
     const [data, setData] = useState([]);
@@ -29,6 +28,12 @@ export default function Tamly() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Tâm Lý | Motchill - Xem phim online</title>
+  <meta name="description" content="Tuyển tập phim tâm lý đầy cảm xúc, khai thác sâu sắc tâm trạng và hành vi con người tại nghienphim" />
+  <meta name="keywords" content="phim tâm lý, phim tâm lý tình cảm, phim tâm lý xã hội, xem phim tâm lý, phim tâm lý hay" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

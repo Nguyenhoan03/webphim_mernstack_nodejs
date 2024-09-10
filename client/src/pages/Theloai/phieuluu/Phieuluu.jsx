@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimphieuluu } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Phieuluu() {
     const [data, setData] = useState([]);
@@ -29,6 +28,12 @@ export default function Phieuluu() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Phiêu Lưu | Motchill - Xem phim online</title>
+  <meta name="description" content="Khám phá thế giới qua các bộ phim phiêu lưu hấp dẫn tại nghienphim Xem phim phiêu lưu miễn phí, chất lượng cao." />
+  <meta name="keywords" content="phim phiêu lưu, phim thám hiểm, phim phiêu lưu kỳ thú, xem phim phiêu lưu, phim phiêu lưu 2024" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

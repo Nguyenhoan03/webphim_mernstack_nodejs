@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimvothuat } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Vothuat() {
     const [data, setData] = useState([]);
@@ -29,6 +28,12 @@ export default function Vothuat() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Võ Thuật | Motchill - Xem phim online</title>
+  <meta name="description" content="Xem phim võ thuật mãn nhãn với các màn đấu võ gay cấn từ khắp nơi trên thế giới tại nghienphim" />
+  <meta name="keywords" content="phim võ thuật, phim võ thuật Trung Quốc, phim võ thuật Mỹ, xem phim võ thuật, phim võ thuật hay" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

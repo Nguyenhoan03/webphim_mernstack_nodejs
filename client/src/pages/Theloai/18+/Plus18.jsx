@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphim18plus } from "../../../services/Productservices";
-
+import { Helmet } from "react-helmet";
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Plus18() {
     const [data, setData] = useState([]);
@@ -27,6 +27,11 @@ export default function Plus18() {
   
     return (
         <div className="">
+             <Helmet>
+                <title>Phim 18+ | Motchill - Xem phim online</title>
+                <meta name="description" content="Tuyển tập phim sex, xnxx, sex viet, jav, hentaiz. Khám phá hàng loạt các bộ phim 18+ hấp dẫn và chất lượng cao tại nghienphim" />
+                <meta name="keywords" content="phim sex, xnxx, sex viet, jav, hentaiz, phim 18+, phim người lớn, phim nóng, xem phim online" />
+            </Helmet>
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

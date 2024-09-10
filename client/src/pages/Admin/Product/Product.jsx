@@ -15,7 +15,7 @@ import LazyLoad from "react-lazyload";
 import axios from "axios";
 import { services_edit_productphim } from "../../../services/Productservices";
 import { services_delete_productphim } from "../../../services/Productservices";
-
+import {UpdateVIP} from '../../../services/Admin/Adminservices'
 export default function Product() {
   const [dataphim, setDataphim] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
@@ -114,7 +114,7 @@ export default function Product() {
     const newVIP1Value = updatedItem.VIP1 === 1 ? 0 : 1;
     try {
       // Gửi yêu cầu cập nhật đến API
-      const response = await Adminservices.UpdateVIP(updatedItem.title,newVIP1Value);
+      const response = await UpdateVIP(updatedItem.title,newVIP1Value);
   
       if (response.success) {
         alert("Cập nhật trạng thái phim" +updatedItem.title + "thành công");

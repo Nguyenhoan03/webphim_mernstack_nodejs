@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimchinhkich } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Chinhkich() {
     const [data, setData] = useState([]);
@@ -29,6 +28,12 @@ export default function Chinhkich() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Chính Kịch | Motchill - Xem phim online</title>
+  <meta name="description" content="Tuyển tập phim chính kịch, những câu chuyện cảm động, chân thật và đầy cảm xúc tại nghienphim" />
+  <meta name="keywords" content="phim chính kịch, phim cảm động, phim tình cảm, xem phim chính kịch, phim tâm lý, phim chính kịch hay" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimhanhdong } from "../../../services/Productservices";
-
+import { Helmet } from "react-helmet";
 
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Hanhdong() {
@@ -29,6 +29,12 @@ export default function Hanhdong() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Hành Động | Motchill - Xem phim online</title>
+  <meta name="description" content="Xem phim hành động gay cấn, những pha rượt đuổi, đánh nhau kịch tính tại nghienphim Phim hành động chất lượng cao, miễn phí." />
+  <meta name="keywords" content="phim hành động, phim võ thuật, phim hành động Mỹ, phim hành động Hàn Quốc, phim hành động mới" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

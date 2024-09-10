@@ -18,6 +18,7 @@ const UpdateVIP = async (updatedItem, newVIP1Value) => {
            VIP1: newVIP1Value,
          }
        );
+       console.log("firstresponse",response)
        if (response.status === 200) {
          return { success: true };
        } else {
@@ -30,7 +31,7 @@ const UpdateVIP = async (updatedItem, newVIP1Value) => {
    };
    
 
-export default {
+export {
   Themphim,
   UpdateVIP
 };

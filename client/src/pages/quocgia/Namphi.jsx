@@ -3,7 +3,8 @@ import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productquocgia_namphi } from "../../services/Productservices";
 
-import FilterfilmCompoment from "../../compoment/FilterfilmCompoment/FilterfilmCompoment";
+import FilterfilmCompoment from "\.\./\.\./compoment/FilterfilmCompoment/FilterfilmCompoment";import { Helmet } from "react-helmet";
+
 export default function Namphi() {
     const [data, setData] = useState([]);
     const [filters, setFilters] = useState({});

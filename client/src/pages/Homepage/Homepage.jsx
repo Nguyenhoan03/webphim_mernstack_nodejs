@@ -2,6 +2,7 @@ import React, { useEffect, useState,useContext,useMemo,Suspense } from 'react';
 import Slider from 'react-slick';
 import { Producthome } from '../../services/Productservices';
 import './Style.scss';
+import { Helmet } from 'react-helmet';
 // import Slickslider from '../../compoment/Slickslider/Slickslider';
 // import Homepagebodyright from '../../compoment/Homepagebodyright/Homepagebodyright'
 import MovieCard from '../../compoment/MovieCard/MovieCard';
@@ -50,7 +51,27 @@ export default function Homepage() {
 
 
   return (
+    
     <div className='homepage'>
+        <Helmet>
+  <title>Nghiện Phim | Xem Phim Online Miễn Phí - Tổng Hợp Phim Hay Nhất 2024</title>
+  <meta name="description" content="Xem phim online miễn phí với tuyển tập đầy đủ các thể loại: hành động, tình cảm, hài hước, kinh dị, cổ trang, khoa học viễn tưởng, phim bộ, phim lẻ, phim sắp chiếu, và nhiều hơn nữa. Trải nghiệm phim chất lượng cao với phụ đề tiếng Việt tại Nghiện Phim." />
+  <meta name="keywords" content="xem phim online, phim hành động, phim tình cảm, phim hài, phim kinh dị, phim cổ trang, phim khoa học viễn tưởng, phim bộ, phim lẻ, phim sắp chiếu, phim shows, phim tài liệu, phim tâm lý, phim hoạt hình, phim 2024, xem phim miễn phí, xem phim chất lượng cao, phim phụ đề tiếng Việt" />
+  
+  <meta property="og:title" content="Nghiện Phim | Xem Phim Online Miễn Phí - Tổng Hợp Phim Hay Nhất 2024" />
+  <meta property="og:description" content="Khám phá kho phim online miễn phí với đầy đủ các thể loại: hành động, tình cảm, hài hước, kinh dị, cổ trang, khoa học viễn tưởng, phim bộ, phim lẻ, và nhiều hơn nữa. Trải nghiệm phim chất lượng cao tại Nghiện Phim." />
+  <meta property="og:image" content="https://motchillj.net/motchill.png?v1.0.2" />
+  <meta property="og:url" content="https://www.nghienphim.com/" />
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nghiện Phim | Xem Phim Online Miễn Phí - Tổng Hợp Phim Hay Nhất 2024" />
+  <meta name="twitter:description" content="Xem phim online miễn phí với nhiều thể loại: hành động, tình cảm, hài hước, kinh dị, cổ trang, khoa học viễn tưởng, và nhiều thể loại khác tại Nghiện Phim." />
+  <meta name="twitter:image" content="https://motchillj.net/motchill.png?v1.0.2" />
+
+  <link rel="canonical" href="https://nghienphim.click/" />
+  <meta name="robots" content="index, follow" />
+</Helmet>
       <div className="container">
     
       <div className="img_ad">

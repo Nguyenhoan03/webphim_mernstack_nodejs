@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimvientuong } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Vientuong() {
     const [data, setData] = useState([]);
@@ -29,6 +28,12 @@ export default function Vientuong() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Viễn Tưởng | Motchill - Xem phim online</title>
+  <meta name="description" content="Khám phá thế giới viễn tưởng qua các bộ phim khoa học, huyền bí và siêu nhiên tại nghienphim" />
+  <meta name="keywords" content="phim viễn tưởng, phim khoa học viễn tưởng, phim huyền bí, xem phim viễn tưởng, phim khoa học, phim viễn tưởng hay" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

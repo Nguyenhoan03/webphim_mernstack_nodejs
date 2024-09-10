@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Leftadmincompoment from '../../../../compoment/AdminCompoment/Leftadmincompoment/Leftadmincompoment';
 import Right_navbarcompoment from '../../../../compoment/AdminCompoment/Right_navbarcompoment/Right_navbarcompoment';
-import { MdShoppingCart, MdAttachMoney, MdOutlineShoppingBag } from "react-icons/md";
-import { FaUserFriends } from "react-icons/fa";
 import "./Addphim.scss";
-import Adminservices from '../../../../services/Admin/Adminservices';
+import {Themphim} from '../../../../services/Admin/Adminservices';
 import axios from 'axios';
 
 
@@ -78,7 +76,7 @@ export default function Addphim() {
    const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const data = await Adminservices.Themphim(formData);
+      const data = await Themphim(formData);
       if (data.message === 'Thêm thành công') {
         alert('Thêm mới phim thành công!');
         setFormData({
@@ -111,8 +109,7 @@ export default function Addphim() {
     const fetchdata_cate = async () =>{
           const data = await axios.get(`${process.env.REACT_APP_API_URL}/category`);
           setcategory(data.data);
-          console.log(data,"dataaaaaa")
-
+          console.log(data,"dataaaaaa") 
     }
     fetchdata_cate();
   },[])

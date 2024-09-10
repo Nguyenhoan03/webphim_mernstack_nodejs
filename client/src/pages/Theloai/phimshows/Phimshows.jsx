@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimshows } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Phimshows() {
     const [data, setData] = useState([]);
@@ -29,6 +28,12 @@ export default function Phimshows() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Shows Truyền Hình Hay | Motchill - Xem Gameshow Trực Tuyến</title>
+  <meta name="description" content="Xem các chương trình truyền hình, gameshow hot nhất từ Việt Nam và thế giới. Cập nhật nhanh các show giải trí, thực tế, hài hước, ca nhạc, thể thao và nhiều thể loại hấp dẫn tại nghienphim" />
+  <meta name="keywords" content="phim shows, chương trình truyền hình, gameshow, show truyền hình Việt Nam, show quốc tế, show thực tế, show giải trí, xem gameshow, gameshow Việt Nam, show ca nhạc, show thể thao, show hài hước, xem show truyền hình miễn phí, phim shows mới nhất" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

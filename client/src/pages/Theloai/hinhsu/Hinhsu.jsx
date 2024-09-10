@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimhinhsu } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Hinhsu() {
     const [data, setData] = useState([]);
@@ -29,6 +28,12 @@ export default function Hinhsu() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Hình Sự | Motchill - Xem phim online</title>
+  <meta name="description" content="Khám phá các vụ án hấp dẫn trong những bộ phim hình sự nổi tiếng tại nghienphim Xem phim hình sự chất lượng cao, miễn phí." />
+  <meta name="keywords" content="phim hình sự, phim trinh thám, phim phá án, phim cảnh sát, xem phim hình sự, phim hình sự Hàn Quốc" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>

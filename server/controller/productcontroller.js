@@ -50,6 +50,8 @@ const Product_create_xemphim = async (req, res, next) => {
 const Product_editpackageVIP1 = async (req,res,next)=>{
   try {
     const {title,VIP1} = req.body;
+    console.log("firstproduct_editpackageVIP1",title)
+    console.log("firstproduct_editpackageVIP1",VIP1)
     const data = await Productservices.Productservices_editpackageVIP1(title,VIP1);
     if(data.success){
       return res.status(200).json("update thành công");

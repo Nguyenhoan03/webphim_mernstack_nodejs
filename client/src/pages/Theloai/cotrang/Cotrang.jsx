@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimcotrang } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link, useNavigate } from "react-router-dom";
-import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
+import { Helmet } from "react-helmet";
+
 import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
 export default function Cotrang() {
     const [data, setData] = useState([]);
@@ -29,6 +28,12 @@ export default function Cotrang() {
   
     return (
         <div className="">
+            <Helmet>
+  <title>Phim Cổ Trang | Motchill - Xem phim online</title>
+  <meta name="description" content="Tuyển tập phim cổ trang đặc sắc từ nhiều nền văn hóa, bao gồm Trung Quốc, Hàn Quốc, và nhiều quốc gia khác. Xem phim cổ trang chất lượng cao tại nghienphim" />
+  <meta name="keywords" content="phim cổ trang, phim cổ trang Trung Quốc, phim cổ trang Hàn Quốc, phim cổ trang Việt Nam, xem phim cổ trang, phim cổ trang mới" />
+</Helmet>
+
             <div className="container">
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> Motchill</p>
