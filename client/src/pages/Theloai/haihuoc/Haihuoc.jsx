@@ -28,14 +28,14 @@ export default function Haihuoc() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Hài Hước | Motchill - Xem phim online</title>
+  <title>Phim Hài Hước | nghienphim - Xem phim online</title>
   <meta name="description" content="Tuyển tập phim hài hước, cười thả ga với các bộ phim hài từ khắp nơi trên thế giới tại nghienphim" />
   <meta name="keywords" content="phim hài, phim hài Việt Nam, phim hài quốc tế, xem phim hài, phim hài mới, phim hài 2024" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Hài hước</p>
                 </div>

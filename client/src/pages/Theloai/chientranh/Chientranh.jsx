@@ -29,14 +29,14 @@ export default function Chientranh() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Chiến Tranh | Motchill - Xem phim online</title>
+  <title>Phim Chiến Tranh | nghienphim - Xem phim online</title>
   <meta name="description" content="Tuyển tập phim chiến tranh từ các cuộc chiến lịch sử đến hiện đại. Xem phim chiến tranh chất lượng cao tại nghienphim" />
   <meta name="keywords" content="phim chiến tranh, phim quân đội, phim lịch sử, xem phim chiến tranh, phim chiến tranh Việt Nam, phim chiến tranh thế giới" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Chiến tranh</p>
                 </div>

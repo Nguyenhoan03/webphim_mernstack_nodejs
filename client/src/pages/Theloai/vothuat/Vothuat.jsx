@@ -29,14 +29,14 @@ export default function Vothuat() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Võ Thuật | Motchill - Xem phim online</title>
+  <title>Phim Võ Thuật | nghienphim - Xem phim online</title>
   <meta name="description" content="Xem phim võ thuật mãn nhãn với các màn đấu võ gay cấn từ khắp nơi trên thế giới tại nghienphim" />
   <meta name="keywords" content="phim võ thuật, phim võ thuật Trung Quốc, phim võ thuật Mỹ, xem phim võ thuật, phim võ thuật hay" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Võ thuật</p>
                 </div>

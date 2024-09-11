@@ -73,9 +73,13 @@ export default function Xemphim() {
 
   return (
     <div className=''>
-      <Helmet>
+         <Helmet>
         <title>Xem phim {`${datafilm?.title} - Tập ${datafilm?.episode}`}</title>
         <meta name='description' content={`${datafilm?.title} - Tập ${datafilm?.episode}`} />
+        <meta name='keywords' content={`${datafilm?.title}, Xem phim ${datafilm?.title}, tập ${datafilm?.episode}`} />
+        <meta property='og:title' content={`Xem phim ${datafilm?.title} - Tập ${datafilm?.episode}`} />
+        <meta property='og:description' content={`${datafilm?.title} - Tập ${datafilm?.episode}`} />
+        <meta property='og:type' content='video.episode' />
       </Helmet>
 
       <div className="container">
@@ -114,7 +118,7 @@ export default function Xemphim() {
 
 const Breadcrumb = ({ datadetail, datafilm }) => (
   <div className="caption mt-3 d-flex">
-    <p><IoIosHome /> Motchill</p>
+    <p><IoIosHome /> nghienphim</p>
     <p> &gt; </p>
     <p> {datadetail?.theloai}</p>
     <p> &gt; </p>
@@ -202,7 +206,7 @@ const Description = ({ datadetail, datafilm }) => (
 // const RatingStars = () => (
 //   <div>
 //     {Array.from({ length: 10 }).map((_, index) => (
-//       <img key={index} src="https://motchillj.net/theme/images/star-off.png" alt="Star" />
+//       <img key={index} src="https://nghienphimj.net/theme/images/star-off.png" alt="Star" />
 //     ))}
 //   </div>
 // );

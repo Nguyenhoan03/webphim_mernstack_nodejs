@@ -29,14 +29,14 @@ export default function Tailieu() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Tài Liệu | Motchill - Xem phim online</title>
+  <title>Phim Tài Liệu | nghienphim - Xem phim online</title>
   <meta name="description" content="Tuyển tập phim tài liệu chân thực và đầy ý nghĩa về lịch sử, khoa học, thiên nhiên tại nghienphim" />
   <meta name="keywords" content="phim tài liệu, phim tài liệu lịch sử, phim tài liệu khoa học, xem phim tài liệu, phim tài liệu thiên nhiên" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Phim tài liệu</p>
                 </div>

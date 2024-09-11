@@ -29,14 +29,14 @@ export default function Hocduong() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Học Đường | Motchill - Xem phim online</title>
+  <title>Phim Học Đường | nghienphim - Xem phim online</title>
   <meta name="description" content="Tuyển tập phim học đường đầy cảm xúc, tình yêu tuổi học trò tại nghienphim Xem phim học đường miễn phí, chất lượng cao." />
   <meta name="keywords" content="phim học đường, phim tuổi teen, phim học sinh, phim tình yêu tuổi học trò, xem phim học đường" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Học đường</p>
                 </div>

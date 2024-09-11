@@ -29,14 +29,14 @@ export default function Phieuluu() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Phiêu Lưu | Motchill - Xem phim online</title>
+  <title>Phim Phiêu Lưu | nghienphim - Xem phim online</title>
   <meta name="description" content="Khám phá thế giới qua các bộ phim phiêu lưu hấp dẫn tại nghienphim Xem phim phiêu lưu miễn phí, chất lượng cao." />
   <meta name="keywords" content="phim phiêu lưu, phim thám hiểm, phim phiêu lưu kỳ thú, xem phim phiêu lưu, phim phiêu lưu 2024" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Phiêu lưu</p>
                 </div>

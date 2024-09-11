@@ -29,14 +29,14 @@ export default function Giadinh() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Gia Đình | Motchill - Xem phim online</title>
+  <title>Phim Gia Đình | nghienphim - Xem phim online</title>
   <meta name="description" content="Tuyển tập phim gia đình, những câu chuyện ấm áp, cảm động về tình thân gia đình tại nghienphim" />
   <meta name="keywords" content="phim gia đình, phim tình cảm gia đình, phim cảm động, phim cho gia đình, xem phim gia đình" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Gia đình</p>
                 </div>

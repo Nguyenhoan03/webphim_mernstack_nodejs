@@ -29,14 +29,14 @@ export default function Tinhcam() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Tình Cảm | Motchill - Xem phim online</title>
+  <title>Phim Tình Cảm | nghienphim - Xem phim online</title>
   <meta name="description" content="Xem phim tình cảm lãng mạn, đẫm nước mắt với những câu chuyện tình yêu đẹp tại nghienphim" />
   <meta name="keywords" content="phim tình cảm, phim lãng mạn, phim tình yêu, xem phim tình cảm, phim tình cảm Hàn Quốc" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Tình cảm</p>
                 </div>

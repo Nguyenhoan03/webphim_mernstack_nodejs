@@ -29,14 +29,14 @@ export default function Hoathinh() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Hoạt Hình | Motchill - Xem phim online</title>
+  <title>Phim Hoạt Hình | nghienphim - Xem phim online</title>
   <meta name="description" content="Tuyển tập phim hoạt hình đặc sắc dành cho mọi lứa tuổi. Xem phim hoạt hình Việt Nam, Nhật Bản, Mỹ chất lượng cao tại nghienphim" />
   <meta name="keywords" content="phim hoạt hình, phim hoạt hình Việt Nam, phim hoạt hình Nhật Bản, phim hoạt hình Mỹ, xem phim hoạt hình" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Hoạt hình</p>
                 </div>

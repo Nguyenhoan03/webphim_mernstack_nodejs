@@ -29,14 +29,14 @@ export default function Chinhkich() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Chính Kịch | Motchill - Xem phim online</title>
+  <title>Phim Chính Kịch | nghienphim - Xem phim online</title>
   <meta name="description" content="Tuyển tập phim chính kịch, những câu chuyện cảm động, chân thật và đầy cảm xúc tại nghienphim" />
   <meta name="keywords" content="phim chính kịch, phim cảm động, phim tình cảm, xem phim chính kịch, phim tâm lý, phim chính kịch hay" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Chính kịch</p>
                 </div>

@@ -29,14 +29,14 @@ export default function Tamly() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Tâm Lý | Motchill - Xem phim online</title>
+  <title>Phim Tâm Lý | nghienphim - Xem phim online</title>
   <meta name="description" content="Tuyển tập phim tâm lý đầy cảm xúc, khai thác sâu sắc tâm trạng và hành vi con người tại nghienphim" />
   <meta name="keywords" content="phim tâm lý, phim tâm lý tình cảm, phim tâm lý xã hội, xem phim tâm lý, phim tâm lý hay" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Tâm lý</p>
                 </div>

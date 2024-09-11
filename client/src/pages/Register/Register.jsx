@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import { Userregister } from "../../services/Users";
 import { useNavigate } from 'react-router-dom';
-
+import { Helmet } from "react-helmet";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [name, setname] = useState("");
@@ -31,10 +31,27 @@ export default function Register() {
 
   return (
     <div className="">
+    
+      <Helmet>
+        <title>Đăng ký tài khoản | nghienphim</title>
+        <meta name="description" content="Tạo tài khoản mới tại nghienphim để xem phim online miễn phí với nhiều thể loại hấp dẫn. Đăng ký tài khoản ngay để trải nghiệm các bộ phim hành động, tình cảm, kinh dị, khoa học viễn tưởng, và nhiều hơn nữa." />
+        <meta name="keywords" content="đăng ký tài khoản, tạo tài khoản, xem phim online miễn phí, phim hành động, phim tình cảm, phim khoa học viễn tưởng, phim kinh dị, nghienphim" />
+        <meta property="og:title" content="Đăng ký tài khoản tại nghienphim" />
+        <meta property="og:description" content="Đăng ký tài khoản để xem phim online miễn phí với chất lượng cao tại nghienphim. Trải nghiệm hàng ngàn bộ phim thuộc nhiều thể loại." />
+        <meta property="og:image" content="https://nghienphimj.net/nghienphim.png?v1.0.2" />
+        <meta property="og:url" content="https://www.nghienphim.com/dang-ky" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Đăng ký tài khoản | nghienphim" />
+        <meta name="twitter:description" content="Tạo tài khoản mới tại nghienphim để xem phim online miễn phí. Trải nghiệm nhiều thể loại phim hành động, tình cảm, và nhiều hơn nữa." />
+        <meta name="twitter:image" content="https://nghienphimj.net/nghienphim.png?v1.0.2" />
+        <link rel="canonical" href="https://nghienphim.com/dang-ky" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
       <div className="container">
         <div className="caption mt-3 d-flex">
           <p>
-            <IoIosHome /> Motchill
+            <IoIosHome /> nghienphim
           </p>
           <p> &gt; </p>
           <p style={{ color: "white" }}> Đăng ký</p>

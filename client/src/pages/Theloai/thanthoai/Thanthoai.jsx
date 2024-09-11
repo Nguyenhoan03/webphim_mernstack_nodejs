@@ -29,14 +29,14 @@ export default function Thanthoai() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Thần Thoại | Motchill - Xem phim online</title>
+  <title>Phim Thần Thoại | nghienphim - Xem phim online</title>
   <meta name="description" content="Khám phá thế giới thần thoại huyền bí với những câu chuyện đầy màu sắc tại nghienphim" />
   <meta name="keywords" content="phim thần thoại, phim cổ tích, phim huyền bí, xem phim thần thoại, phim thần thoại Hy Lạp" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Thần thoại</p>
                 </div>

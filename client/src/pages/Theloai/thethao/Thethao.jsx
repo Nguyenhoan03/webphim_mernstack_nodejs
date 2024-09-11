@@ -29,14 +29,14 @@ export default function Thethao() {
     return (
         <div className="">
             <Helmet>
-  <title>Phim Thể Thao | Motchill - Xem phim online</title>
+  <title>Phim Thể Thao | nghienphim - Xem phim online</title>
   <meta name="description" content="Tuyển tập phim thể thao hấp dẫn về bóng đá, bóng rổ, đua xe và nhiều môn thể thao khác tại nghienphim" />
   <meta name="keywords" content="phim thể thao, phim bóng đá, phim bóng rổ, xem phim thể thao, phim đua xe" />
 </Helmet>
 
             <div className="container">
                 <div className="caption mt-3 d-flex">
-                    <p><IoIosHome /> Motchill</p>
+                    <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
                     <p> Thể thao</p>
                 </div>
