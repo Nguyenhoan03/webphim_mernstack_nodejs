@@ -3,10 +3,11 @@ import Slider from 'react-slick';
 import { Producthome } from '../../services/Productservices';
 import './Style.scss';
 import { Helmet } from 'react-helmet';
-// import Slickslider from '../../compoment/Slickslider/Slickslider';
-// import Homepagebodyright from '../../compoment/Homepagebodyright/Homepagebodyright'
+
 import MovieCard from '../../compoment/MovieCard/MovieCard';
 import { HomeContext } from '../../store/HomeContext';
+import LazyLoad from "react-lazyload";
+
 const Homepagebodyright = React.lazy(() => import('../../compoment/Homepagebodyright/Homepagebodyright'));
 const Slickslider = React.lazy(() => import('../../compoment/Slickslider/Slickslider'));
 export default function Homepage() {
@@ -42,12 +43,14 @@ export default function Homepage() {
     setDataphim(newData);
   };
   
-  const rendercategorycontent = (title,data)=>(
-    <div className="phimhanquoc mt-4">
-    <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>{title}</h2>
-    <MovieCard data={data}/>
-    </div>
-  )
+  const rendercategorycontent = (title, data) => (
+    <LazyLoad height={200} offset={100} once>
+      <div className="phimhanquoc mt-4">
+        <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>{title}</h2>
+        <MovieCard data={data} />
+      </div>
+    </LazyLoad>
+  );
 
 
   return (
@@ -73,7 +76,6 @@ export default function Homepage() {
   <meta name="robots" content="index, follow" />
 </Helmet>
       <div className="container">
-    
       <div className="img_ad">
     <img src="https://motchillhot.net/banner/xembong88-607x75.gif" alt="" />
 </div>

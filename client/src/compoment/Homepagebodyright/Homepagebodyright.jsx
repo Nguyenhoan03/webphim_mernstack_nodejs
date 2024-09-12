@@ -17,14 +17,9 @@ export default function Homepagebodyright() {
             <Link to={`/${phd.title}`}>
               <div className="homepagebodyright_phimmsapchieu_detail">
                 <p style={{ marginTop: 0 }}>{phd.title}</p>
-                <p>{phd.namphathanh}</p>
-                <p>
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                </p>
+                <p>Cập nhật: {phd.namphathanh}</p>
+                <p>Lượt xem: {phd.views}</p>
+                
               </div>
             </Link>
           </div>
@@ -73,14 +68,9 @@ export default function Homepagebodyright() {
             <Link to={`/${phd.title}`}>
               <div className="homepagebodyright_phimmsapchieu_detail">
                 <p style={{ marginTop: 0 }}>{phd.title}</p>
-                <p>{phd.namphathanh}</p>
-                <p>
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                  <img src="https://motchillj.net/theme/images/star-off.png" alt="" />
-                </p>
+                <p>Cập nhật: {phd.namphathanh}</p>
+                <p>Lượt xem: {phd.views}</p>
+                
               </div>
             </Link>
           </div>

@@ -53,7 +53,7 @@ const home = async () => {
       findFilms({
         where: { theloai: { [Op.like]: '%Hành Động%' } },
         limit: 5,
-        attributes: ['hinhanh', 'title', 'namphathanh'],
+        attributes: ['hinhanh', 'title', 'namphathanh','views'],
       }),
       findFilms({
         attributes: ['title', 'likes','views'],
@@ -71,7 +71,7 @@ const home = async () => {
       findFilms({
         where: { category_id: 27 },
         limit: 7,
-        attributes: ['hinhanh', 'title', 'namphathanh'],
+        attributes: ['hinhanh', 'title', 'namphathanh','views'],
       }),
       findFilms({ where: { category_id: 9 }, limit: 10 }),
       findFilms({ where: { category_id: 10 }, limit: 10 }),
