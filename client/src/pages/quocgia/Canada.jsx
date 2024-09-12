@@ -45,7 +45,7 @@ export default function Canada() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Canada</p>
                 </div>
                 <p
                     style={{
@@ -59,7 +59,7 @@ export default function Canada() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Canada
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

@@ -45,7 +45,7 @@ export default function Aumy() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Âu mỹ</p>
                 </div>
                 <p
                     style={{
@@ -59,7 +59,7 @@ export default function Aumy() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Âu mỹ
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

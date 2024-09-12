@@ -235,7 +235,7 @@ useEffect(() => {
 </Helmet>
 
       <div className={isSmallScreen ? "caption-container" : "container caption-container"}>
-      <div className="caption mt-3 d-flex">
+      <div className="caption caption_title mt-1 d-flex">
                 <p><IoIosHome /> Motchill</p>
                 <p> > </p>
                 <p> {datadetail.theloai.split(',')[0] || ''}</p>

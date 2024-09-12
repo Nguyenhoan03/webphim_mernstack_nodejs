@@ -45,7 +45,7 @@ export default function Thailan() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Thái Lan</p>
                 </div>
                 <p
                     style={{
@@ -59,7 +59,7 @@ export default function Thailan() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Thái Lan
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

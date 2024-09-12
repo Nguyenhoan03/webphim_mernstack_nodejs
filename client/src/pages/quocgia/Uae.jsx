@@ -32,7 +32,7 @@ export default function Uae() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>UAE</p>
                 </div>
                 <p
                     style={{
@@ -46,7 +46,7 @@ export default function Uae() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim UAE
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

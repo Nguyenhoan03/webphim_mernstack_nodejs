@@ -59,7 +59,7 @@ export default function Anh() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Anh
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

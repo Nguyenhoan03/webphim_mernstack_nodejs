@@ -32,7 +32,7 @@ export default function Bodaonha() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Bồ Đào Nha</p>
                 </div>
                 <p
                     style={{
@@ -46,7 +46,7 @@ export default function Bodaonha() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Bồ Đào Nha
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

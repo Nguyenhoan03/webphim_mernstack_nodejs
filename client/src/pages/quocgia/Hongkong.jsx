@@ -59,7 +59,7 @@ export default function Hongkong() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim HongKong
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

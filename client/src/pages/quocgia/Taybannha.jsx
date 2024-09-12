@@ -45,7 +45,7 @@ export default function Taybannha() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Tây Ban Nha</p>
                 </div>
                 <p
                     style={{
@@ -59,7 +59,7 @@ export default function Taybannha() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Tây Ban Nha
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

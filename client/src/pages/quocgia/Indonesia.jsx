@@ -59,7 +59,7 @@ export default function Indonesia() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Indonesia
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

@@ -1,5 +1,4 @@
 import React, { useEffect, useState,useContext,useMemo,Suspense } from 'react';
-import Slider from 'react-slick';
 import { Producthome } from '../../services/Productservices';
 import './Style.scss';
 import { Helmet } from 'react-helmet';

@@ -45,7 +45,7 @@ export default function Nhatban() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Nhật Bản</p>
                 </div>
                 <p
                     style={{
@@ -59,7 +59,7 @@ export default function Nhatban() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Nhật Bản
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

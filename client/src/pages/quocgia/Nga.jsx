@@ -45,7 +45,7 @@ export default function Nga() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Nga</p>
                 </div>
                 <p
                     style={{
@@ -59,7 +59,7 @@ export default function Nga() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Nga
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

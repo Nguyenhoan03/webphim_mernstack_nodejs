@@ -45,7 +45,7 @@ export default function Halan() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Hà Lan</p>
                 </div>
                 <p
                     style={{
@@ -59,7 +59,7 @@ export default function Halan() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Hà Lan
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">

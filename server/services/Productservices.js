@@ -20,61 +20,73 @@ const home = async () => {
   try {
     const cacheKey = 'home_data';
     let data = cache.get(cacheKey);
-    // cache.del(cacheKey)
-    if (data) {
-      return data;
-    }
 
-    const commonAttributes = ['theloai','namphathanh','trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap','descripts'];
+    if (data) return data;
 
+    // Common attributes for all queries
+    const commonAttributes = ['id', 'theloai', 'namphathanh', 'trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap', 'descripts'];
+
+    // Utility function for querying films
     const findFilms = (options) => Product.findAll({
       ...options,
       attributes: options.attributes || commonAttributes,
-      group: ['title'],
       order: options.order || [['id', 'DESC']],
       limit: options.limit || 18,
+      // logging: console.log, // Add this for debugging to see the generated SQL
     });
 
     const promises = [
       findFilms({
         order: [['views', 'DESC']],
-        limit: 30,
+        limit: 30, 
+        attributes: ['id','trangthai','ngonngu', 'hinhanh', 'title','sotap']
       }),
       findFilms({
-        where: { sotap: { [Op.gt]: 15 }, thoiluong: { [Op.gt]: 25 } },
-        order: [['sotap', 'DESC'], ['thoiluong', 'DESC']],
+        where: {
+          sotap: { [Op.gt]: 15 }, 
+          thoiluong: { [Op.gt]: 25 } 
+        },
+        //  order: [['sotap', 'DESC'], ['thoiluong', 'DESC']],
       }),
       findFilms({
-        where: { sotap: { [Op.gt]: 1 } },
+        where: { sotap: { [Op.gt]: 1 } }, // Movies with episodes > 1
+        // limit: 18, // Add specific limit here to avoid overload
       }),
       findFilms({
-        where: { trangthai: { [Op.like]: '%Hoàn Tất%' } },
+        where: { trangthai: { [Op.like]: '%Hoàn Tất%' } }, // Completed films
+        // limit: 18, // Add a limit to avoid too many records
       }),
       findFilms({
-        where: { theloai: { [Op.like]: '%Hành Động%' } },
-        limit: 5,
-        attributes: ['hinhanh', 'title', 'namphathanh','views'],
+        where: { theloai: { [Op.like]: '%Hành Động%' } }, // Action films
+        limit: 5, // Limit to only 5 action films
+        attributes: ['hinhanh', 'title', 'namphathanh', 'views'],
       }),
       findFilms({
-        attributes: ['title', 'likes','views'],
-        limit: 10,
+        attributes: ['title','views'], // Trending films
+        limit: 10, // Fetch only top 10 trending films
         order: [['views', 'DESC']],
       }),
       findFilms({
-        where: { category_id: 23 },
-        limit: 13,
+        where: { category_id: 23 }, // Category 23
+        limit: 13, // Limit results to 13 films in this category
       }),
       findFilms({
-        where: { category_id: 4 },
-        limit: 15,
+        where: { category_id: 4 }, // Category 4
+        limit: 15, // Limit results to 15 films
       }),
       findFilms({
-        where: { category_id: 27 },
-        limit: 7,
-        attributes: ['hinhanh', 'title', 'namphathanh','views'],
+        where: { category_id: 27 }, // Category 27
+        limit: 7, // Limit results to 7
+        attributes: ['hinhanh', 'title', 'namphathanh', 'views'],
       }),
-      findFilms({ where: { category_id: 9 }, limit: 10 }),
-      findFilms({ where: { category_id: 10 }, limit: 10 }),
+      findFilms({
+        where: { category_id: 9 }, // Category 9
+        limit: 10, // Limit to 10 films in category 9
+      }),
+      findFilms({
+        where: { category_id: 10 }, // Category 10
+        limit: 10, // Limit to 10 films in category 10
+      })
     ];
 
     const [
@@ -84,8 +96,10 @@ const home = async () => {
       phimCategory9, phimCategory10
     ] = await Promise.all(promises);
 
+    // Combine categories 9 and 10 into one result set
     const phimtamlytimcam = [...phimCategory9, ...phimCategory10];
 
+    // Result object
     data = {
       phimhot, phimbomoicapnhat, phimlemoicapnhat,
       phimdahoanthanh, phimhanhdong, phimtrending,
@@ -93,7 +107,8 @@ const home = async () => {
       phimsapchieu
     };
 
-    cache.put(cacheKey, data, 3600 * 1000); 
+    // Cache the result for 1 hour (3600 * 1000 milliseconds)
+    cache.put(cacheKey, data, 3600 * 1000);
 
     return data;
 
@@ -103,6 +118,7 @@ const home = async () => {
     throw error;
   }
 };
+
 
 const Productservice = async () => {
   try {

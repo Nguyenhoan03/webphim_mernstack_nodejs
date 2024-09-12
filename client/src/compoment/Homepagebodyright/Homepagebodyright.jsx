@@ -17,7 +17,7 @@ export default function Homepagebodyright() {
             <Link to={`/${phd.title}`}>
               <div className="homepagebodyright_phimmsapchieu_detail">
                 <p style={{ marginTop: 0 }}>{phd.title}</p>
-                <p>Cập nhật: {phd.namphathanh}</p>
+                <p>Phát hành năm: {phd.namphathanh}</p>
                 <p>Lượt xem: {phd.views}</p>
                 
               </div>
@@ -68,7 +68,7 @@ export default function Homepagebodyright() {
             <Link to={`/${phd.title}`}>
               <div className="homepagebodyright_phimmsapchieu_detail">
                 <p style={{ marginTop: 0 }}>{phd.title}</p>
-                <p>Cập nhật: {phd.namphathanh}</p>
+                <p>Phát hành năm: {phd.namphathanh}</p>
                 <p>Lượt xem: {phd.views}</p>
                 
               </div>

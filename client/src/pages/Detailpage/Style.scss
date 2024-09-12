@@ -277,24 +277,16 @@
   }
 }
 @media screen and (min-width: 765px) and (max-width: 991px) {
-  .detailpage, .content_detailpage {
+  
+.detailpage_left{
+  width:100% !important;
+}
+  .content_detailpage_card {
     width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box;
-    padding: 10px;
   }
-
-  .caption-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px auto;
-    text-align: center;
-  }
-
   .card_detailpage_film {
     float: none;
-    width: 100%;
+    width: 100% !important;
     margin-bottom: 15px;
   }
 
@@ -333,12 +325,20 @@
     gap: 10px;
     margin: 15px 0;
   }
-  
+
   .buttons .btn {
     padding: 10px 20px;
     font-size: 16px;
   }
+
+  /* Đảm bảo không có container nào còn gây giới hạn */
+  .main-content, .row, .col {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
+
 
 
 
@@ -373,6 +373,12 @@
     width: 80%;
     max-width: 250px;
     height: auto;
+  }
+
+
+  .content_detailpage_card_button{
+    width: 80%;
+    max-width: 250px;
   }
 
   .movie-title {
@@ -419,7 +425,7 @@
     width: 100%;
     height: auto;
   }
-
+  
   .card_detailpage_film {
     width: 100%;
     margin-left: 0;

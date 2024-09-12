@@ -45,7 +45,7 @@ export default function Phap() {
                 <div className="caption mt-3 d-flex">
                     <p><IoIosHome /> nghienphim</p>
                     <p> &gt; </p>
-                    <p>Ấn Độ</p>
+                    <p>Pháp</p>
                 </div>
                 <p
                     style={{
@@ -59,7 +59,7 @@ export default function Phap() {
                         paddingBottom: 10,
                     }}
                 >
-                    Phim Ấn Độ
+                    Phim Pháp
                 </p>
                 <div className="row">
                     <div className="hanhdongleft col-md-9">
