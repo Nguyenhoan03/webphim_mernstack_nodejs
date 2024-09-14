@@ -43,6 +43,7 @@ const MovieCard = ({ data }) => {
                   style={{ width: 175, height: 245, borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
                   src={pbm.hinhanh}
                   alt={pbm.title}
+                  loading="lazy"
                 />
                 <p
                   className="description-badge2"
