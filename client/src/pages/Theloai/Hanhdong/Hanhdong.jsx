@@ -60,13 +60,16 @@ export default function Hanhdong() {
                     <div className="hanhdongleft col-md-9">
                         <div className="">
                             <div className="category_phim">
-                            <FilterfilmCompoment
-                               data={data}
-                               filters={filters}
-                               setFilters={setFilters}
-                               appliedFilters={appliedFilters}
-                               setAppliedFilters={setAppliedFilters}
-                           />
+                            <Suspense fallback={<div>Loadding...</div>}>
+
+                                <FilterfilmCompoment
+                                data={data}
+                                filters={filters}
+                                setFilters={setFilters}
+                                appliedFilters={appliedFilters}
+                                setAppliedFilters={setAppliedFilters}
+                                />
+                                </Suspense>
                             </div>
                         </div>
                     </div>

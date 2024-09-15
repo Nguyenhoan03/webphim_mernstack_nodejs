@@ -116,7 +116,7 @@ export default function Detailpage() {
   }
 
  
-  const [checkbutton,setcheckbutton] = useState(1);
+ const [checkbutton,setcheckbutton] = useState(1);
  const handlecheckbutton = (key)=>{
      setcheckbutton(key);
     }

@@ -37,7 +37,11 @@ import { useState } from "react";
                 >
                   {pbm.trangthai}-{pbm.ngonngu}
                 </p>
-                <img style={{ width: 175, height: 245 }} src={pbm.hinhanh} alt={pbm.title} />
+                <picture>
+                <source srcSet={pbm.hinhanh.replace(/\.(jpg|jpeg|png)$/, ".webp")} type="image/webp" />
+                <img style={{ width: 175, height: 245 }} src={pbm.hinhanh} alt={pbm.title} loading="lazy"/>
+              </picture>
+
                 <p className="description-badge2" style={{ marginLeft: 12 }}>
                   {pbm.sotap && pbm.sotap.includes('Tập') ? pbm.sotap : `${pbm.sotap} Tập`}
                 </p>

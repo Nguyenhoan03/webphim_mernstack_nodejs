@@ -54,7 +54,6 @@ export default function FilterfilmCompoment({ data, filters, setFilters, applied
                         <option value="Hành Động">Hành Động</option>
                         <option value="Viễn Tưởng">Viễn Tưởng</option>
                         <option value="Bí Ẩn">Bí Ẩn</option>
-                        {/* Add more options here */}
                     </select>
                 </div>
                 <div className="hanhdongleft_filter">
@@ -67,7 +66,6 @@ export default function FilterfilmCompoment({ data, filters, setFilters, applied
                         <option value=""></option>
                         <option value="Trung Quốc">Trung Quốc</option>
                         <option value="Hàn Quốc">Hàn Quốc</option>
-                        {/* Add more options here */}
                     </select>
                 </div>
                 <div className="hanhdongleft_filter">

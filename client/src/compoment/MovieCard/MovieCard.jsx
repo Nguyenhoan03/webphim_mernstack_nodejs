@@ -39,12 +39,18 @@ const MovieCard = ({ data }) => {
                 >
                   {pbm.trangthai}-{pbm.ngonngu}
                 </p>
-                <img
-                  style={{ width: 175, height: 245, borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
-                  src={pbm.hinhanh}
-                  alt={pbm.title}
-                  loading="lazy"
-                />
+                <picture>
+                  <source
+                    srcSet={pbm.hinhanh.replace(/\.(jpg|jpeg|png)$/, ".webp")}
+                    type="image/webp"
+                  />
+                  <img
+                    style={{ width: 175, height: 245, borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
+                    src={pbm.hinhanh}
+                    alt={pbm.title}
+                    loading="lazy" 
+                  />
+                </picture>
                 <p
                   className="description-badge2"
                   style={{
