@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext,useMemo,Suspense } from 'react';
+import React, { useEffect, useState,useContext,Suspense } from 'react';
 import { Producthome } from '../../services/Productservices';
 import './Style.scss';
 import { Helmet } from 'react-helmet';

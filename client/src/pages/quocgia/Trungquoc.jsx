@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,Suspense } from "react";
+
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productquocgia_trungquoc } from "../../services/Productservices";
@@ -65,6 +66,8 @@ export default function Trungquoc() {
                     <div className="hanhdongleft col-md-9">
                         <div className="">
                             <div className="category_phim">
+<Suspense fallback={<div>Loadding...</div>}>
+
                             <FilterfilmCompoment
                             data={data}
                             filters={filters}
@@ -72,7 +75,11 @@ export default function Trungquoc() {
                             appliedFilters={appliedFilters}
                             setAppliedFilters={setAppliedFilters}
                         />
+</Suspense>
+
                             </div>
+
+
                         </div>
                     </div>
                     <div className="hanhdongright col-md-3">

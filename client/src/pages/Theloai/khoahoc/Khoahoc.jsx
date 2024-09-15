@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,Suspense } from "react";
+
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productdanhmucphimkhoahoc } from "../../../services/Productservices";
-import ReactPaginate from 'react-paginate';
-import { Link } from "react-router-dom";
-import FilterfilmCompoment from "../../../compoment/FilterfilmCompoment/FilterfilmCompoment";
+
 import Itemsdanhmucfilm from "../../../compoment/Itemsdanhmucfilm/Itemsdanhmucfilm";
 import { Helmet } from "react-helmet";
+const FilterfilmCompoment = React.lazy(()=>import("../../../compoment/FilterfilmCompoment/FilterfilmCompoment"));
 export default function Khoahoc() {
   const [data, setData] = useState([]);
     const [filters, setFilters] = useState({});
@@ -60,6 +60,8 @@ export default function Khoahoc() {
                     <div className="hanhdongleft col-md-9">
                         <div className="">
                             <div className="category_phim">
+<Suspense fallback={<div>Loadding...</div>}>
+
                             <FilterfilmCompoment
                             data={data}
                             filters={filters}
@@ -67,7 +69,11 @@ export default function Khoahoc() {
                             appliedFilters={appliedFilters}
                             setAppliedFilters={setAppliedFilters}
                         />
+</Suspense>
+
                             </div>
+
+
                         </div>
                     </div>
                     <div className="hanhdongright col-md-3">

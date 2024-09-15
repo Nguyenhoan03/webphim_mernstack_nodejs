@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,Suspense } from "react";
+
 import { IoIosHome } from "react-icons/io";
 import Homepagebodyright from "../../compoment/Homepagebodyright/Homepagebodyright";
 import { Productquocgia_arapxeut } from "../../services/Productservices";
 
-import FilterfilmCompoment from "\.\./\.\./compoment/FilterfilmCompoment/FilterfilmCompoment";import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet";
+const FilterfilmCompoment = React.lazy(()=>import("../../compoment/FilterfilmCompoment/FilterfilmCompoment"));
 
 export default function Arapxeut() {
     const [data, setData] = useState([]);
@@ -52,6 +54,8 @@ export default function Arapxeut() {
                     <div className="hanhdongleft col-md-9">
                         <div className="">
                             <div className="category_phim">
+<Suspense fallback={<div>Loadding...</div>}>
+
                             <FilterfilmCompoment
                             data={data}
                             filters={filters}
@@ -59,7 +63,11 @@ export default function Arapxeut() {
                             appliedFilters={appliedFilters}
                             setAppliedFilters={setAppliedFilters}
                         />
+</Suspense>
+
                             </div>
+
+
                         </div>
                     </div>
                     <div className="hanhdongright col-md-3">

@@ -13,7 +13,7 @@ export default function HeaderComponent() {
   const {roles,permissions} = useContext(HomeContext)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -37,7 +37,7 @@ export default function HeaderComponent() {
     const fetchData = async () => {
       try {
         const response = await Getallproduct();
-        setData(response.data);
+        // setData(response.data);
         const filterSearch = response.data
           .filter(item => item.title && item.title.toLowerCase().includes(search.toLowerCase()))
           .slice(0, 5);
