@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,Suspense } from 'react';
 import './Style.scss';
 import { useParams, Link } from 'react-router-dom';
-import Homepagebodyright from '../../compoment/Homepagebodyright/Homepagebodyright';
-import CommentCompoment from '../../compoment/CommentCompoment/CommentCompoment';
 import { ProductDetail } from '../../services/Productservices';
 import { Dataxemphim } from '../../services/Xemfilmservices';
 import { MdError } from "react-icons/md";
@@ -11,6 +9,8 @@ import { TbPlayerTrackNext } from "react-icons/tb";
 import { IoIosHome } from 'react-icons/io';
 import { BsArrowsFullscreen } from "react-icons/bs";
 import { Helmet } from 'react-helmet';
+const Homepagebodyright =React.lazy(()=>import('../../compoment/Homepagebodyright/Homepagebodyright'));
+const CommentCompoment = React.lazy(()=>import('../../compoment/CommentCompoment/CommentCompoment'));
 
 export default function Xemphim() {
   const { title, episode } = useParams();
@@ -100,15 +100,19 @@ export default function Xemphim() {
               datadetail={datadetail} 
               datafilm={datafilm} 
             />
+            <Suspense fallback={<div>Loadding...</div>}>
             <CommentCompoment 
               titlefilm={title} 
               comments={comment} 
               parent_id={parent_id} 
             />
+            </Suspense>
           </div>
           
           <div className="xemphim_right col-md-3">
+          <Suspense fallback={<div>Loadding...</div>}>
             <Homepagebodyright />
+          </Suspense>
           </div>
         </div>
       </div>

@@ -3,7 +3,6 @@ const router = express.Router();
 const productController = require('../controller/productcontroller');
 const XemphimController = require('../controller/Xemphimcontroller')
 const {verifyToken} = require('../middleware/Authmiddlware')
-router.get('/',productController.Product);
 router.post('/comment',verifyToken, productController.Product_comment);
 router.post('/rating_star',verifyToken, productController.Rating_star);
 router.get('/product-home', productController.Product_home);
@@ -87,6 +86,7 @@ router.post('/:update_view',productController.Product_updateview);
 router.post('/edit_productphim',productController.Product_edit);
 router.get('/:titlefilm/tap-:episode', XemphimController.datafilm);
 
+router.get('/',productController.Product);
 
 
 module.exports = router;

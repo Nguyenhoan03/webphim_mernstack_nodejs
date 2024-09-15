@@ -84,9 +84,9 @@ export default function Homepage() {
             <h2 style={{ fontSize: 25, fontFamily: 'roboto', fontWeight: 300, textTransform: 'uppercase', color: '#ff9601' }}>PHIM HOT</h2>
             <div className="slider-container">
               <div className="row">
-                <Suspense fallback={<div>Loadding...</div>}>
+                {/* <Suspense fallback={<div>Loadding...</div>}> */}
                 {phimhot.length > 0 && <Slickslider settings={settings} data={phimhot} />}
-                </Suspense>
+                {/* </Suspense> */}
               </div>
             </div>
           </div>

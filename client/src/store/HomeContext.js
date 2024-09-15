@@ -1,4 +1,4 @@
-import React, {createContext, useContext,useState,useEffect} from 'react'
+import React, {createContext, useContext,useState,useEffect,useMemo} from 'react'
 import { Producthome } from '../services/Productservices';
 export const HomeContext = createContext();
 export const HomeProvider = ({children}) =>{
@@ -38,7 +38,7 @@ export const HomeProvider = ({children}) =>{
         </div>
       );
     }
-    const settings = {
+    const settings = useMemo(() => ({
       dots: false,
       infinite: true,
       speed: 500,
@@ -49,66 +49,21 @@ export const HomeProvider = ({children}) =>{
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />,
       responsive: [
-        {
-          breakpoint: 1400,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 3,
-            infinite: true
-          }
-        },
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 2,
-            infinite: true
-          }
-        },
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: false,
-          }
-        },
-        {
-          breakpoint: 765,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            initialSlide: 2,
-          }
-        },
-        {
-          breakpoint: 470,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          }
-        },
-        {
-          breakpoint: 330,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          }
-        }
+        { breakpoint: 1400, settings: { slidesToShow: 5, slidesToScroll: 3, infinite: true }},
+        { breakpoint: 1200, settings: { slidesToShow: 4, slidesToScroll: 2, infinite: true }},
+        { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 3 }},
+        { breakpoint: 765, settings: { slidesToShow: 2, slidesToScroll: 1 }},
+        { breakpoint: 600, settings: { slidesToShow: 2, slidesToScroll: 2 }},
+        { breakpoint: 470, settings: { slidesToShow: 2, slidesToScroll: 1 }},
+        { breakpoint: 330, settings: { slidesToShow: 1, slidesToScroll: 1 }},
       ]
-    };
+    }), []);
+    
     
 
     useEffect(() => {
         const fetchData = async () => {
+         console.log("dataaaafirst")
           const data = await Producthome();
           setphimhanhdong(data.phimhanhdong);
           settrendingData(data.phimtrending);

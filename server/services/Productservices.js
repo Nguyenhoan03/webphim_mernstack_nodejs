@@ -341,6 +341,8 @@ const quocgia = async (quocgia, filters = {}) => {
       orderClause = [['views', 'DESC']];
     } else if (orderBy === "year") {
       orderClause = [['namphathanh', 'ASC']];
+    }else{
+      orderClause = [['id', 'DESC']];
     }
 
     const data = await Product.findAll({

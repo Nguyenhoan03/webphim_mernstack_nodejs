@@ -1,21 +1,20 @@
-import React, { useState,useContext, useEffect,useMemo } from 'react'
+import React, { useState,useContext, useEffect,useMemo,Suspense } from 'react'
 import './Style.scss'
 import { IoIosHome } from "react-icons/io";
-import Homepagebodyright from '../../compoment/Homepagebodyright/Homepagebodyright'
 import { Link, useParams } from 'react-router-dom';
 import { AiFillLike } from "react-icons/ai";
 import { IoBookmark } from "react-icons/io5";
 
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
-import Slickslider from '../../compoment/Slickslider/Slickslider';
 import { HomeContext } from '../../store/HomeContext';
 import { ProductDetail } from '../../services/Productservices';
 import { Helmet } from 'react-helmet';
 import { HandleRating } from '../../services/Productservices';
 import { ProductServiceUpdateView } from '../../services/Productservices';
-
-import CommentCompoment from '../../compoment/CommentCompoment/CommentCompoment';
+const Slickslider = React.lazy(()=>import('../../compoment/Slickslider/Slickslider'));
+const Homepagebodyright = React.lazy(()=>import('../../compoment/Homepagebodyright/Homepagebodyright'))
+const CommentCompoment = React.lazy(()=>import('../../compoment/CommentCompoment/CommentCompoment'))
 export default function Detailpage() {
   const { token,id,email,phimhot,permissions,roles} = useContext(HomeContext);
   const memophimhot = useMemo(()=> phimhot, [phimhot])
@@ -353,7 +352,9 @@ useEffect(() => {
               </div>  
 
              <div className="">
+             <Suspense fallback={<div>Loadding...</div>}>
             <CommentCompoment titlefilm = {title} comments={comment} parent_id={parent_id}/>
+            </Suspense>
             </div>
            
 
@@ -365,13 +366,17 @@ useEffect(() => {
               <h2 style={{ fontSize: 18, fontFamily: 'roboto', fontWeight: 600, textTransform: 'uppercase', color: 'white',marginLeft:10,paddingTop:5 }}>PHIM ĐỀ CỬ</h2>
               </div>
               <div className="">
+                 <Suspense fallback={<div>Loadding...</div>}>
               <Slickslider settings={settings} data={memophimhot} />
+              </Suspense>
               </div>
               </div>
               </div>
         </div>
         <div className="detailpage_right col-md-3">
+        <Suspense fallback={<div>Loadding...</div>}>
             <Homepagebodyright/>
+            </Suspense>
         </div>
         </div>
         </div>
