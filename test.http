@@ -8,5 +8,5 @@
 #     "starselect": 5
 # }
 
-GET http://localhost:5000/getalluser
+GET https://webphim-mernstack-nodejs.onrender.com/product/product-home
 Content-Type: : application/json

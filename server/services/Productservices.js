@@ -18,10 +18,10 @@ const logToFile = (filename, data) => {
 
 const home = async () => {
   try {
-    // const cacheKey = 'home_data';
-    // let data = cache.get(cacheKey);
-     cache.del('home_data');
-    // if (data) return data;
+    const cacheKey = 'home_data';
+    let data = cache.get(cacheKey);
+    //  cache.del('home_data');
+    if (data) return data;
 
     // Common attributes for all queries
     const commonAttributes = ['id', 'theloai', 'namphathanh', 'trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap', 'descripts'];
@@ -108,7 +108,7 @@ const home = async () => {
     };
 
     // Cache the result for 1 hour (3600 * 1000 milliseconds)
-    // cache.put(cacheKey, data, 3600 * 1000);
+    cache.put(cacheKey, data, 3600 * 1000);
 
     return data;
 

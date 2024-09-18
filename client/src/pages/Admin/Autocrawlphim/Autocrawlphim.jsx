@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Leftadmincompoment from "../../../compoment/AdminCompoment/Leftadmincompoment/Leftadmincompoment";
 import Right_navbarcompoment from "../../../compoment/AdminCompoment/Right_navbarcompoment/Right_navbarcompoment";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   MdShoppingCart,
   MdAttachMoney,
@@ -70,39 +72,98 @@ export default function Authcrawlphim() {
       console.error("Error:", error);
     }
   };
-
+  const date_curent = new Date();
+const formattedDate = date_curent.toISOString().split('T')[0];
+  console.log("firstforrmatdate",formattedDate)
   const [choosecrawl, setchoosecrawl] = useState([]);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(formattedDate);
   const [selectedTime, setSelectedTime] = useState("");
-  const [isScheduled, setIsScheduled] = useState(false); // Track if crawl is scheduled
+  const [isScheduled, setIsScheduled] = useState(false); 
+  const [data_crawl, setdata_crawl] = useState([]); 
 
   const handleclickchoose = (cate) => {
     if (cate === "chooseall") {
       setchoosecrawl(categories);
-    }
-    setchoosecrawl((prev) => [...prev, cate]);
+    }else{
+      setchoosecrawl((prev) => {
+        if (!prev.includes(cate)) {
+          return [...prev, cate];
+        }
+        return prev;
+      });
   };
-
-  // Handles the date selection for scheduling the crawl
+}
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
   };
 
-  // Handles the time selection for scheduling the crawl
   const handleTimeChange = (e) => {
     setSelectedTime(e.target.value);
   };
+  console.log("first",choosecrawl)
 
-  // Function to handle scheduling the crawl
-  const handleScheduleCrawl = () => {
+  const handleScheduleCrawl = async () => {
     if (choosecrawl.length > 0 && selectedDate && selectedTime) {
-      // Assuming that scheduling works here
-      setIsScheduled(true);
+      const selectedDateTime = new Date(`${selectedDate}T${selectedTime}`);
+  
+      const currentDateTime = new Date();
+  
+      if (selectedDateTime <= currentDateTime) {
+        alert("Thời gian đã chọn không hợp lệ. Vui lòng chọn thời gian trong tương lai.");
+        return;
+      }
+  
+      try {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/create_scheduled_crawls`, {
+          categories: choosecrawl,
+          date: selectedDate,
+          time: selectedTime,
+        });
+  
+        if (response.data.status === 200) {
+          toast.success("Bạn đã đặt lịch hẹn thành công!");
+          window.location.reload();
+        } else {
+          toast.error("Có lỗi xảy ra, vui lòng thử lại.");
+        }
+      } catch (error) {
+        console.error("Error scheduling crawl:", error);
+        toast.error("Có lỗi xảy ra, vui lòng thử lại.");
+      }
     } else {
-      alert("Please select categories, date, and time to schedule the crawl.");
+      alert("Vui lòng chọn thể loại, ngày, và thời gian để đặt lịch.");
     }
   };
-
+  
+  
+  useEffect(()=>{
+    try {
+      const fetch_datacrawl = async ()=>{
+        const data = await axios.get(`${process.env.REACT_APP_API_URL}/schedule_crawl`);
+        if(data){
+             setdata_crawl(data.data);
+        }
+     }
+     fetch_datacrawl();  
+    } catch (error) {
+      console.log(error)
+    }
+    
+  },[])
+  const handleDelete_listcrawl = async(id)=>{
+    try {
+      const data_delete = await axios.delete(`${process.env.REACT_APP_API_URL}/delete_scheduled_crawls`,{params: { id }})
+      if (data_delete.status === 200) {
+        alert("Bạn đã xóa thành công");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error deleting crawl:", error);
+    }
+  }
+   
+  
+  
   return (
     <div className="dashboard-container container-fluid">
       <div className="row">
@@ -228,7 +289,7 @@ export default function Authcrawlphim() {
             <div className="mt-4 text-center">
               <button
                 className="btn btn-success"
-                onClick={handleScheduleCrawl}
+                onClick={()=>handleScheduleCrawl()}
               >
                 Đặt lịch bắt đầu cào
               </button>
@@ -236,25 +297,37 @@ export default function Authcrawlphim() {
           </div>
 
           {/* Scheduled Crawl Information */}
-          {isScheduled && (
-            <div className="scheduled-info mt-4">
-              <h4 className="text-success">Lịch cào phim đã được đặt:</h4>
-              <p>
-                <strong>Ngày cào: </strong> {selectedDate}
-              </p>
-              <p>
-                <strong>Thời gian cào: </strong> {selectedTime}
-              </p>
-              <p>
-                <strong>Thể loại đã chọn: </strong>{" "}
-                {choosecrawl.length > 0
-                  ? choosecrawl.join(", ")
-                  : "Không có thể loại nào được chọn"}
-              </p>
-            </div>
-          )}
+          {/* {isScheduled && ( */}
+          <div className="scheduled-info mt-4">
+  <h4 className="text-success">Danh sách đặt lịch cào phim</h4>
+  {data_crawl && data_crawl.map((dt, index) => (
+    <div className="scheduled-item" key={index}>
+      <p>
+        <strong>Ngày cào: </strong> {dt.crawl_date}
+      </p>
+      <p>
+        <strong>Thời gian cào: </strong> {dt.crawl_time}
+      </p>
+      <p>
+        <strong>Thể loại đã chọn: </strong> 
+        { dt.category.length > 0 ? dt.category  : "Không có thể loại nào được chọn"}
+      </p>
+      <p><strong> Trạng thái: </strong>   {dt.status === 1 ? "chưa thực hiện" : "đã hoàn thành"}</p>
+      <button 
+        className="btn btn-danger"
+        onClick={() => handleDelete_listcrawl(dt.id)}
+      >
+        Xóa
+      </button>
+    </div>
+  ))}
+</div>
+
+          
+          {/* )} */}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
