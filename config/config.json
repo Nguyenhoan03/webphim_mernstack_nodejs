@@ -3,7 +3,7 @@
     "username": "chuyenn7_db_webphim", 
     "password": "Hoanphe1@",
     "database": "chuyenn7_db_webphim",
-    "host": "localhost",
+    "host": "103.200.23.179",
     "dialect": "mysql"
 
   },
@@ -11,14 +11,14 @@
     "username": "chuyenn7_db_webphim", 
     "password": "Hoanphe1@",
     "database": "chuyenn7_db_webphim",
-    "host": "localhost",
+    "host": "103.200.23.179",
     "dialect": "mysql"
   },
   "production": {
     "username": "chuyenn7_db_webphim", 
     "password": "Hoanphe1@",
     "database": "chuyenn7_db_webphim",
-    "host": "localhost",
+    "host": "103.200.23.179",
     "dialect": "mysql"
   }
 }
