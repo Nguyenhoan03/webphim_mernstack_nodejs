@@ -210,7 +210,7 @@ cron.schedule('*/10 * * * *', async () => {
     const crawlDate = localNow.split(' ')[0];
     const crawlTime = localNow.split(' ')[1];
 
-    const scheduledJobs = await scheduled_crawl.findAll({
+    const scheduledJobs = await scheduled_crawl.find({
       where: {
         status: 1,
         crawl_date: crawlDate,
