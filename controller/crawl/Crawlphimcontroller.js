@@ -4,7 +4,6 @@ const cheerio = require('cheerio');
 const cron = require('node-cron');
 const moment = require('moment-timezone');
 const { Op } = require('sequelize');
-const GenerateSitemap = require("../../sitemap");
 
 // Đồng bộ cơ sở dữ liệu
 sequelize.sync()
