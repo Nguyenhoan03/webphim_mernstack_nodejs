@@ -4,6 +4,7 @@ const cheerio = require('cheerio');
 const cron = require('node-cron');
 const moment = require('moment-timezone');
 const { Op } = require('sequelize');
+const GenerateSitemap = require("../../sitemap");
 
 // Đồng bộ cơ sở dữ liệu
 sequelize.sync()
@@ -220,6 +221,7 @@ cron.schedule('*/10 * * * *', async () => {
 
     if (scheduledJobs.length > 0) {
       for (const job of scheduledJobs) {
+        console.log("firstjob",job)
         const categories = JSON.parse(job.category);
         for (const category of categories) {
           await crawlPhimFromUrl(category);
@@ -232,20 +234,17 @@ cron.schedule('*/10 * * * *', async () => {
   }
 });
 
-const Schedule_crawl = async (req, res) => {
+const Schedule_crawl =async (req,res)=>{
   try {
     const data = await scheduled_crawl.findAll();
-    if (data && data.length > 0) {
-      return res.json(data);
-    } else {
-      return res.status(404).json({ message: "No data found" });
-    }
+    if(data){
+       return res.json(data);
+    }  
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal Server Error" });
-  }
-};
-
+    console.log(error)
+  }    
+  
+}
 const Delete_Scheduled_crawls = async (req, res) => {
   try {
     const { id } = req.query;  
@@ -267,5 +266,17 @@ const Delete_Scheduled_crawls = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 }
+// const Updatesitemap = async(req,res)=>{
+//   try {
+//     const data = await GenerateSitemap.GenerateSitemap();
+//     if(data.status){
+//       return res.status(200).json({ success: "update sitemap" });
+      
+//     }
+//   } catch (error) {
+//     console.log(error)
+//   }
+   
+// }
 
 module.exports = {Delete_Scheduled_crawls, Schedule_crawl,Crawlphim, Scheduled_crawls };
