@@ -234,7 +234,7 @@ cron.schedule('*/10 * * * *', async () => {
 
 const Schedule_crawl =async (req,res)=>{
   try {
-    const data = await scheduled_crawl.find();
+    const data = await scheduled_crawl.findAll();
     if(data){
        return res.json(data);
     }  
