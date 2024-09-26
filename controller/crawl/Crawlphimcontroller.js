@@ -210,7 +210,7 @@ cron.schedule('*/10 * * * *', async () => {
     const crawlDate = localNow.split(' ')[0];
     const crawlTime = localNow.split(' ')[1];
 
-    const scheduledJobs = await scheduled_crawl.find({
+    const scheduledJobs = await scheduled_crawl.findAll({
       where: {
         status: 1,
         crawl_date: crawlDate,
@@ -232,17 +232,20 @@ cron.schedule('*/10 * * * *', async () => {
   }
 });
 
-const Schedule_crawl =async (req,res)=>{
+const Schedule_crawl = async (req, res) => {
   try {
     const data = await scheduled_crawl.findAll();
-    if(data){
-       return res.json(data);
-    }  
+    if (data && data.length > 0) {
+      return res.json(data);
+    } else {
+      return res.status(404).json({ message: "No data found" });
+    }
   } catch (error) {
-    console.log(error)
-  }    
-  
-}
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 const Delete_Scheduled_crawls = async (req, res) => {
   try {
     const { id } = req.query;  
