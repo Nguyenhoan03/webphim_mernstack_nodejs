@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     timestamps: false, 
-    modelName: 'scheduled_crawls',
+    modelName: 'scheduled_crawl',
   })
   return scheduled_crawl;
 };
