@@ -266,17 +266,6 @@ const Delete_Scheduled_crawls = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 }
-// const Updatesitemap = async(req,res)=>{
-//   try {
-//     const data = await GenerateSitemap.GenerateSitemap();
-//     if(data.status){
-//       return res.status(200).json({ success: "update sitemap" });
-      
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-   
-// }
+
 
 module.exports = {Delete_Scheduled_crawls, Schedule_crawl,Crawlphim, Scheduled_crawls };
