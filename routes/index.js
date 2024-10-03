@@ -6,10 +6,12 @@ const Crawlphim = require('../controller/crawl/Crawlphimcontroller');
 const Usercontroller = require('../controller/Usercontroller');
 const ErrorHandler = require('../middleware/Errorhandle');
 const Categorycontroller = require('../controller/Categorycontroller');
+const path = require("path");
 
 const initRoutes = (app) => {
   app.use('/product', Product);
   app.use('/admin', Admin);
+  app.use('/images', express.static(path.join(__dirname, '../public/images')));
   app.post('/dang-nhap', Usercontroller.Login);
   app.post('/dang-ky', Usercontroller.Register);
   app.post('/refresh_token', Usercontroller.Refreshtoken);
