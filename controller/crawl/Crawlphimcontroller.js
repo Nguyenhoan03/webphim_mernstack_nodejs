@@ -291,6 +291,7 @@ cron.schedule('*/60 * * * *', async () => {
 
     if (scheduledJobs.length > 0) {
       for (const job of scheduledJobs) {
+        console.log("firstjob",job)
         const categories = JSON.parse(job.category);
         for (const category of categories) {
           await crawlPhimFromUrl(category);
@@ -335,5 +336,6 @@ const Delete_Scheduled_crawls = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 }
+
 
 module.exports = {Delete_Scheduled_crawls, Schedule_crawl,Crawlphim, Scheduled_crawls };

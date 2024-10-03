@@ -1,24 +1,24 @@
 {
   "development": {
-    "username": "u5rmjahesn1u2yp7", 
-    "password": "ymXOxDM8GCvmGbw44jI9",
-    "database": "bub4pfdpktww9ivabln2",
-    "host": "bub4pfdpktww9ivabln2-mysql.services.clever-cloud.com",
+    "username": "chuyenn7_db_webphim", 
+    "password": "Hoanphe1@",
+    "database": "chuyenn7_db_webphim",
+    "host": "103.200.23.179",
     "dialect": "mysql"
 
   },
   "test": {
-    "username": "u5rmjahesn1u2yp7", 
-    "password": "ymXOxDM8GCvmGbw44jI9",
-    "database": "bub4pfdpktww9ivabln2",
-    "host": "bub4pfdpktww9ivabln2-mysql.services.clever-cloud.com",
+    "username": "chuyenn7_db_webphim", 
+    "password": "Hoanphe1@",
+    "database": "chuyenn7_db_webphim",
+    "host": "103.200.23.179",
     "dialect": "mysql"
   },
   "production": {
-    "username": "u5rmjahesn1u2yp7", 
-    "password": "ymXOxDM8GCvmGbw44jI9",
-    "database": "bub4pfdpktww9ivabln2",
-    "host": "bub4pfdpktww9ivabln2-mysql.services.clever-cloud.com",
+    "username": "chuyenn7_db_webphim", 
+    "password": "Hoanphe1@",
+    "database": "chuyenn7_db_webphim",
+    "host": "103.200.23.179",
     "dialect": "mysql"
   }
 }
