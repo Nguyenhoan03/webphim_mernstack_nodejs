@@ -186,14 +186,14 @@ const crawlPhimFromUrl = async (category) => {
           } catch (error) {
             console.error(`Failed to retry download for image: ${imageUrl}`);
           }
-          await sleep(1000); // Thêm thời gian chờ giữa các lần thử lại
+          await sleep(1000); 
         }
       }
   
       return {
         title,
         nameenglish,
-        hinhanh: localImagePath, // Trả về đường dẫn ảnh đã lưu
+        hinhanh: localImagePath, 
         descripts,
         trangthai: dataFilm['Trạng thái'],
         sotap: dataFilm['Số tập'],
