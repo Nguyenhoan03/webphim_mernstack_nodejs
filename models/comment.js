@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     parent_id: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'comments',
+    modelName: 'Comments',
   });
   return Comment;
 };
