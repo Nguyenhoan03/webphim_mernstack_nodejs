@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 const cron = require('node-cron');
 const moment = require('moment-timezone');
 const { Op } = require('sequelize');
-const GenerateSitemap = require("../../sitemap");
+
 
 // Đồng bộ cơ sở dữ liệu
 sequelize.sync()
@@ -204,7 +204,7 @@ const Scheduled_crawls = async (req, res) => {
 };
 
 // Cron job chạy mỗi 10 phút
-cron.schedule('*/10 * * * *', async () => {
+cron.schedule('*/60 * * * *', async () => {
   try {
     const now = new Date();
     const localNow = moment(now).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
