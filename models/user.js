@@ -84,7 +84,7 @@
       username: DataTypes.STRING,
     }, {
       sequelize,
-      modelName: 'users',
+      modelName: 'Users',
     });
     return User;
   };
