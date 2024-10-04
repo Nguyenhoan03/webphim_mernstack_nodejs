@@ -4,9 +4,8 @@ const cheerio = require('cheerio');
 const cron = require('node-cron');
 const moment = require('moment-timezone');
 const { Op } = require('sequelize');
-const fs = require('fs');
-const path = require('path')
-const { v4: uuidv4 } = require('uuid');
+const GenerateSitemap = require("../../sitemap");
+
 // Đồng bộ cơ sở dữ liệu
 sequelize.sync()
   .then(() => console.log('Database synced'))
@@ -80,85 +79,40 @@ const crawlPhimFromUrl = async (category) => {
     });
   }
 
-  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
+  // Hàm xử lý lấy chi tiết phim và các tập phim
   const getEpisodes = async (movie) => {
     try {
       const movieResponse = await axios.get(movie.href);
       const movieHtml = movieResponse.data;
       const $$ = cheerio.load(movieHtml);
-  
+
       const title = $$('.text-center h1.uppercase').text();
       const nameenglish = $$('.text-center h2.italic').text();
       const imageUrl = $$('.container .relative span img').attr('src');
       const hinhanh = imageUrl ? (imageUrl.startsWith('http') ? imageUrl : 'https://ophim17.cc' + imageUrl) : '';
       const descripts = $$('.text-gray-500 article').eq(0).text();
-  
+
       const dataFilm = {};
       $$('tbody.align-baseline tr').each((index, element) => {
         const key = $$(element).find('td').first().text().trim();
         const value = $$(element).find('td').eq(1).text().trim();
         dataFilm[key] = value;
       });
-  
-      let localImagePath = '';
-  
-      const existingfilm = await Linkfilm.findOne({
-        where: {
-          title: title,
-        }
-      });
-  
-      // Lưu trữ các URL của ảnh không tải được
-      let failedImageDownloads = [];
-  
-      // Function tải ảnh với retry và delay mechanism
-      const downloadImageWithRetry = async (url, retries = 3, delay = 1000) => {
-        for (let attempt = 1; attempt <= retries; attempt++) {
-          try {
-            const response = await axios.get(url, { responseType: 'arraybuffer' });
-            return response.data;
-          } catch (error) {
-            console.error(`Error downloading image (attempt ${attempt}): ${error.message}`);
-            if (attempt === retries) {
-              // Nếu vẫn không thành công sau số lần retry, thêm URL vào danh sách failed
-              failedImageDownloads.push(url);
-            }
-            await sleep(delay);
-          }
-        }
-      };
-  
-      // Lưu image vào file nếu tồn tại ảnh và phim chưa có trong cơ sở dữ liệu
-      if (hinhanh && !existingfilm) {
-        try {
-          const imageData = await downloadImageWithRetry(hinhanh);
-          if (imageData) {
-            const uuidhinhanh = `${uuidv4()}.jpg`;
-            const localPath = path.join(__dirname, '../../public/images', uuidhinhanh);
-  
-            // Ghi file vào thư mục
-            fs.writeFileSync(localPath, imageData);
-            localImagePath = `${uuidhinhanh}`;
-          }
-        } catch (error) {
-          console.error(`Failed to save image: ${error.message}`);
-        }
-      }
-  
-      // Xử lý các tập phim
+
       const episodeElements = $$('.grid.grid-cols-3.md\\:grid-cols-6.lg\\:grid-cols-16.gap-2 a');
       for (let i = 0; i < episodeElements.length; i++) {
         const episodeHref = $$(episodeElements[i]).attr('href');
         const episodeNumber = i + 1;
-  
+
+        // Kiểm tra xem tập phim đã tồn tại chưa
         const existingEpisode = await Linkfilm.findOne({
           where: {
             title: title,
             episode: episodeNumber
           }
         });
-  
+
+        // Nếu tập phim chưa tồn tại, tạo mới
         if (!existingEpisode) {
           await Linkfilm.create({
             title: title,
@@ -166,34 +120,12 @@ const crawlPhimFromUrl = async (category) => {
             linkfilm: episodeHref,
           });
         }
-  
-        await sleep(500); // Thời gian chờ giữa mỗi tập
       }
-  
-      // Nếu có ảnh bị lỗi, thử tải lại sau khi tất cả các tập phim được xử lý
-      if (failedImageDownloads.length > 0) {
-        console.log('Retrying failed image downloads...');
-        for (let i = 0; i < failedImageDownloads.length; i++) {
-          const imageUrl = failedImageDownloads[i];
-          try {
-            const imageData = await downloadImageWithRetry(imageUrl);
-            if (imageData) {
-              const uuidhinhanh = `${uuidv4()}.jpg`;
-              const localPath = path.join(__dirname, '../../public/images', uuidhinhanh);
-              fs.writeFileSync(localPath, imageData);
-              console.log(`Successfully retried and saved image: ${imageUrl}`);
-            }
-          } catch (error) {
-            console.error(`Failed to retry download for image: ${imageUrl}`);
-          }
-          await sleep(1000); 
-        }
-      }
-  
+
       return {
         title,
         nameenglish,
-        hinhanh: localImagePath, 
+        hinhanh,
         descripts,
         trangthai: dataFilm['Trạng thái'],
         sotap: dataFilm['Số tập'],
@@ -214,8 +146,6 @@ const crawlPhimFromUrl = async (category) => {
       return null;
     }
   };
-  
-  
 
   const results = [];
   for (const movie of data) {
@@ -274,7 +204,7 @@ const Scheduled_crawls = async (req, res) => {
 };
 
 // Cron job chạy mỗi 10 phút
-cron.schedule('*/60 * * * *', async () => {
+cron.schedule('*/10 * * * *', async () => {
   try {
     const now = new Date();
     const localNow = moment(now).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
@@ -291,7 +221,6 @@ cron.schedule('*/60 * * * *', async () => {
 
     if (scheduledJobs.length > 0) {
       for (const job of scheduledJobs) {
-        console.log("firstjob",job)
         const categories = JSON.parse(job.category);
         for (const category of categories) {
           await crawlPhimFromUrl(category);
