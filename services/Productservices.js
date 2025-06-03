@@ -1,0 +1,485 @@
+const { Product, Linkfilm, Comment, User, Rating, sequelize } = require('../models');
+const { Op} = require('sequelize');
+const fs = require('fs');
+const path = require('path');
+const cache = require('memory-cache');
+
+
+
+const logToFile = (filename, data) => {
+  const logFilePath = path.join(__dirname, filename);
+  fs.appendFileSync(logFilePath, data + '\n', 'utf8');
+};
+
+const home = async () => {
+  try {
+    // const cacheKey = 'home_data';
+    // let data = cache.get(cacheKey);
+    // //  cache.del('home_data');
+    // if (data) return data;
+
+    
+    const commonAttributes = ['id', 'theloai', 'namphathanh', 'trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap', 'descripts'];
+
+
+    const findFilms = (options) => Product.findAll({
+      ...options,
+      attributes: options.attributes || commonAttributes,
+      order: options.order || [['id', 'DESC']],
+      limit: options.limit || 18,
+      raw: true,
+    });
+
+    const promises = [
+      findFilms({
+        order: [['views', 'DESC']],
+        limit: 30,
+        attributes: ['id', 'trangthai', 'ngonngu', 'hinhanh', 'title', 'sotap']
+      }),
+      findFilms({
+        where: {
+          sotap: { [Op.gt]: 15 },
+          thoiluong: { [Op.gt]: 25 }
+        },
+        //  order: [['sotap', 'DESC'], ['thoiluong', 'DESC']],
+      }),
+      findFilms({
+        where: { sotap: { [Op.gt]: 1 } }, // Movies with episodes > 1
+        // limit: 18, // Add specific limit here to avoid overload
+      }),
+      findFilms({
+        where: { trangthai: { [Op.like]: '%Hoàn Tất%' } }, // Completed films
+        // limit: 18, // Add a limit to avoid too many records
+      }),
+      findFilms({
+        where: { theloai: { [Op.like]: '%Hành Động%' } }, // Action films
+        limit: 5, // Limit to only 5 action films
+        attributes: ['hinhanh', 'title', 'namphathanh', 'views'],
+      }),
+      findFilms({
+        attributes: ['title', 'views'], // Trending films
+        limit: 10, // Fetch only top 10 trending films
+        order: [['views', 'DESC']],
+      }),
+      findFilms({
+        where: { category_id: 23 }, // Category 23
+        limit: 13, // Limit results to 13 films in this category
+      }),
+      findFilms({
+        where: { category_id: 4 }, // Category 4
+        limit: 15, // Limit results to 15 films
+      }),
+      findFilms({
+        where: { category_id: 27 }, // Category 27
+        limit: 7, // Limit results to 7
+        attributes: ['hinhanh', 'title', 'namphathanh', 'views'],
+      }),
+      findFilms({
+        where: { category_id: 9 }, // Category 9
+        limit: 10, // Limit to 10 films in category 9
+      }),
+      findFilms({
+        where: { category_id: 10 }, // Category 10
+        limit: 10, // Limit to 10 films in category 10
+      })
+    ];
+
+    const [
+      phimhot, phimbomoicapnhat, phimlemoicapnhat,
+      phimdahoanthanh, phimhanhdong, phimtrending,
+      phimhoathinh, phimvientuong, phimsapchieu,
+      phimCategory9, phimCategory10
+    ] = await Promise.all(promises);
+
+
+    const phimtamlytimcam = [...phimCategory9, ...phimCategory10];
+
+    data = {
+      phimhot, phimbomoicapnhat, phimlemoicapnhat,
+      phimdahoanthanh, phimhanhdong, phimtrending,
+      phimhoathinh, phimtamlytimcam, phimvientuong,
+      phimsapchieu
+    };
+
+    // // Cache the result for 1 hour (3600 * 1000 milliseconds)
+    // cache.put(cacheKey, data, 3600 * 1000);
+
+    return data;
+
+  } catch (error) {
+    console.error('Error in phimhot service:', error);
+    logToFile('log.txt', `Error in phimhot service: ${error.toString()}`);
+    throw error;
+  }
+};
+
+
+const Productservice = async () => {
+  try {
+    const data = await Product.findAll({
+      order: [['id', 'DESC']],
+    });
+    return data;
+  } catch (error) {
+    throw (error);
+  }
+}
+
+const Productservices_edit = async (data) => {
+  try {
+    const updatedProduct = await Product.update(
+      { ...data },
+      { where: { id: data.id } }
+    );
+
+    if (updatedProduct[0] > 0) {
+      return { success: true };
+    } else {
+      return { success: false, message: 'No product was updated. Please check the provided ID.' };
+    }
+  } catch (error) {
+    console.error('Error updating product:', error.message || error);
+    throw new Error('Failed to update product');
+  }
+};
+
+
+
+
+
+
+
+//file services
+const getProductByCategory = async (categoryId) => {
+  try {
+    const products = await Product.findAll({
+      where: {
+        category_id: categoryId,
+      },
+      order: [['id', 'DESC']],
+      attributes: ['trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap'],
+    });
+    return products;
+  } catch (error) {
+    console.log(error)
+  }
+};
+const detailfilm = async (titlefilm, userId) => {
+  try {
+    const datafilm = await Product.findOne({
+      where: { title: titlefilm },
+      include: [{
+        model: Linkfilm,
+        as: 'linkfilms',
+        attributes: ['episode']
+      }]
+    });
+
+    const comments = await Comment.findAll({
+      where: { titlefilm: titlefilm },
+      order: [['id', 'DESC']],
+      include: [{
+        model: User,
+        as: 'users',
+        attributes: ['username']
+      }],
+    });
+
+    const general_assessment = await Rating.findAll({
+      where: { titlefilm: titlefilm },
+      attributes: [
+        'rating',
+        [sequelize.fn('COUNT', sequelize.col('rating')), 'ratingTotal'],
+      ],
+      group: ['rating']
+    });
+
+    let totalRatings = 0;
+    let sumOfRatings = 0;
+
+    general_assessment.forEach(ratingGroup => {
+      const rating = ratingGroup.dataValues.rating;
+      const count = parseInt(ratingGroup.dataValues.ratingTotal, 10);
+      totalRatings += count;
+      sumOfRatings += rating * count;
+    });
+
+    const averageRating = totalRatings > 0 ? (sumOfRatings / totalRatings).toFixed(1) : 0;
+
+    let rating_star = null;
+    if (userId) {
+      rating_star = await Rating.findOne({
+        where: {
+          titlefilm: titlefilm,
+          user_id: userId,
+        }
+      });
+    }
+
+   
+    return {
+      datafilm,
+      comments,
+      rating_star,
+      general_assessment: {
+        averageRating,
+        totalRatings
+      }
+    };
+
+  } catch (error) {
+    console.error('Error while fetching film detail:', error);
+    throw error;
+  }
+};
+
+const Productservices_Getdetail_xemphim = async (titlefilm) => {
+  try {
+    const data = await Linkfilm.findAll({
+      where: { title: titlefilm }
+    })
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    throw (error)
+  }
+}
+
+const Productservices_create_xemphim = async (selectedTitle, episode, linkfilm) => {
+  try {
+    const newFilm = await Linkfilm.create({ title: selectedTitle, episode, linkfilm });
+
+    if (newFilm) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+//phim bộ
+const danhmucphim = async (category_id, filters = {}) => {
+
+  try {
+    const { orderBy, category, country, typeId, year } = filters;
+    const where = { category_id };
+
+    if (category) {
+      where.theloai = { [Op.like]: `%${category}%` };
+    }
+    if (country) {
+      where.quocgia = { [Op.like]: `%${country}%` };
+    }
+    if (typeId) {
+      where.typeId = typeId;
+    }
+    if (year) {
+      where.namphathanh = year;
+    }
+
+    let orderClause = [];
+    if (orderBy == "id") {
+      orderClause = [['id', 'DESC']];
+    } else if (orderBy == "views") {
+      orderClause = [['views', 'DESC']];
+    } else if (orderBy == "year") {
+      orderClause = [['year', 'ASC']];
+    } else {
+      orderClause = [['id', 'DESC']];
+    }
+
+    const data = await Product.findAll({
+      where,
+      order: orderClause.length > 0 ? orderClause : undefined,
+    });
+
+    return data;
+  } catch (error) {
+    console.error('Error while fetching film detail:', error);
+    throw error;
+  }
+};
+
+const quocgia = async (quocgia, filters = {}) => {
+  console.log("first_quocgia service", quocgia);
+  try {
+    const { orderBy, category, country, typeId, year } = filters;
+    const wherefilters = {};
+
+    // Build dynamic conditions based on filters
+    if (category) {
+      wherefilters.theloai = { [Op.like]: `%${category}%` };
+    }
+    if (country) {
+      wherefilters.quocgia = { [Op.like]: `%${country}%` };
+    }
+    if (typeId) {
+      wherefilters.typeId = typeId;
+    }
+    if (year) {
+      wherefilters.namphathanh = year;
+    }
+
+    let orderClause = [];
+    if (orderBy === "createdAt") {
+      orderClause = [['createdAt', 'DESC']];
+    } else if (orderBy === "views") {
+      orderClause = [['views', 'DESC']];
+    } else if (orderBy === "year") {
+      orderClause = [['namphathanh', 'ASC']];
+    } else {
+      orderClause = [['id', 'DESC']];
+    }
+
+    const data = await Product.findAll({
+      where: {
+        quocgia: { [Op.like]: `%${quocgia}%` },
+        ...wherefilters,
+      },
+      order: orderClause,
+    });
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+const post_comment = async (userId, titlefilm, contentcomment, parent_id) => {
+  if (userId == null || titlefilm == null || contentcomment == null) {
+    throw new Error('Missing required fields: userId, titlefilm, or contentcomment');
+  }
+
+  try {
+    // Tạo comment và lấy luôn thông tin user
+    const newComment = await Comment.create({
+      titlefilm: titlefilm,
+      comment: contentcomment,
+      user_id: userId,
+      parent_id: parent_id || null,
+    });
+
+    // Lấy thông tin user
+    const user = await User.findByPk(userId);
+
+    return {
+      success: true,
+      id: newComment.id,
+      username: user.username,
+      comment: contentcomment,
+      parent_id: parent_id
+    };
+  } catch (error) {
+    console.error("Error in post_comment:", error);
+    throw error;
+  }
+};
+const post_ratingstar = async (titlefilm, id, starselect) => {
+  if (id == null || titlefilm == null || starselect == null) {
+    throw new Error('Missing required fields: Id, titlefilm, or starselect');
+  } else {
+    try {
+      // Tìm kiếm bản ghi trước
+      const [rating, created] = await Rating.findOrCreate({
+        where: {
+          titlefilm: titlefilm,
+          user_id: id
+        },
+        defaults: {
+          rating: starselect
+        }
+      });
+
+     
+      if (!created) {
+        rating.rating = starselect; 
+        await rating.save(); 
+      }
+
+      return { success: true };
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+const Productservices_editpackageVIP1 = async (title, VIP1) => {
+  try {
+    const data = await Product.update(
+      { VIP1: VIP1 },
+      { where: { title: title } }
+    );
+    console.log("firstdataaaserrviceseditpackageVIP1", data);
+    if (data[0] > 0) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.error("Error in Productservices_editpackageVIP1:", error);
+    throw error;
+  }
+};
+const lastUpdated = {};
+const THROTTLE_TIME = 500;
+
+const Productservices_updateview = async (title) => {
+  const currentTime = Date.now();
+
+  if (!lastUpdated[title] || (currentTime - lastUpdated[title]) > THROTTLE_TIME) {
+    try {
+      const data = await Product.increment(
+        { views: 1 },
+        { where: { title: title } }
+      );
+
+      if (data[0][1] > 0) {
+        lastUpdated[title] = currentTime;
+        return { success: true };
+      } else {
+        return { success: false, message: "Failed to update view count" };
+      }
+    } catch (error) {
+      console.error("Error in Productservices_updateview:", error);
+      throw error;
+    }
+  } else {
+    return { success: true };
+  }
+};
+
+const Productservices_delete = async (title) => {
+  const transaction = await sequelize.transaction();
+  try {
+    const linkfilmDelete = await Linkfilm.destroy({
+      where: { title: { [Op.in]: title } },
+      transaction
+    });
+
+    const productDelete = await Product.destroy({
+      where: { title: { [Op.in]: title } },
+      transaction
+    });
+
+    if (productDelete > 0 && linkfilmDelete >= 0) {
+      await transaction.commit();
+      return { success: true };
+    } else {
+      await transaction.rollback();
+      return { success: false, message: "No product or associated links found with the given title" };
+    }
+  } catch (error) {
+    await transaction.rollback();
+    throw error;
+  }
+}
+
+
+
+module.exports = { Productservices_delete, Productservices_updateview, Productservices_edit, home, getProductByCategory, detailfilm, danhmucphim, quocgia, post_comment, post_ratingstar, Productservice, Productservices_Getdetail_xemphim, Productservices_create_xemphim, Productservices_editpackageVIP1 };
