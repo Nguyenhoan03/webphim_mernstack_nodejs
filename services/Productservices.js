@@ -21,9 +21,12 @@ const home = async () => {
     
     const commonAttributes = ['id', 'theloai', 'namphathanh', 'trangthai', 'ngonngu', 'hinhanh', 'title', 'views', 'sotap', 'descripts'];
 
-
     const findFilms = (options) => Product.findAll({
       ...options,
+      where: {
+        ...(options.where || {}),
+        namphathanh: { [Op.gt]: 2010 }
+      },
       attributes: options.attributes || commonAttributes,
       order: options.order || [['id', 'DESC']],
       limit: options.limit || 18,
@@ -41,46 +44,43 @@ const home = async () => {
           sotap: { [Op.gt]: 15 },
           thoiluong: { [Op.gt]: 25 }
         },
-        //  order: [['sotap', 'DESC'], ['thoiluong', 'DESC']],
       }),
       findFilms({
-        where: { sotap: { [Op.gt]: 1 } }, // Movies with episodes > 1
-        // limit: 18, // Add specific limit here to avoid overload
+        where: { sotap: { [Op.gt]: 1 } },
       }),
       findFilms({
-        where: { trangthai: { [Op.like]: '%Hoàn Tất%' } }, // Completed films
-        // limit: 18, // Add a limit to avoid too many records
+        where: { trangthai: { [Op.like]: '%Hoàn Tất%' } },
       }),
       findFilms({
-        where: { theloai: { [Op.like]: '%Hành Động%' } }, // Action films
-        limit: 5, // Limit to only 5 action films
+        where: { theloai: { [Op.like]: '%Hành Động%' } },
+        limit: 5,
         attributes: ['hinhanh', 'title', 'namphathanh', 'views'],
       }),
       findFilms({
-        attributes: ['title', 'views'], // Trending films
-        limit: 10, // Fetch only top 10 trending films
+        attributes: ['title', 'views'],
+        limit: 10,
         order: [['views', 'DESC']],
       }),
       findFilms({
-        where: { category_id: 23 }, // Category 23
-        limit: 13, // Limit results to 13 films in this category
+        where: { category_id: 23 },
+        limit: 13,
       }),
       findFilms({
-        where: { category_id: 4 }, // Category 4
-        limit: 15, // Limit results to 15 films
+        where: { category_id: 4 },
+        limit: 15,
       }),
       findFilms({
-        where: { category_id: 27 }, // Category 27
-        limit: 7, // Limit results to 7
+        where: { category_id: 27 },
+        limit: 7,
         attributes: ['hinhanh', 'title', 'namphathanh', 'views'],
       }),
       findFilms({
-        where: { category_id: 9 }, // Category 9
-        limit: 10, // Limit to 10 films in category 9
+        where: { category_id: 9 },
+        limit: 10,
       }),
       findFilms({
-        where: { category_id: 10 }, // Category 10
-        limit: 10, // Limit to 10 films in category 10
+        where: { category_id: 10 },
+        limit: 10,
       })
     ];
 
